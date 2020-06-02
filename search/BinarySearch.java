@@ -2,6 +2,16 @@ package search;
 
 /**
  * BinarySearch
+ * 
+ * 중간 값을 구하고,
+ * 찾는 값과 중간 값 비교
+ * 
+ * N/2, N/4, ..., (1/2)^k * N
+ * 최악 => 찾는값이 없을 경우 (1/2)^k * N => 1로 수렴
+ * N = 2^k
+ * k = 연산 수행 횟수 = logN
+ * 
+ * O(logN)
  */
 public class BinarySearch {
     public static void main(String[] args) {
