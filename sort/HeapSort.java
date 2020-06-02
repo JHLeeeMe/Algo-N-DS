@@ -2,6 +2,16 @@ package sort;
 
 /**
  * HeapSort
+ * 
+ * heap 자료구조를 활용한 sort
+ * max_heap의 경우:
+ *      1. 0번째 인덱스와 마지막 인덱스 swap
+ *      2. heap size - 1, and heapify 
+ *      3. 1, 2 반복
+ * 
+ * heapify 하는데 O(logN), 
+ * heapify 작업을 N-1번 실행 
+ * O(NlogN)
  */
 public class HeapSort {
     public static void main(String[] args) {
