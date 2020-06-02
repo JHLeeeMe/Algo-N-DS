@@ -1,5 +1,8 @@
 package recursion;
 
+/**
+ * Factorial
+ */
 public class Factorial {
     public static void main(String[] args) {
         int n1 = factorial(5);

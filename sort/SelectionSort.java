@@ -1,6 +1,8 @@
 package sort;
 
-
+/**
+ * SelectionSort
+ */
 public class SelectionSort {
     public static void main(String[] args) {
         int[] testArray = {1, 1234, 5, 1112, 5, 3, 52};
