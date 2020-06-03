@@ -1,2 +1,2 @@
-# Algorithm-in-Java
-Algorithm practice with Java
+# Algo-N-DS-in-Java
+Algorithm and DataStructure practice with Java
