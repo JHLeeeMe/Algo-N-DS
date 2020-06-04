@@ -2,7 +2,8 @@ package dataStructure;
 
 /**
  * BinarySearchTree
- * Search, Delete, Insert => O(logN)
+ * 
+ * search, delete, insert => O(logN)
  */
 public class BinarySearchTree {
     public static void main(String[] args) {
