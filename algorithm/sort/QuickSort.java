@@ -2,23 +2,32 @@ package algorithm.sort;
 
 /**
  * QuickSort
+ * 
+ * 평균 O(NlogN)
  */
 public class QuickSort {
     public static void main(String[] args) {
         int[] test = {80, 70, 60, 50, 30, 20, 40};
-        quickSort(test, 0, test.length-1);
+        quickSort(test);
 
-        for (int v: test) {
-            System.out.println(v);
+        for (int v: test) {                     // prints 20 30 40 50 60 70 80
+            System.out.print(v + " ");
         }
+        System.out.println();
     }
 
-    public static void quickSort(int[] arr, int left, int right) {
-        if (left >= right) return;
+    public static void quickSort(int[] arr) {
+        sort(arr, 0, arr.length-1);
+    }
+
+    private static void sort(int[] arr, int left, int right) {
+        // base case
+        if (left >= right) 
+            return;
 
         int pIdx = partition(arr, left, right);
-        quickSort(arr, left, pIdx-1);
-        quickSort(arr, pIdx+1, right);
+        sort(arr, left, pIdx-1);
+        sort(arr, pIdx+1, right);
     }
 
     private static int partition(int[] arr, int left, int right) {
