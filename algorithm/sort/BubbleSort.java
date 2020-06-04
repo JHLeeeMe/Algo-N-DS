@@ -4,7 +4,7 @@ package algorithm.sort;
  * BubbleSort
  * 
  * if (arr[n] > arr[n+1]) ? swap : pass
- * 위 과정을 배열의 길이만큼 반복
+ * 위 과정을 (배열의 길이 - 1)번 반복
  * 
  * O(n^2)
  */
