@@ -1,9 +1,9 @@
 package dataStructure;
 
 /**
- * SingleLinkedList
+ * SinglyLinkedList
  */
-public class SingleLinkedList<T> {
+public class SinglyLinkedList<T> {
     public Node<T> head;
     public int size = 0;
 
@@ -24,7 +24,7 @@ public class SingleLinkedList<T> {
         if (idx == 0)
             addFirst(item);
 
-        Node<T> before = getNode(idx-1);
+        Node<T> before = node(idx-1);
         addAfter(before, item);
     }
 
@@ -82,7 +82,7 @@ public class SingleLinkedList<T> {
         if (idx == 0)
             return removeFirst();
 
-        Node<T> before = getNode(idx-1);
+        Node<T> before = node(idx-1);
         return removeAfter(before);
     }
 
@@ -126,7 +126,7 @@ public class SingleLinkedList<T> {
     }
 
 
-    public Node<T> getNode(int idx) {
+    public Node<T> node(int idx) {
         if (idx < 0 || idx >= size)
             return null;
         
@@ -151,7 +151,7 @@ public class SingleLinkedList<T> {
     }
 
     public static void main(String[] args) {
-        SingleLinkedList<Integer> a = new SingleLinkedList<>();
+        // SinglyLinkedList<Integer> a = new SinglyLinkedList<>();
         // System.out.println(a.head);                     // prints null
         // System.out.println();
 
@@ -189,28 +189,40 @@ public class SingleLinkedList<T> {
 
         // a.remove(20);                                   // prints "data 20 is not in linkedlist"
 
-        a.add(9);
-        a.add(8);
-        a.add(7);
-        a.add(6);
-        a.add(5);
-        a.add(4);
-        a.add(3);
-        a.add(2);
-        a.add(1);
-        a.add(0);
-        System.out.println(a.size);
+        //SinglyLinkedList<Integer> a = new SinglyLinkedList<>();
+        //a.add(9);
+        //a.add(8);
+        //a.add(7);
+        //a.add(6);
+        //a.add(5);
+        //a.add(4);
+        //a.add(3);
+        //a.add(2);
+        //a.add(1);
+        //a.add(0);
+        //System.out.println(a.size);
 
-        a.removeByItem(9);
-        System.out.println(a.size);
+        //a.removeByItem(9);
+        //System.out.println(a.size);
 
-        a.remove(9);
-        System.out.println(a.size);
+        //a.remove(9);
+        //System.out.println(a.size);
 
-        for (int k=0; k<a.size; k++) {
-            System.out.print(a.getNode(k).data + " ");
+        //for (int k=0; k<a.size; k++) {
+            //System.out.print(a.node(k).data + " ");
+        //}
+        //System.out.println();
+
+        SinglyLinkedList<String> a = new SinglyLinkedList<>();
+        a.add("a");
+        a.add("b");
+        a.add("c");
+        a.add("d");
+        System.out.println(a.indexOf("c"));
+
+        for (int i=0; i<a.size; i++) {
+            System.out.println(a.node(i));
         }
-        System.out.println();
     }
 }
 
