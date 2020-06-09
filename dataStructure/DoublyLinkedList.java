@@ -1,12 +1,27 @@
 package dataStructure;
 
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+
 /**
  * DoublyLinkedList
  */
 public class DoublyLinkedList<T> {
-    Node<T> first;
-    Node<T> last;
-    int size = 0;
+    private Node<T> first;
+    private Node<T> last;
+    private int size = 0;
+
+    private static class Node<T> {
+        T item;
+        Node<T> prev;
+        Node<T> next;
+
+        Node(Node<T> prev, T item, Node<T> next) {
+            this.item = item;
+            this.prev = prev;
+            this.next = next;
+        }
+    }
 
     private void linkFirst(T t) {
         final Node<T> f = first;
@@ -176,7 +191,7 @@ public class DoublyLinkedList<T> {
      * @param idx
      * @return Node<T>
      */
-    public Node<T> node(int idx) {
+    private Node<T> node(int idx) {
         // assert isElementIndex(idx);
 
         if (idx < (size >> 1)) {
@@ -215,15 +230,83 @@ public class DoublyLinkedList<T> {
         return -1;
     }
 
-    private static class Node<T> {
-        T item;
-        Node<T> prev;
-        Node<T> next;
+    public int size() {
+        return this.size;
+    }
 
-        Node(Node<T> prev, T item, Node<T> next) {
-            this.item = item;
-            this.prev = prev;
-            this.next = next;
+    public ListIterator<T> listIterator() {
+       return new MyListIterator();
+    }
+
+    public ListIterator<T> listIterator(int idx) {
+       return new MyListIterator(idx);
+    }
+
+    private class MyListIterator implements ListIterator<T> {
+        private Node<T> previous;
+        private Node<T> next;
+        private Node<T> lastReturned;
+
+        public MyListIterator() {
+            this.previous = null;
+            this.next = first;
+            this.lastReturned = null;
+        }
+
+        public MyListIterator(int idx) {
+            this.previous = node(idx-1);
+            this.next = node(idx);
+            this.lastReturned = null;
+        }
+
+        public boolean hasPrevious() {
+            return this.previous != null;
+        }
+
+        public boolean hasNext() {
+            return this.next != null;
+        }
+
+        public T previous() {
+            if (previous == null)
+                throw new NoSuchElementException();
+
+            T tmp = previous.item;  // for return item
+            this.next = previous;
+            this.previous = previous.prev;
+            return tmp;
+        }
+
+        public T next() {
+            if (next == null)
+                throw new NoSuchElementException();
+            
+            T tmp = next.item;
+            this.previous = next;
+            this.next = next.next;
+            return tmp;
+        }
+
+        public void add(T t) {
+            // TODO Auto-generated method stub
+
+        }
+
+        public void remove() {
+        }
+
+        public int previousIndex() {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        public int nextIndex() {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        public void set(T t) {
+            // TODO Auto-generated method stub
         }
     }
 
