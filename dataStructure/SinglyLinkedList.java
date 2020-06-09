@@ -10,6 +10,19 @@ public class SinglyLinkedList<T> {
     private Node<T> head;
     private int size = 0;
 
+    private static class Node<T> {
+        T data;
+        Node<T> next;
+
+        public Node(T item) {
+            this.data = item;
+        }
+
+        public String toString() {
+            return "data: " + this.data;
+        }
+    }
+
     /**
      * Appends item to the end of this list.
      */
@@ -63,7 +76,7 @@ public class SinglyLinkedList<T> {
     /**
      * Insert into before.next
      */
-    public void addAfter(Node<T> before, T item) {
+    private void addAfter(Node<T> before, T item) {
         Node<T> newNode = new Node<>(item);
 
         newNode.next = before.next;
@@ -117,8 +130,7 @@ public class SinglyLinkedList<T> {
         return tmp;
     }
 
-
-    public T removeAfter(Node<T> before) {
+    private T removeAfter(Node<T> before) {
         if (before.next == null)
             return null;
         
@@ -128,8 +140,7 @@ public class SinglyLinkedList<T> {
         return tmp;
     }
 
-
-    public Node<T> node(int idx) {
+    private Node<T> node(int idx) {
         if (idx < 0 || idx >= size)
             return null;
         
@@ -256,23 +267,5 @@ public class SinglyLinkedList<T> {
         while (iter.hasNext())
             System.out.print(iter.next() + " ");
         System.out.println();
-
-        // for (int i=0; i<a.size; i++) {
-        //     System.out.println(a.node(i));
-        // }
-
-    }
-}
-
-class Node<T> {
-    T data;
-    Node<T> next;
-
-    public Node(T item) {
-        this.data = item;
-    }
-
-    public String toString() {
-        return "data: " + this.data;
     }
 }
