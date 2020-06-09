@@ -1,11 +1,15 @@
 package dataStructure;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
 /**
  * SinglyLinkedList
  */
 public class SinglyLinkedList<T> {
-    public Node<T> head;
-    public int size = 0;
+    private Node<T> head;
+    private int size = 0;
 
     /**
      * Appends item to the end of this list.
@@ -19,7 +23,7 @@ public class SinglyLinkedList<T> {
      */
     public void add(int idx, T item) {
         if (idx < 0 || idx > size)
-            return;
+            throw new IndexOutOfBoundsException("" + idx);
 
         if (idx == 0)
             addFirst(item);
@@ -77,7 +81,7 @@ public class SinglyLinkedList<T> {
 
     public T remove(int idx) {
         if (idx < 0 || idx >= size)
-            return null;
+            throw new IndexOutOfBoundsException("" + idx);
 
         if (idx == 0)
             return removeFirst();
@@ -150,6 +154,35 @@ public class SinglyLinkedList<T> {
         return -1;
     }
 
+    public int size() {
+        return this.size;
+    }
+
+    public Iterator<T> iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator<T> {
+        private Node<T> nextNode;
+
+        public MyIterator() {
+            this.nextNode = head;
+        }
+
+        public boolean hasNext() {
+            return this.nextNode != null;
+        }
+
+        public T next() {
+            if (nextNode == null)
+                throw new NoSuchElementException();
+
+            T tmp = nextNode.data;
+            nextNode = nextNode.next;
+            return tmp;
+        }
+    }
+
     public static void main(String[] args) {
         // SinglyLinkedList<Integer> a = new SinglyLinkedList<>();
         // System.out.println(a.head);                     // prints null
@@ -220,9 +253,15 @@ public class SinglyLinkedList<T> {
         a.add("d");
         System.out.println(a.indexOf("c"));
 
-        for (int i=0; i<a.size; i++) {
-            System.out.println(a.node(i));
-        }
+        Iterator<String> iter = a.iterator();
+        while (iter.hasNext())
+            System.out.print(iter.next() + " ");
+        System.out.println();
+
+        // for (int i=0; i<a.size; i++) {
+        //     System.out.println(a.node(i));
+        // }
+
     }
 }
 
