@@ -11,8 +11,9 @@ interface InnerMyStack<T> {
 
 public class MyStack<T> implements InnerMyStack<T> {
     private T[] arr;
-    private int top = 0;
+    private int top = -1;
     private static final int defaultStackSize = 10;
+    private int size;
 
     public MyStack() {
         this(defaultStackSize);
@@ -20,23 +21,23 @@ public class MyStack<T> implements InnerMyStack<T> {
 
     public MyStack(int stackSize) {
         this.arr = (T[]) new Object[stackSize];
+        this.size = stackSize;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.top == 0;
+        return this.top == -1;
     }
 
     @Override
     public boolean isFull() {
-        return this.top == this.arr.length;
+        return this.top == this.arr.length - 1;
     }
 
     @Override
     public void clear() {
-        while (this.top >= 0)
+        while (this.top != -1)
             arr[top--] = null;
-        this.top = 0;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class MyStack<T> implements InnerMyStack<T> {
             // prevent stack overflow
             System.out.println("Stack is Full");
         else
-            arr[top++] = item;
+            arr[++top] = item;
     }
 
     @Override
@@ -70,5 +71,48 @@ public class MyStack<T> implements InnerMyStack<T> {
         } else {
             return arr[top];
         }
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public static void main(String[] args) {
+        MyStack<Integer> myStack = new MyStack<>();
+        System.out.println(myStack.isEmpty());
+        System.out.println(myStack.isFull());
+        System.out.println("====================================");
+        myStack.push(0);
+        System.out.println(myStack.isEmpty());
+        System.out.println(myStack.isFull());
+        System.out.println("====================================");
+        myStack.push(1);
+        myStack.push(2);
+        myStack.push(3);
+        myStack.push(4);
+        myStack.push(5);
+        myStack.push(6);
+        myStack.push(7);
+        myStack.push(8);
+        myStack.push(9);
+        System.out.println(myStack.isEmpty());
+        System.out.println(myStack.isFull());
+        System.out.println("====================================");
+
+        System.out.println(myStack.peek());
+        System.out.println(myStack.peek());
+        System.out.println("====================================");
+        System.out.println(myStack.isEmpty());
+        System.out.println(myStack.isFull());
+        System.out.println(myStack.getSize());
+        myStack.push(1111);
+        System.out.println(myStack.pop());
+        System.out.println(myStack.pop());
+        System.out.println(myStack.pop());
+        myStack.clear();
+        System.out.println("====================================");
+        System.out.println(myStack.isEmpty());
+        System.out.println(myStack.isFull());
+        System.out.println(myStack.getSize());
     }
 }
