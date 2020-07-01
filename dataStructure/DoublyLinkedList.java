@@ -146,9 +146,10 @@ public class DoublyLinkedList<T> {
     public boolean removeByItem(Object o) {
         if (o == null) {
             for (Node<T> x = first; x != null; x = x.next) {
-                if (x.item == null)
+                if (x.item == null) {
                     unlink(x);
                     return true;
+                }
             }
         } else {
             int idx = indexOf(o);
@@ -243,24 +244,32 @@ public class DoublyLinkedList<T> {
     }
 
     private class MyListIterator implements ListIterator<T> {
-        private Node<T> previous;
+        private Node<T> prev;
         private Node<T> next;
         private Node<T> lastReturned;
 
         public MyListIterator() {
-            this.previous = null;
+            this.prev = null;
             this.next = first;
             this.lastReturned = null;
         }
 
         public MyListIterator(int idx) {
-            this.previous = node(idx-1);
-            this.next = node(idx);
-            this.lastReturned = null;
+            if (!isPositionIndex(idx))
+                throw new java.lang.IndexOutOfBoundsException();
+
+            if (idx == size) {
+                prev = node(idx-1);
+            } else if (idx == 0) {
+                next = node(idx);
+            } else {
+                prev = node(idx-1);
+                next = node(idx);
+            }
         }
 
         public boolean hasPrevious() {
-            return this.previous != null;
+            return this.prev != null;
         }
 
         public boolean hasNext() {
@@ -268,31 +277,31 @@ public class DoublyLinkedList<T> {
         }
 
         public T previous() {
-            if (previous == null)
+            if (prev == null)
                 throw new NoSuchElementException();
 
-            T tmp = previous.item;  // for return item
-            this.next = previous;
-            this.previous = previous.prev;
-            return tmp;
+            lastReturned = prev;  // for return item
+            next = prev;
+            prev = prev.prev;
+            return lastReturned.item;
         }
 
         public T next() {
             if (next == null)
                 throw new NoSuchElementException();
             
-            T tmp = next.item;
-            this.previous = next;
-            this.next = next.next;
-            return tmp;
+            lastReturned = next;
+            prev = next;
+            next = next.next;
+            return lastReturned.item;
         }
 
         public void add(T t) {
             // TODO Auto-generated method stub
-
         }
 
         public void remove() {
+            // TODO Auto-generated method stub
         }
 
         public int previousIndex() {
