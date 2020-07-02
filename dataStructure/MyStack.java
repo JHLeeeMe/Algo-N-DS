@@ -19,6 +19,7 @@ public class MyStack<T> implements InnerMyStack<T> {
         this(defaultStackSize);
     }
 
+    @SuppressWarnings("unchecked")
     public MyStack(int stackSize) {
         this.arr = (T[]) new Object[stackSize];
         this.size = stackSize;
