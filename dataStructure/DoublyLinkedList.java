@@ -1,7 +1,6 @@
 package dataStructure;
 
 import java.util.ListIterator;
-import java.util.NoSuchElementException;
 
 /**
  * DoublyLinkedList
@@ -12,9 +11,9 @@ public class DoublyLinkedList<T> {
     private int size = 0;
 
     private static class Node<T> {
-        T item;
-        Node<T> prev;
-        Node<T> next;
+        private T item;
+        private Node<T> prev;
+        private Node<T> next;
 
         Node(Node<T> prev, T item, Node<T> next) {
             this.item = item;
@@ -202,7 +201,7 @@ public class DoublyLinkedList<T> {
             return x;
         } else {
             Node<T> x = last;
-            for (int i = size - 1; i > idx; i--)
+            for (int i = size-1; i > idx; i--)
                 x = x.prev;
             return x;
         }
@@ -236,11 +235,11 @@ public class DoublyLinkedList<T> {
     }
 
     public ListIterator<T> listIterator() {
-       return new MyListIterator();
+        return new MyListIterator();
     }
 
     public ListIterator<T> listIterator(int idx) {
-       return new MyListIterator(idx);
+        return new MyListIterator(idx);
     }
 
     private class MyListIterator implements ListIterator<T> {
@@ -259,7 +258,7 @@ public class DoublyLinkedList<T> {
                 throw new java.lang.IndexOutOfBoundsException();
 
             if (idx == size) {
-                prev = node(idx-1);
+                prev = node(idx - 1);
             } else if (idx == 0) {
                 next = node(idx);
             } else {
@@ -278,7 +277,7 @@ public class DoublyLinkedList<T> {
 
         public T previous() {
             if (prev == null)
-                throw new NoSuchElementException();
+                throw new java.util.NoSuchElementException();
 
             lastReturned = prev;  // for return item
             next = prev;
@@ -288,7 +287,7 @@ public class DoublyLinkedList<T> {
 
         public T next() {
             if (next == null)
-                throw new NoSuchElementException();
+                throw new java.util.NoSuchElementException();
             
             lastReturned = next;
             prev = next;
@@ -297,69 +296,102 @@ public class DoublyLinkedList<T> {
         }
 
         public void add(T t) {
-            // TODO Auto-generated method stub
+            lastReturned = null;
+
+            if (next == null)
+                linkLast(t);
+            else
+                linkBefore(t, next);
         }
 
         public void remove() {
-            // TODO Auto-generated method stub
+            if (lastReturned == null)
+                throw new java.lang.IllegalStateException();
+            
+            unlink(lastReturned);
+            lastReturned = null;
+        }
+
+        private int index(Object o) {
+            int idx = indexOf(o);
+            if (idx == -1)
+                throw new java.lang.IndexOutOfBoundsException();
+
+            return idx;
         }
 
         public int previousIndex() {
-            // TODO Auto-generated method stub
-            return 0;
+            return index(prev);
         }
 
         public int nextIndex() {
-            // TODO Auto-generated method stub
-            return 0;
+            return index(next);
         }
 
         public void set(T t) {
-            // TODO Auto-generated method stub
+            if (lastReturned == null)
+                throw new java.lang.IllegalStateException();
+            lastReturned.item = t;
         }
     }
 
     public static void main(String[] args) {
         DoublyLinkedList<String> a = new DoublyLinkedList<>();
-
         a.add("a");
         a.add("b");
         a.add("c");
         a.add("d");
-        for (int i = 0; i < a.size; i++)
-            System.out.print(a.get(i) + ", ");
-        System.out.println();
-        System.out.println("size: " + a.size);
 
-        a.add(2, "e");
-        for (int i = 0; i < a.size; i++)
-            System.out.print(a.get(i) + ", ");
-        System.out.println();
-        System.out.println("size: " + a.size);
+        ListIterator<String> iter = a.listIterator();
+        while(iter.hasNext()) {
+            if (iter.next() == "a") {
+                iter.add("asdf");
+            }
+        }
 
-        a.addLast("asdf");
-        a.addFirst("zzz");
-        for (int i = 0; i < a.size; i++)
-            System.out.print(a.get(i) + ", ");
-        System.out.println();
-        System.out.println("size: " + a.size);
+        ListIterator<String> iter2 = a.listIterator();
+        while(iter2.hasNext()) {
+            System.out.println(iter2.next());
+        }
 
-        a.remove(1);
-        for (int i = 0; i < a.size; i++)
-            System.out.print(a.get(i) + ", ");
-        System.out.println();
-        System.out.println("size: " + a.size);
+        // a.add("a");
+        // a.add("b");
+        // a.add("c");
+        // a.add("d");
+        // for (int i = 0; i < a.size; i++)
+        //     System.out.print(a.get(i) + ", ");
+        // System.out.println();
+        // System.out.println("size: " + a.size);
 
-        a.removeByItem("e");
-        for (int i = 0; i < a.size; i++)
-            System.out.print(a.get(i) + ", ");
-        System.out.println();
-        System.out.println("size: " + a.size);
+        // a.add(2, "e");
+        // for (int i = 0; i < a.size; i++)
+        //     System.out.print(a.get(i) + ", ");
+        // System.out.println();
+        // System.out.println("size: " + a.size);
 
-        a.removeByItem(null);
-        for (int i = 0; i < a.size; i++)
-            System.out.print(a.get(i) + ", ");
-        System.out.println();
-        System.out.println("size: " + a.size);
+        // a.addLast("asdf");
+        // a.addFirst("zzz");
+        // for (int i = 0; i < a.size; i++)
+        //     System.out.print(a.get(i) + ", ");
+        // System.out.println();
+        // System.out.println("size: " + a.size);
+
+        // a.remove(1);
+        // for (int i = 0; i < a.size; i++)
+        //     System.out.print(a.get(i) + ", ");
+        // System.out.println();
+        // System.out.println("size: " + a.size);
+
+        // a.removeByItem("e");
+        // for (int i = 0; i < a.size; i++)
+        //     System.out.print(a.get(i) + ", ");
+        // System.out.println();
+        // System.out.println("size: " + a.size);
+
+        // a.removeByItem(null);
+        // for (int i = 0; i < a.size; i++)
+        //     System.out.print(a.get(i) + ", ");
+        // System.out.println();
+        // System.out.println("size: " + a.size);
     }
 }
