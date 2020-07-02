@@ -13,11 +13,11 @@ public class MyQueue<T> implements InnerMyQueue<T> {
     private Node<T> rear;
     private int size = 0;
 
-    private class Node<T> {
+    private static class Node<T> {
         private T data;
         private Node<T> next;
 
-        public Node(T item) {
+        Node(T item) {
             this.data = item;
         }
     }
