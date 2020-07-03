@@ -1,7 +1,6 @@
 package dataStructure;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * SinglyLinkedList
@@ -185,7 +184,7 @@ public class SinglyLinkedList<T> {
 
         public T next() {
             if (nextNode == null)
-                throw new NoSuchElementException();
+                throw new java.util.NoSuchElementException();
 
             T tmp = nextNode.data;
             nextNode = nextNode.next;
