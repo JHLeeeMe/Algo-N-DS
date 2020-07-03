@@ -11,10 +11,10 @@ public class SinglyLinkedList<T> {
     private int size = 0;
 
     private static class Node<T> {
-        T data;
-        Node<T> next;
+        private T data;
+        private Node<T> next;
 
-        public Node(T item) {
+        Node(T item) {
             this.data = item;
         }
 
