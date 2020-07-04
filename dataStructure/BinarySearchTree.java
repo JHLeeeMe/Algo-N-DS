@@ -129,7 +129,7 @@ public class BinarySearchTree {
         if (root == null) {
             System.out.println("트리가 존재하지 않습니다.");
             return false;
-        } 
+        }
         if (root.data == item) {  // 삭제하려는 데이터가 root 노드
             switch (childNum(root)) {
                 case 0:
@@ -203,13 +203,12 @@ public class BinarySearchTree {
      * 파라미터 노드의 child node 수
      */
     private int childNum(Node root) {
-        if (root.left == null && root.right == null) {
+        if (root.left == null && root.right == null)
             return 0;
-        } else if (root.left != null && root.right != null) {
+        else if (root.left != null && root.right != null)
             return 2;
-        } else {
+        else
             return 1;
-        }
     }
 
     /**
