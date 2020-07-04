@@ -6,54 +6,15 @@ package dataStructure;
  * search, delete, insert => O(logN)
  */
 public class BinarySearchTree {
-    public static void main(String[] args) {
-        /**
-         * bst is ....
-         *   10                           50
-         *    \                           /\
-         *     50                       25  60
-         *     /\                       /\
-         *   20  60        ===>       17  30      
-         *   /\                           
-         * 17  30                       
-         *     /
-         *   25  
-         */
-        BinarySearchTree bst = new BinarySearchTree();
-        bst.insert(10);
-        bst.insert(10);  // prints "중복 데이터 10 (이)가 있으므로 insert하지 않음."
-        bst.insert(50);
-        bst.insert(20);
-        bst.insert(30);
-        bst.insert(25);
-        bst.insert(17);
-        bst.insert(60);
-
-        System.out.println(bst.root.right.right);       // prints "data: 60"
-        bst.delete(60);
-        System.out.println(bst.root.right.right);       // prints "null"
-        bst.insert(60);
-        System.out.println(bst.root.right.right);       // prints "data: 60"
-
-        System.out.println(bst.root.right.left);        // prints "data: 20"
-        bst.delete(20);
-        System.out.println(bst.root.right.left);        // prints "data: 25"
-        System.out.println(bst.root.right.left.right);  // prints "data: 30"
-
-        bst.delete(10);
-        System.out.println(bst.root);                   // prints "data: 50"
-        System.out.println(bst.search(50).left);        // prints "data: 25"
-    }
-
-    private Node root;
+    Node root;
 
     // Node Class
-    private class Node {
+    class Node {
         int data;
         Node left;
         Node right;
 
-        public Node(int item) {
+        Node(int item) {
             this.data = item;
         }
 
@@ -213,12 +174,51 @@ public class BinarySearchTree {
         Node parent = root;
         root = root.right;
 
-        while(root.left != null) {
+        while (root.left != null) {
             parent = root;
             root = root.left;
         }
 
         Node[] result = {parent, root};
         return result;
+    }
+
+    public static void main(String[] args) {
+        /**
+         * bst is ....
+         *   10                           50
+         *    \                           /\
+         *     50                       25  60
+         *     /\                       /\
+         *   20  60        ===>       17  30      
+         *   /\                           
+         * 17  30                       
+         *     /
+         *   25  
+         */
+        BinarySearchTree bst = new BinarySearchTree();
+        bst.insert(10);
+        bst.insert(10);  // prints "중복 데이터 10 (이)가 있으므로 insert하지 않음."
+        bst.insert(50);
+        bst.insert(20);
+        bst.insert(30);
+        bst.insert(25);
+        bst.insert(17);
+        bst.insert(60);
+
+        System.out.println(bst.root.right.right);       // prints "data: 60"
+        bst.delete(60);
+        System.out.println(bst.root.right.right);       // prints "null"
+        bst.insert(60);
+        System.out.println(bst.root.right.right);       // prints "data: 60"
+
+        System.out.println(bst.root.right.left);        // prints "data: 20"
+        bst.delete(20);
+        System.out.println(bst.root.right.left);        // prints "data: 25"
+        System.out.println(bst.root.right.left.right);  // prints "data: 30"
+
+        bst.delete(10);
+        System.out.println(bst.root);                   // prints "data: 50"
+        System.out.println(bst.search(50).left);        // prints "data: 25"
     }
 }
