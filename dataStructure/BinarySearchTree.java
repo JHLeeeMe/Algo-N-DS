@@ -81,17 +81,15 @@ public class BinarySearchTree {
 
     private boolean insertNode(Node root, int item) {
         if (root.data > item) {
-            if (root.left != null) {
+            if (root.left != null)
                 return insertNode(root.left, item);
-            } else {
+            else
                 root.left = new Node(item);
-            }
         } else {
-            if (root.right != null) {
+            if (root.right != null)
                 return insertNode(root.right, item);
-            } else {
+            else
                 root.right = new Node(item);
-            }
         }
         return true;
     }
@@ -109,17 +107,14 @@ public class BinarySearchTree {
     private Node searchNode(Node root, int item) {
         if (root.data == item) {
             return root;
+        } else if (root.data > item) {
+            if (root.left != null)
+                return searchNode(root.left, item);
         } else {
-            if (root.data > item) {
-                if (root.left != null)
-                    return searchNode(root.left, item);
-            } else {
-                if (root.right != null)
-                    return searchNode(root.right, item);
-            }
-
-            return null;
+            if (root.right != null)
+                return searchNode(root.right, item);
         }
+        return null;
     }
 
     /**
