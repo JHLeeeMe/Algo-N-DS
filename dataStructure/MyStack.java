@@ -12,11 +12,11 @@ interface InnerMyStack<T> {
 public class MyStack<T> implements InnerMyStack<T> {
     private T[] arr;
     private int top = -1;
-    private static final int defaultStackSize = 10;
+    private static final int DEFAULT_STACK_SIZE = 10;
     private int size;
 
     public MyStack() {
-        this(defaultStackSize);
+        this(DEFAULT_STACK_SIZE);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,8 +74,8 @@ public class MyStack<T> implements InnerMyStack<T> {
         }
     }
 
-    public int getSize() {
-        return this.size;
+    public int getSize() { 
+        return this.size; 
     }
 
     public static void main(String[] args) {
