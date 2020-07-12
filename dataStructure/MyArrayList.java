@@ -1,5 +1,7 @@
 package dataStructure;
 
+import java.util.Iterator;
+
 interface InnerMyArrayList<T> {
     boolean isEmpty();
     void clear();
@@ -37,6 +39,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
             arr[size - 1] = null;
             size--;
         }
+        // this.capacity = initSize;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
 
     @SuppressWarnings("unchecked")
     public void add(int idx, T item) {
-        if (idx < 0 || idx > this.capacity-1) {
+        if (idx < 0 || idx > this.size) {
             throw new java.lang.IndexOutOfBoundsException();
         }
 
@@ -124,6 +127,10 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
         return indexOf(o) >= 0;
     }
 
+    public T elementData(int idx) {
+        return this.arr[idx];
+    }
+
     public int indexOf(Object o) {
         if (o == null) {
             for (int idx=0; idx<size; idx++) {
@@ -144,9 +151,93 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     }
 
     public Iterator<T> iterator() {
-	    return new Iterator<T>();
+	    return new MyItr();
     }
 
-    private class Iterator<T> {
+    private class MyItr implements Iterator<T> {
+        private int cursor;
+
+        public MyItr() {
+            this.cursor = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @Override
+        public T next() {
+            if (cursor >= size) {
+                throw new java.util.NoSuchElementException();
+            }
+            return arr[cursor++];
+        }
+    }
+
+    public static void main(String[] args) {
+        MyArrayList<Integer> arrayList = new MyArrayList<>();
+        System.out.println("isEmpty: " + arrayList.isEmpty());      // prints "isEmpty: true"
+        System.out.println("arrayList size: " + arrayList.size());  // prints "arrayList size: 0"
+
+        arrayList.add(10);
+        arrayList.add(20);
+        arrayList.add(30);
+        arrayList.add(40);
+        arrayList.add(50);
+        System.out.println("isEmpty: " + arrayList.isEmpty());      // prints "isEmpty: false"
+        System.out.println("arrayList size: " + arrayList.size());  // prints "arrayList size: 5"
+        System.out.println(arrayList.elementData(0));   // prints 10
+        System.out.println(arrayList.elementData(1));   // prints 20
+        System.out.println(arrayList.indexOf(10));      // prints 0
+        System.out.println(arrayList.indexOf(100));     // prints -1
+        arrayList.add(4, 999);
+        Iterator<Integer> iter = arrayList.iterator();
+        while (iter.hasNext()) {
+            System.out.print(iter.next() + ", ");
+        } System.out.println();
+        // System.out.println("arrayList size: " + arrayList.size());  // prints "arrayList size: 6"
+        // System.out.println(arrayList.elementData(4));  // prints 999
+        // System.out.println(arrayList.elementData(5));  // prints 50
+        // System.out.println(arrayList.remove(4));
+        // System.out.println(arrayList.removeByItem(30));
+        // System.out.println("arrayList size: " + arrayList.size());  // prints "arrayList size: 4"
+        // arrayList.clear();
+        // System.out.println("arrayList size: " + arrayList.size());  // prints "arrayList size: 0"
+
+        // Iterator<Integer> iter = arrayList.iterator();
+        // if (iter.hasNext()) {
+        //     System.out.println(iter.next());
+        // }
+        MyArrayList<Integer> arrayList2 = new MyArrayList<>(3);
+        System.out.println("isEmpty: " + arrayList2.isEmpty());      // prints "isEmpty: true"
+        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
+
+        arrayList2.add(0);
+        arrayList2.add(1);
+        arrayList2.add(2);
+        System.out.println("isEmpty: " + arrayList2.isEmpty());      // prints "isEmpty: true"
+        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);
+
+        Iterator<Integer> iter2 = arrayList2.iterator();
+        while (iter2.hasNext()) {
+            System.out.print(iter2.next() + ", ");
+        } System.out.println();
+
+        arrayList2.add(3);
+        System.out.println("isEmpty: " + arrayList2.isEmpty());      // prints "isEmpty: true"
+        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        arrayList2.remove(0);
+        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        arrayList2.remove(1);
+        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        arrayList2.clear();
+        System.out.println("isEmpty: " + arrayList2.isEmpty());      // prints "isEmpty: true"
+        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);
     }
 }
