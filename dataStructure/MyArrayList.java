@@ -13,7 +13,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     private T[] arr;
     private static final int DEFAULT_CAPACITY = 10;
     private int capacity;
-    private int elementCount;
+    private int size;
 
     public MyArrayList() {
         this(DEFAULT_CAPACITY);
@@ -23,34 +23,34 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     public MyArrayList(int capacity) {
         this.arr = (T[]) new Object[capacity];
         this.capacity = capacity;
-        this.elementCount = 0;
+        this.size = 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.elementCount == 0;
+        return this.size == 0;
     }
 
     @Override
     public void clear() {
-        while (elementCount > 0) {
-            arr[elementCount - 1] = null;
-            elementCount--;
+        while (size > 0) {
+            arr[size - 1] = null;
+            size--;
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void add(T item) {
-        if (elementCount == capacity) {
+        if (size == capacity) {
             capacity = capacity << 1;
             T[] newArr = (T[]) new Object[capacity];
-            for (int i=0; i<elementCount; i++) {
+            for (int i=0; i<size; i++) {
                 newArr[i] = arr[i];
             }
             this.arr = newArr;
         }
-        arr[elementCount++] = item;
+        arr[size++] = item;
     }
 
     @SuppressWarnings("unchecked")
@@ -59,44 +59,44 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
             throw new java.lang.IndexOutOfBoundsException();
         }
 
-        if (elementCount == capacity) {
+        if (size == capacity) {
             capacity = capacity << 1;
             T[] newArr = (T[]) new Object[capacity];
-            for (int i=0; i<elementCount; i++) {
+            for (int i=0; i<size; i++) {
                 newArr[i] = arr[i];
             }
             this.arr = newArr;
         }
 
-        for (int i=elementCount; i>=idx; i--) {
+        for (int i=size; i>=idx; i--) {
             arr[i] = arr[i-1];
         }
         arr[idx] = item;
-        elementCount++;
+        size++;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public T remove(int idx) {
-        if (idx < 0 || idx >= size()) {
+        if (idx < 0 || idx >= size) {
             throw new java.lang.IndexOutOfBoundsException();
         }
 
-        if (elementCount == (capacity >> 1)) {
+        if (size == (capacity >> 1)) {
             capacity = capacity >> 1;
             T[] newArr = (T[]) new Object[capacity];
-            for (int i=0; i<elementCount; i++) {
+            for (int i=0; i<size; i++) {
                 newArr[i] = arr[i];
             }
             this.arr = newArr;
         }
 
         T tmp = arr[idx];
-        for (int i=idx; i<elementCount-1; i++) {
+        for (int i=idx; i<size-1; i++) {
             arr[i] = arr[i+1];
         }
-        arr[elementCount-1] = null;
-        elementCount--;
+        arr[size-1] = null;
+        size--;
         return tmp;
     }
 
@@ -120,14 +120,18 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     public void shrink() {
     }
 
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
+    }
+
     public int indexOf(Object o) {
         if (o == null) {
-            for (int idx=0; idx<elementCount; idx++) {
+            for (int idx=0; idx<size; idx++) {
                 if (this.arr[idx] == null)
                     return idx;
             }
         } else {
-            for (int idx=0; idx<elementCount; idx++ ) {
+            for (int idx=0; idx<size; idx++ ) {
                 if (this.arr[idx].equals(o))
                     return idx;
             }
@@ -136,7 +140,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     }
 
     public int size() {
-        return this.elementCount;
+        return this.size;
     }
 
     public Iterator<T> iterator() {
@@ -144,6 +148,5 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     }
 
     private class Iterator<T> {
-
     }
 }
