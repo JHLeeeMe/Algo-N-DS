@@ -5,6 +5,8 @@ interface InnerMyArrayList<T> {
     void clear();
     void add(T item);
     T remove(int idx);
+    void grow();
+    void shrink();
 }
 
 public class MyArrayList<T> implements InnerMyArrayList<T> {
@@ -97,6 +99,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
         elementCount--;
         return tmp;
     }
+
     public T removeByItem(Object o) {
         if (o == null) {
             throw new java.lang.IllegalStateException();
@@ -107,6 +110,14 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
             }
             return remove(idx);
         }
+    }
+
+    @Override
+    public void grow() {
+    }
+
+    @Override
+    public void shrink() {
     }
 
     public int indexOf(Object o) {
@@ -126,5 +137,13 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
 
     public int size() {
         return this.elementCount;
+    }
+
+    public Iterator<T> iterator() {
+	    return new Iterator<T>();
+    }
+
+    private class Iterator<T> {
+
     }
 }
