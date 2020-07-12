@@ -1,7 +1,5 @@
 package dataStructure;
 
-import java.util.ArrayList;
-
 interface InnerMyArrayList<T> {
     boolean isEmpty();
     void clear();
