@@ -40,8 +40,9 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     @Override
     @SuppressWarnings("unchecked")
     public void add(T item) {
-        if (getSize() == this.capacity) {
-            T[] newArr = (T[]) new Object[capacity << 1];
+        if (elementCount == capacity) {
+            capacity = capacity << 1;
+            T[] newArr = (T[]) new Object[capacity];
             for (int i=0; i<elementCount; i++) {
                 newArr[i] = arr[i];
             }
@@ -56,8 +57,9 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
             throw new java.lang.IndexOutOfBoundsException();
         }
 
-        if (getSize() == this.capacity) {
-            T[] newArr = (T[]) new Object[capacity << 1];
+        if (elementCount == capacity) {
+            capacity = capacity << 1;
+            T[] newArr = (T[]) new Object[capacity];
             for (int i=0; i<elementCount; i++) {
                 newArr[i] = arr[i];
             }
@@ -72,16 +74,26 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T remove(int idx) {
-        if (idx < 0 || idx >= getSize()) {
+        if (idx < 0 || idx >= size()) {
             throw new java.lang.IndexOutOfBoundsException();
         }
 
+        if (elementCount == (capacity >> 1)) {
+            capacity = capacity >> 1;
+            T[] newArr = (T[]) new Object[capacity];
+            for (int i=0; i<elementCount; i++) {
+                newArr[i] = arr[i];
+            }
+            this.arr = newArr;
+        }
+
         T tmp = arr[idx];
-        arr[idx] = null;
-        for (int i=idx; i<getSize(); i++) {
+        for (int i=idx; i<elementCount-1; i++) {
             arr[i] = arr[i+1];
         }
+        arr[elementCount-1] = null;
         elementCount--;
         return tmp;
     }
@@ -112,7 +124,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
         return -1;
     }
 
-    public int getSize() {
+    public int size() {
         return this.elementCount;
     }
 }
