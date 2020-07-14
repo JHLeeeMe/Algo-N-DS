@@ -7,13 +7,12 @@ interface InnerMyArrayList<T> {
     void clear();
     void add(T item);
     T remove(int idx);
-    void grow();
-    void shrink();
 }
 
 public class MyArrayList<T> implements InnerMyArrayList<T> {
     private T[] arr;
     private static final int DEFAULT_CAPACITY = 10;
+    private final int initialCapacity;
     private int capacity;
     private int size;
 
@@ -24,7 +23,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity) {
         this.arr = (T[]) new Object[capacity];
-        this.capacity = capacity;
+        this.initialCapacity = this.capacity = capacity;
         this.size = 0;
     }
 
@@ -34,12 +33,16 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void clear() {
+        // GC helper
         while (size > 0) {
             arr[size - 1] = null;
             size--;
         }
-        // this.capacity = initSize;
+        T[] newArr = (T[]) new Object[initialCapacity];
+        this.arr = newArr;
+        capacity = initialCapacity;
     }
 
     @Override
@@ -113,14 +116,6 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
             }
             return remove(idx);
         }
-    }
-
-    @Override
-    public void grow() {
-    }
-
-    @Override
-    public void shrink() {
     }
 
     public boolean contains(Object o) {
@@ -226,18 +221,23 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
         } System.out.println();
 
         arrayList2.add(3);
-        System.out.println("isEmpty: " + arrayList2.isEmpty());      // prints "isEmpty: true"
-        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
-        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        System.out.println("arrayList size: " + arrayList2.size());         // prints "arrayList size: 4"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);  // prints "arrayList capacity: 6"
         arrayList2.remove(0);
-        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
-        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        System.out.println("arrayList size: " + arrayList2.size());         // prints "arrayList size: 3"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);  // prints "arrayList capacity: 6"
         arrayList2.remove(1);
-        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
-        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        System.out.println("arrayList size: " + arrayList2.size());         // prints "arrayList size: 2"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);  // prints "arrayList capacity: 3"
+        arrayList2.add(12121);
+        System.out.println("arrayList size: " + arrayList2.size());         // prints "arrayList size: 3"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);  // prints "arrayList capacity: 3"
+        arrayList2.add(1441);
+        System.out.println("arrayList size: " + arrayList2.size());         // prints "arrayList size: 4"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);  // prints "arrayList capacity: 6"
         arrayList2.clear();
-        System.out.println("isEmpty: " + arrayList2.isEmpty());      // prints "isEmpty: true"
-        System.out.println("arrayList size: " + arrayList2.size());  // prints "arrayList size: 0"
-        System.out.println("arrayList capacity: " + arrayList2.capacity);
+        System.out.println("isEmpty: " + arrayList2.isEmpty());              // prints "isEmpty: true"
+        System.out.println("arrayList size: " + arrayList2.size());         // prints "arrayList size: 0"
+        System.out.println("arrayList capacity: " + arrayList2.capacity);  // prints "arrayList capacity: 3"
     }
 }
