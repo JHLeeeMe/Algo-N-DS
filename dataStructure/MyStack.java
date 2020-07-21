@@ -21,6 +21,9 @@ public class MyStack<T> implements InnerMyStack<T> {
 
     @SuppressWarnings("unchecked")
     public MyStack(int stackSize) {
+        if (stackSize <= 0) {
+            System.err.println("Stack size must be greater than 0.");
+        }
         this.arr = (T[]) new Object[stackSize];
         this.size = stackSize;
     }
@@ -115,5 +118,7 @@ public class MyStack<T> implements InnerMyStack<T> {
         System.out.println(myStack.isEmpty());
         System.out.println(myStack.isFull());
         System.out.println(myStack.getSize());
+
+        new MyStack<>(-1);  // java.lang.NegativeArraySizeException
     }
 }
