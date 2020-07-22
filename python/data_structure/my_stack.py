@@ -1,3 +1,4 @@
+import unittest
 from abc import ABC, abstractmethod
 
 
@@ -20,6 +21,8 @@ class InnerStack(ABC):
 
 class MyStack(InnerStack):
     def __init__(self, stack_size: int = 10):
+        if not isinstance(stack_size, int):
+            raise TypeError('stack_size arg must be int type')
         if stack_size <= 0:
             raise IndexError('Stack size must be greater than 0')
         self.__stack = []
@@ -69,42 +72,39 @@ class MyStack(InnerStack):
 
 class MyStack2(InnerStack):
     def __init__(self):
-        self.head = None
-        self.size = 0
+        self.__head = None
+        self.__size = 0
 
     def is_empty(self):
-        return self.size == 0
+        return self.__size == 0
 
     def clear(self):
-        self.head = None
-        self.size = 0
+        self.__head = None
+        self.__size = 0
 
     def push(self, item):
         new_node = self.Node(item)
-        new_node.next = self.head
-        self.head = new_node
-        self.size += 1
+        new_node.next = self.__head
+        self.__head = new_node
+        self.__size += 1
 
     def pop(self):
         if self.is_empty():
-            print("Stack is Empty")
+            print("Stack is Empty.")
         else:
-            tmp = self.head.data
-            self.head = self.head.next
-            self.size -= 1
+            tmp = self.__head.data
+            self.__head = self.__head.next
+            self.__size -= 1
             return tmp
 
     def peek(self):
         if self.is_empty():
-            print("Stack is Empty")
+            print("Stack is Empty.")
         else:
-            return self.head.data
+            return self.__head.data
 
-    def get_size(self):
-        if self.is_empty():
-            print("Stack is Empty")
-        else:
-            return self.size
+    def size(self):
+        return self.__size
 
     class Node:
         def __init__(self, item):
@@ -112,70 +112,52 @@ class MyStack2(InnerStack):
             self.next = None
 
 
-if __name__ == '__main__':
-    a = MyStack()
-    print(a.size())
-    a.print_stack()
+class MyStackTest(unittest.TestCase):
+    def test_empty(self):
+        my_stack = MyStack()
+        self.assertEqual(my_stack.size(), 10)
+        self.assertTrue(my_stack.is_empty())
+        self.assertEqual(my_stack.pop(), None)
+        self.assertEqual(my_stack.peek(), None)
 
-    a.push(1)
-    a.push(2)
-    a.push(3)
-    a.push(4)
-    a.push(5)
-    a.push(6)
-    a.push(7)
-    a.push(8)
-    a.push(9)
-    a.push("asdf")
+        my_stack2 = MyStack2()
+        self.assertEqual(my_stack2.size(), 0)
+        self.assertTrue(my_stack2.is_empty())
+        self.assertEqual(my_stack2.pop(), None)
+        self.assertEqual(my_stack2.peek(), None)
 
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
-    print(a.pop())
-    a.print_stack()
+    def test_all_my_stack(self):
+        my_stack = MyStack()
+        for i in range(1, 11):
+            my_stack.push(i)
 
-    print('===================================================')
+        self.assertIsNone(my_stack.push(11))  # prints 'Stack is Full.'
+        self.assertTrue(my_stack.is_full())
+        self.assertFalse(my_stack.is_empty())
+        self.assertEqual(my_stack.pop(), 10)
+        self.assertFalse(my_stack.is_full())
 
-    c = MyStack2()
+        my_stack.clear()
+        self.assertTrue(my_stack.is_empty())
+        self.assertIsNone(my_stack.pop())
 
-    c.pop()
-    c.peek()
+        my_stack = MyStack(3)
+        for i in range(1, 4):
+            my_stack.push(i)
 
-    c.push(1)
-    c.push(2)
-    c.push(3)
-    c.push(4)
-    c.push(5)
-    c.push(6)
-    c.push(7)
-    c.push(8)
+        self.assertEqual(my_stack.size(), 3)
+        self.assertTrue(my_stack.is_full())
+        self.assertEqual(my_stack.peek(), 3)
 
-    while not c.is_empty():
-        print(c.pop())
+    def test_all_my_stack2(self):
+        my_stack2 = MyStack2()
+        for i in range(1, 11):
+            my_stack2.push(i)
 
-    c.push(2)
-    c.push(14)
-    c.push(60)
-    print(c.peek())
-    print(c.get_size())
+        self.assertIsNone(my_stack2.push(11))
+        self.assertFalse(my_stack2.is_empty())
+        self.assertEqual(my_stack2.pop(), 11)
 
-    c.clear()
-    print(c.get_size())
+        my_stack2.clear()
+        self.assertTrue(my_stack2.is_empty())
+        self.assertIsNone(my_stack2.pop())
