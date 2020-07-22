@@ -1,3 +1,4 @@
+import unittest
 from abc import ABC, abstractmethod
 
 
@@ -6,7 +7,7 @@ class InnerQueue(ABC):
     def is_empty(self) -> bool: ...
 
     @abstractmethod
-    def clear(slef): ...
+    def clear(self): ...
 
     @abstractmethod
     def enqueue(self, item): ...
@@ -20,40 +21,43 @@ class InnerQueue(ABC):
 
 class MyQueue(InnerQueue):
     def __init__(self):
-        self.front = None
-        self.rear = None
-        self.size = 0
+        self.__front = None
+        self.__rear = None
+        self.__size = 0
 
     def is_empty(self):
-        return self.size == 0
+        return self.__size == 0
 
     def clear(self):
-        self.front = self.rear = None
-        self.size = 0
+        self.__front = self.__rear = None
+        self.__size = 0
 
     def enqueue(self, item):
         new_node = self.Node(item)
         if self.is_empty():
-            self.front = new_node
+            self.__front = new_node
         else:
-            self.rear.next = new_node
-        self.rear = new_node
-        self.size += 1
+            self.__rear.next = new_node
+        self.__rear = new_node
+        self.__size += 1
 
     def dequeue(self):
         if self.is_empty():
             print('Queue is Empty.')
         else:
-            tmp = self.front.data
-            self.front = self.front.next
-            self.size -= 1
+            tmp = self.__front.data
+            self.__front = self.__front.next
+            self.__size -= 1
             return tmp
 
     def peek(self):
         if self.is_empty():
-            print('Queue is Empty')
+            print('Queue is Empty.')
         else:
-            return self.front.data
+            return self.__front.data
+
+    def size(self) -> int:
+        return self.__size
 
     class Node:
         def __init__(self, item):
@@ -61,21 +65,38 @@ class MyQueue(InnerQueue):
             self.next = None
 
 
-if __name__ == '__main__':
-    a = MyQueue()
-    print(a.peek())
-    print(a.dequeue())
-    print(a.size())
+class MyQueueTest(unittest.TestCase):
+    def test_empty(self):
+        my_queue = MyQueue()
+        self.assertEqual(my_queue.size(), 0)
+        self.assertTrue(my_queue.is_empty())
+        self.assertEqual(my_queue.dequeue(), None)
+        self.assertEqual(my_queue.peek(), None)
 
-    a.enqueue(1)
-    a.enqueue(2)
-    a.enqueue(3)
-    a.enqueue(4)
-    a.enqueue(4)
-    a.enqueue(6)
-    a.enqueue(7)
-    print('peek(): ' + a.peek())
+    def test_all(self):
+        my_queue = MyQueue()
+        my_queue.enqueue(1)
+        my_queue.enqueue(2)
+        my_queue.enqueue(3)
+        my_queue.enqueue(4)
+        my_queue.enqueue(5)
+        my_queue.enqueue(6)
 
-    while a.size() != 0:
-        print('dequeue(): ' + a.dequeue())
-        print('size(): ' + a.size())
+        self.assertEqual(my_queue.size(), 6)
+        self.assertFalse(my_queue.is_empty())
+        self.assertEqual(my_queue.dequeue(), 1)
+        self.assertEqual(my_queue.peek(), 2)
+        self.assertEqual(my_queue.size(), 5)
+
+        while my_queue.size() != 0:
+            print('dequeue(): ' + str(my_queue.dequeue()))
+
+        self.assertTrue(my_queue.size() == 0)
+
+        my_queue.enqueue(3)
+        my_queue.enqueue(4)
+        my_queue.enqueue(5)
+        self.assertEqual(my_queue.size(), 3)
+        my_queue.clear()
+        self.assertTrue(my_queue.is_empty())
+        self.assertEqual(my_queue.size(), 0)
