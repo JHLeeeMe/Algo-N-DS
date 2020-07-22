@@ -49,6 +49,9 @@ class MyQueue(InnerQueue):
             self.__front = self.__front.next
             self.__size -= 1
             return tmp
+    
+    def poll(self):
+        return self.dequeue()
 
     def peek(self):
         if self.is_empty():
@@ -71,6 +74,7 @@ class MyQueueTest(unittest.TestCase):
         self.assertEqual(my_queue.size(), 0)
         self.assertTrue(my_queue.is_empty())
         self.assertEqual(my_queue.dequeue(), None)
+        self.assertEqual(my_queue.poll(), None)
         self.assertEqual(my_queue.peek(), None)
 
     def test_all(self):
@@ -85,8 +89,9 @@ class MyQueueTest(unittest.TestCase):
         self.assertEqual(my_queue.size(), 6)
         self.assertFalse(my_queue.is_empty())
         self.assertEqual(my_queue.dequeue(), 1)
-        self.assertEqual(my_queue.peek(), 2)
-        self.assertEqual(my_queue.size(), 5)
+        self.assertEqual(my_queue.poll(), 2)
+        self.assertEqual(my_queue.peek(), 3)
+        self.assertEqual(my_queue.size(), 4)
 
         while my_queue.size() != 0:
             print('dequeue(): ' + str(my_queue.dequeue()))
