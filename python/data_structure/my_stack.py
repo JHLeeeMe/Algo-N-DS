@@ -75,6 +75,11 @@ class MyStack2(InnerStack):
         self.__head = None
         self.__size = 0
 
+    class Node:
+        def __init__(self, item):
+            self.data = item
+            self.next = None
+
     def is_empty(self):
         return self.__size == 0
 
@@ -105,11 +110,6 @@ class MyStack2(InnerStack):
 
     def size(self):
         return self.__size
-
-    class Node:
-        def __init__(self, item):
-            self.data = item
-            self.next = None
 
 
 class MyStackTest(unittest.TestCase):

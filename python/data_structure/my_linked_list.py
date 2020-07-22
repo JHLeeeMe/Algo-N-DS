@@ -29,7 +29,12 @@ class MyLinkedList(InnerLinkedList):
         return self.__size == 0
 
     def add(self, item):
-        pass
+        self.__add_last(item)
+
+    def __add_last(self, item):
+        new_node = Node(item)
+        if self.__size == 0:
+            self.__head = new_node
 
     def remove_item(self, item):
         pass
