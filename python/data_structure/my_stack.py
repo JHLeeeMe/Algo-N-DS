@@ -149,6 +149,12 @@ class MyStackTest(unittest.TestCase):
         self.assertTrue(my_stack.is_full())
         self.assertEqual(my_stack.peek(), 3)
 
+        with self.assertRaises(IndexError):
+            MyStack(-1)
+
+        with self.assertRaises(TypeError):
+            MyStack('aaaa')
+
     def test_all_my_stack2(self):
         my_stack2 = MyStack2()
         for i in range(1, 11):
