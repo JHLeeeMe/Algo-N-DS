@@ -38,19 +38,20 @@ class MyLinkedList(InnerLinkedList):
         if self.__size == 0:
             self.__head = new_node
         else:
-            curr = self.head
-            while curr.next is not None:
-                curr = curr.next
-            curr.next = new_node
+            curr = self.__head
+            while curr.__next is not None:
+                curr = curr.__next
+            curr.__next = new_node
         self.__size += 1
 
     def add_into_index(self, idx, item):
         if idx < 0 or idx > self.__size:
-            raise IndexError('idx arg must be within 0 ~ ' + str(self.__size))
+            raise IndexError('idx arg must be within 0 ~ '
+                             + str(self.__size))
 
         new_node = self.Node(item)
         if idx == 0:
-            new_node.next = self.__head
+            new_node.__next = self.__head
             self.__head = new_node
         else:
             before_node = self.__node(idx - 1)
@@ -60,19 +61,20 @@ class MyLinkedList(InnerLinkedList):
 
     def remove(self):
         return self.__remove_first()
-    
+
     def __remove_first(self):
         if self.__size == 0:
             return None
 
-        tmp = self.__head.data
+        tmp = self.__head.__data
         self.__head = self.__head.__next
         self.__size -= 1
         return tmp
-    
+
     def remove_by_index(self, idx):
         if idx < 0 or idx >= self.__size:
-            raise IndexError('idx arg must be within 0 ~ ' + str(self.__size - 1))
+            raise IndexError('idx arg must be within 0 ~ '
+                             + str(self.__size - 1))
 
         if idx == 0:
             return self.__remove_first()
@@ -95,7 +97,7 @@ class MyLinkedList(InnerLinkedList):
         while curr is not None:
             if curr.__data == item:
                 return idx
-            curr = curr.next
+            curr = curr.__next
             idx += 1
         print('data ' + str(item) + 'is not in linkedlist')
         return -1
