@@ -25,6 +25,11 @@ class MyQueue(InnerQueue):
         self.__rear = None
         self.__size = 0
 
+    class Node:
+        def __init__(self, item):
+            self.data = item
+            self.next = None
+
     def is_empty(self):
         return self.__size == 0
 
@@ -49,7 +54,7 @@ class MyQueue(InnerQueue):
             self.__front = self.__front.next
             self.__size -= 1
             return tmp
-    
+
     def poll(self):
         return self.dequeue()
 
@@ -61,11 +66,6 @@ class MyQueue(InnerQueue):
 
     def size(self) -> int:
         return self.__size
-
-    class Node:
-        def __init__(self, item):
-            self.data = item
-            self.next = None
 
 
 class MyQueueTest(unittest.TestCase):
