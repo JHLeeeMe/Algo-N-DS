@@ -135,9 +135,15 @@ public class BinarySearchTree {
                     break;
                 case 1:
                     if (parent.left == curr)
-                        parent.left = curr.right;
+                        if (curr.left != null)
+                            parent.left = curr.left;
+                        else
+                            parent.left = curr.right;
                     else
-                        parent.right = curr.right;
+                        if (curr.left != null)
+                            parent.right = curr.left;
+                        else
+                            parent.right = curr.right;
                     break;
                 case 2:
                     // 자식이 둘이면 그 노드의 석세서와 석세서의 부모노드를 구하고 작업
