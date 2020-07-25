@@ -154,7 +154,7 @@ class BinarySearchTree(InnerBinarySearchTree):
 
         return parent, node
 
-    def search(self, item):
+    def search(self, item: int) -> int:
         pass
 
 
