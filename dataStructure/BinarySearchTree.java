@@ -98,12 +98,16 @@ public class BinarySearchTree {
                         root = root.left;
                     break;
                 case 2:
-                    Node parentOfSuccessor = getSuccessor(root)[0];  // successor 부모 노드
-                    Node successor = getSuccessor(root)[1];         // successor
+                    Node[] successorInfo = getSuccessor(root);
+                    Node parentOfSuccessor = successorInfo[0];
+                    Node successor = successorInfo[1];
 
                     root.data = successor.data;             // successor의 '데이터'를 옮기고
-                    // 석세서의 right child를 석세서의 부모노드의 left에 붙힌다.
-                    parentOfSuccessor.left = successor.right; 
+                    if (parentOfSuccessor != root) {
+                        parentOfSuccessor.left = successor.right; 
+                    } else {
+                        root.right = successor.right;
+                    }
                     break;
             }
             return true;
@@ -141,9 +145,12 @@ public class BinarySearchTree {
                     Node parentOfSuccessor = successorInfo[0];
                     Node successor = successorInfo[1];
 
-                    curr.data = successor.data;
-                    parentOfSuccessor.left = successor.right;
-
+                    curr.data = successor.data;             // successor의 '데이터'를 옮기고
+                    if (parentOfSuccessor != curr) {
+                        parentOfSuccessor.left = successor.right; 
+                    } else {
+                        curr.right = successor.right;
+                    }
                     break;
             }
             return true;
@@ -186,9 +193,9 @@ public class BinarySearchTree {
     public static void main(String[] args) {
         /**
          * bst is ....
-         *   10                           50
-         *    \                           /\
-         *     50                       25  60
+         *   10                           60
+         *    \                           /
+         *     50                       25
          *     /\                       /\
          *   20  60        ===>       17  30      
          *   /\                           
@@ -221,9 +228,20 @@ public class BinarySearchTree {
         System.out.println(bst.root);                   // prints "data: 50"
         System.out.println(bst.search(50).left);        // prints "data: 25"
 
-        // 버그 발견
-        // bst.delete(50);
-        // System.out.println(bst.root);
-        // System.out.println(bst.root.left);
+        System.out.println("==================================");
+        bst.delete(50);
+        System.out.println(bst.root);                   // prints "data: 60"
+        System.out.println(bst.root.left);              // prints "data: 25"
+        System.out.println(bst.root.left.left);         // prints "data: 17"
+        System.out.println(bst.root.left.right);        // prints "data: 30"
+        System.out.println(bst.root.right);             // prints "data: null"
+
+        System.out.println("==================================");
+        bst.delete(25);
+        System.out.println(bst.root);                   // prints "data: 60"
+        System.out.println(bst.root.left);              // prints "data: 30"
+        System.out.println(bst.root.left.left);         // prints "data: 17"
+        System.out.println(bst.root.left.right);        // prints "null"
+        System.out.println(bst.root.right);             // prints "null"
     }
 }
