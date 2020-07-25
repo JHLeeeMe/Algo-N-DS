@@ -1,4 +1,4 @@
-package algorithm.sort;
+package java.algorithm.sort;
 
 /**
  * InsertionSort

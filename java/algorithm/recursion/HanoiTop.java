@@ -1,4 +1,4 @@
-package algorithm.recursion;
+package java.algorithm.recursion;
 
 /**
  * HanoiTop

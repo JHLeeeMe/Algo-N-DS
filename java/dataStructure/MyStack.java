@@ -1,4 +1,4 @@
-package dataStructure;
+package java.dataStructure;
 
 interface InnerMyStack<T> {
     boolean isEmpty();
