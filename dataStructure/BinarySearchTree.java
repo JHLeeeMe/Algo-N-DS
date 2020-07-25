@@ -220,5 +220,10 @@ public class BinarySearchTree {
         bst.delete(10);
         System.out.println(bst.root);                   // prints "data: 50"
         System.out.println(bst.search(50).left);        // prints "data: 25"
+
+        // 버그 발견
+        // bst.delete(50);
+        // System.out.println(bst.root);
+        // System.out.println(bst.root.left);
     }
 }
