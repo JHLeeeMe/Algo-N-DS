@@ -10,7 +10,7 @@ class InnerBinarySearchTree(ABC):
     def delete(self, item: int) -> bool: ...
 
     @abstractmethod
-    def search(self, item: int) -> int: ...
+    def search(self, item: int): ...
 
 
 class BinarySearchTree(InnerBinarySearchTree):
@@ -23,6 +23,9 @@ class BinarySearchTree(InnerBinarySearchTree):
             self.left = None
             self.right = None
 
+        def __str__(self):
+            return 'data: ' + str(self.data)
+
     def insert(self, item: int) -> bool:
         """Insert item in BST
 
@@ -32,7 +35,7 @@ class BinarySearchTree(InnerBinarySearchTree):
             bool
         """
         if self.search(item) is not None:
-            print('중복 데이터 ' + item + '(이)가 있으므로 insert하지 않음.')
+            print('중복 데이터 ' + str(item) + '(이)가 있으므로 insert하지 않음.')
             return False
 
         if self.__root is None:
@@ -154,9 +157,72 @@ class BinarySearchTree(InnerBinarySearchTree):
 
         return parent, node
 
-    def search(self, item: int) -> int:
-        pass
+    def search(self, item: int):
+        if self.__root is None:
+            return None
+        else:
+            return self.__search_node(self.__root, item)
+
+    def __search_node(self, curr, item):
+        if curr.data == item:
+            return curr
+
+        if curr.data > item:
+            if curr.left is not None:
+                return self.__search_node(curr.left, item)
+        else:
+            if curr.right is not None:
+                return self.__search_node(curr.right, item)
+        return None
 
 
 class BinarySearchTreeTest(unittest.TestCase):
-    pass
+    def test_all(self):
+        # bst is ....
+        #   10                           60
+        #    \                           /
+        #     50                       25
+        #     /\                       /\
+        #   20  60        ===>       17  30
+        #   /\
+        # 17  30
+        #     /
+        #   25
+        bst = BinarySearchTree()
+        bst.insert(10)
+        bst.insert(10)  # prints "중복 데이터 10 (이)가 있으므로 insert하지 않음."
+        bst.insert(50)
+        bst.insert(20)
+        bst.insert(30)
+        bst.insert(25)
+        bst.insert(17)
+        bst.insert(60)
+
+        self.assertEqual(bst._BinarySearchTree__root.right.right.data, 60)
+        bst.delete(60)
+        self.assertEqual(bst._BinarySearchTree__root.right.right, None)
+        bst.insert(60)
+        self.assertEqual(bst._BinarySearchTree__root.right.right.data, 60)
+
+        self.assertEqual(bst._BinarySearchTree__root.right.left.data, 20)
+        bst.delete(20)
+        self.assertEqual(bst._BinarySearchTree__root.right.left.data, 25)
+        self.assertEqual(bst._BinarySearchTree__root.right.left.right.data, 30)
+
+        bst.delete(10)
+        self.assertEqual(bst._BinarySearchTree__root.data, 50)
+        self.assertEqual(bst.search(50).left.data, 25)
+
+        bst.delete(50)
+        self.assertEqual(bst._BinarySearchTree__root.data, 60)
+        self.assertEqual(bst._BinarySearchTree__root.left.data, 25)
+        self.assertEqual(bst._BinarySearchTree__root.left.left.data, 17)
+        self.assertEqual(bst._BinarySearchTree__root.left.right.data, 30)
+        self.assertIsNone(bst._BinarySearchTree__root.right)
+
+        bst.delete(25)
+        self.assertEqual(bst._BinarySearchTree__root.data, 60)
+        self.assertEqual(bst._BinarySearchTree__root.left.data, 30)
+        self.assertEqual(bst._BinarySearchTree__root.left.left.data, 17)
+        self.assertIsNone(bst._BinarySearchTree__root.left.right)
+        self.assertIsNone(bst._BinarySearchTree__root.right)
