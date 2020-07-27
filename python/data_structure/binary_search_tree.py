@@ -252,15 +252,15 @@ class BinarySearchTreeTest(unittest.TestCase):
         # 17  30
         #     /
         #   25
-        bst = BinarySearchTree()
-        bst.insert(10)
-        bst.insert(10)  # prints "중복 데이터 10 (이)가 있으므로 insert하지 않음."
-        bst.insert(50)
-        bst.insert(20)
-        bst.insert(30)
-        bst.insert(25)
-        bst.insert(17)
-        bst.insert(60)
+        self.bst = BinarySearchTree()
+        self.bst.insert(10)
+        self.bst.insert(10)  # prints "중복 데이터 10 (이)가 있으므로 insert하지 않음."
+        self.bst.insert(50)
+        self.bst.insert(20)
+        self.bst.insert(30)
+        self.bst.insert(25)
+        self.bst.insert(17)
+        self.bst.insert(60)
 
     def test_all(self):
         # bst is ...
@@ -294,7 +294,7 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertEqual(self.bst._BinarySearchTree__root.data, 60)
         self.assertEqual(self.bst._BinarySearchTree__root.left.data, 25)
         self.assertEqual(self.bst._BinarySearchTree__root.left.left.data, 17)
-        self.assertEqual(self.st._BinarySearchTree__root.left.right.data, 30)
+        self.assertEqual(self.bst._BinarySearchTree__root.left.right.data, 30)
         self.assertIsNone(self.bst._BinarySearchTree__root.right)
 
         self.bst.delete(25)
@@ -304,3 +304,12 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertIsNone(self.bst._BinarySearchTree__root.left.right)
         self.assertIsNone(self.bst._BinarySearchTree__root.right)
 
+    def test_traversal(self):
+        self.bst.preorder()
+        self.assertEqual(self.bst.preorder_lst, [10, 50, 20, 17, 30, 25, 60])
+
+        self.bst.inorder()
+        self.assertEqual(self.bst.inorder_lst, [10, 17, 20, 25, 30, 50, 60])
+
+        self.bst.postorder()
+        self.assertEqual(self.bst.postorder_lst, [17, 25, 30, 20, 60, 50, 10])
