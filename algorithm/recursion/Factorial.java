@@ -1,4 +1,4 @@
-package java.algorithm.recursion;
+package algorithm.recursion;
 
 /**
  * Factorial

@@ -1,4 +1,4 @@
-package java.dataStructure;
+package dataStructure;
 
 /**
  * BinarySearchTree

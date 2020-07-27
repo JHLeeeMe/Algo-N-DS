@@ -1,4 +1,4 @@
-package java.algorithm.search;
+package algorithm.search;
 
 /**
  * BinarySearch

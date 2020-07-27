@@ -1,4 +1,4 @@
-package java.algorithm.sort;
+package algorithm.sort;
 
 /**
  * QuickSort
