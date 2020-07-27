@@ -2,6 +2,16 @@ import unittest
 from abc import ABC, abstractmethod
 
 
+class Node:
+    def __init__(self, item):
+        self.data = item
+        self.left = None
+        self.right = None
+
+    def __str__(self):
+        return 'data: ' + str(self.data)
+
+
 class InnerBinarySearchTree(ABC):
     @abstractmethod
     def insert(self, item: int) -> bool: ...
@@ -10,21 +20,33 @@ class InnerBinarySearchTree(ABC):
     def delete(self, item: int) -> bool: ...
 
     @abstractmethod
-    def search(self, item: int): ...
+    def search(self, item: int) -> Node: ...
+
+    @abstractmethod
+    def preorder(self) -> list: ...
+
+    @abstractmethod
+    def inorder(self) -> list: ...
+
+    @abstractmethod
+    def postorder(self) -> list: ...
 
 
 class BinarySearchTree(InnerBinarySearchTree):
     def __init__(self):
         self.__root = None
+        self.preorder_lst = []
+        self.inorder_lst = []
+        self.postorder_lst = []
 
-    class Node:
-        def __init__(self, item):
-            self.data = item
-            self.left = None
-            self.right = None
+    # class Node:
+    #     def __init__(self, item):
+    #         self.data = item
+    #         self.left = None
+    #         self.right = None
 
-        def __str__(self):
-            return 'data: ' + str(self.data)
+    #     def __str__(self):
+    #         return 'data: ' + str(self.data)
 
     def insert(self, item: int) -> bool:
         """Insert item in BST
@@ -39,7 +61,7 @@ class BinarySearchTree(InnerBinarySearchTree):
             return False
 
         if self.__root is None:
-            self.__root = self.Node(item)
+            self.__root = Node(item)
             return True
         else:
             self.__insert_node(self.__root, item)
@@ -49,12 +71,12 @@ class BinarySearchTree(InnerBinarySearchTree):
             if root.left is not None:
                 return self.__insert_node(root.left, item)
             else:
-                root.left = self.Node(item)
+                root.left = Node(item)
         else:
             if root.right is not None:
                 return self.__insert_node(root.right, item)
             else:
-                root.right = self.Node(item)
+                root.right = Node(item)
 
         return True
 
@@ -157,7 +179,13 @@ class BinarySearchTree(InnerBinarySearchTree):
 
         return parent, node
 
-    def search(self, item: int):
+    def search(self, item: int) -> Node:
+        """Search item in BST
+
+        Keyword arguments:
+            item: intk
+            Node
+        """
         if self.__root is None:
             return None
         else:
@@ -175,15 +203,51 @@ class BinarySearchTree(InnerBinarySearchTree):
                 return self.__search_node(curr.right, item)
         return None
 
+    def preorder(self):
+        if self.__root is not None:
+            self.__preorder_traversal(self.__root)
+
+    def __preorder_traversal(self, curr):
+        self.preorder_lst.append(curr.data)
+
+        if curr.left is not None:
+            self.__preorder_traversal(curr.left)
+        if curr.right is not None:
+            self.__preorder_traversal(curr.right)
+
+    def inorder(self):
+        if self.__root is not None:
+            self.__inorder_traversal(self.__root)
+
+    def __inorder_traversal(self, curr):
+        if curr.left is not None:
+            self.__inorder_traversal(curr.left)
+
+        self.inorder_lst.append(curr.data)
+
+        if curr.right is not None:
+            self.__inorder_traversal(curr.right)
+
+    def postorder(self):
+        if self.__root is not None:
+            self.__postorder_traversal(self.__root)
+
+    def __postorder_traversal(self, curr):
+        if curr.left is not None:
+            self.__postorder_traversal(curr.left)
+        if curr.right is not None:
+            self.__postorder_traversal(curr.right)
+
+        self.postorder_lst.append(curr.data)
+
 
 class BinarySearchTreeTest(unittest.TestCase):
-    def test_all(self):
-        # bst is ....
-        #   10                           60
-        #    \                           /
-        #     50                       25
-        #     /\                       /\
-        #   20  60        ===>       17  30
+    def setUp(self):
+        #   10
+        #    \
+        #     50
+        #     /\
+        #   20  60
         #   /\
         # 17  30
         #     /
@@ -198,31 +262,45 @@ class BinarySearchTreeTest(unittest.TestCase):
         bst.insert(17)
         bst.insert(60)
 
-        self.assertEqual(bst._BinarySearchTree__root.right.right.data, 60)
-        bst.delete(60)
-        self.assertEqual(bst._BinarySearchTree__root.right.right, None)
-        bst.insert(60)
-        self.assertEqual(bst._BinarySearchTree__root.right.right.data, 60)
+    def test_all(self):
+        # bst is ...
+        #   10                           60
+        #    \                           /
+        #     50                       25
+        #     /\                       /\
+        #   20  60        ===>       17  30
+        #   /\
+        # 17  30
+        #     /
+        #   25
+        self.assertEqual(self.bst._BinarySearchTree__root.right.right.data, 60)
+        self.bst.delete(60)
+        self.assertEqual(self.bst._BinarySearchTree__root.right.right, None)
+        self.bst.insert(60)
+        self.assertEqual(self.bst._BinarySearchTree__root.right.right.data, 60)
 
-        self.assertEqual(bst._BinarySearchTree__root.right.left.data, 20)
-        bst.delete(20)
-        self.assertEqual(bst._BinarySearchTree__root.right.left.data, 25)
-        self.assertEqual(bst._BinarySearchTree__root.right.left.right.data, 30)
+        self.assertEqual(self.bst._BinarySearchTree__root.right.left.data, 20)
+        self.bst.delete(20)
+        self.assertEqual(self.bst._BinarySearchTree__root.right.left.data, 25)
+        self.assertEqual(
+            self.bst._BinarySearchTree__root.right.left.right.data, 30
+        )
 
-        bst.delete(10)
-        self.assertEqual(bst._BinarySearchTree__root.data, 50)
-        self.assertEqual(bst.search(50).left.data, 25)
+        self.bst.delete(10)
+        self.assertEqual(self.bst._BinarySearchTree__root.data, 50)
+        self.assertEqual(self.bst.search(50).left.data, 25)
 
-        bst.delete(50)
-        self.assertEqual(bst._BinarySearchTree__root.data, 60)
-        self.assertEqual(bst._BinarySearchTree__root.left.data, 25)
-        self.assertEqual(bst._BinarySearchTree__root.left.left.data, 17)
-        self.assertEqual(bst._BinarySearchTree__root.left.right.data, 30)
-        self.assertIsNone(bst._BinarySearchTree__root.right)
+        self.bst.delete(50)
+        self.assertEqual(self.bst._BinarySearchTree__root.data, 60)
+        self.assertEqual(self.bst._BinarySearchTree__root.left.data, 25)
+        self.assertEqual(self.bst._BinarySearchTree__root.left.left.data, 17)
+        self.assertEqual(self.st._BinarySearchTree__root.left.right.data, 30)
+        self.assertIsNone(self.bst._BinarySearchTree__root.right)
 
-        bst.delete(25)
-        self.assertEqual(bst._BinarySearchTree__root.data, 60)
-        self.assertEqual(bst._BinarySearchTree__root.left.data, 30)
-        self.assertEqual(bst._BinarySearchTree__root.left.left.data, 17)
-        self.assertIsNone(bst._BinarySearchTree__root.left.right)
-        self.assertIsNone(bst._BinarySearchTree__root.right)
+        self.bst.delete(25)
+        self.assertEqual(self.bst._BinarySearchTree__root.data, 60)
+        self.assertEqual(self.bst._BinarySearchTree__root.left.data, 30)
+        self.assertEqual(self.bst._BinarySearchTree__root.left.left.data, 17)
+        self.assertIsNone(self.bst._BinarySearchTree__root.left.right)
+        self.assertIsNone(self.bst._BinarySearchTree__root.right)
+
