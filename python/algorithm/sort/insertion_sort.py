@@ -1,7 +1,7 @@
 import unittest
 
 
-def insertion_sort(lst: list) -> list:
+def insertion_sort(lst: list) -> None:
     for i in range(1, len(lst)):
         tmp = lst[i]
         j = i - 1
