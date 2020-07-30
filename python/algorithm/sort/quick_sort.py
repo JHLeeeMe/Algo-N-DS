@@ -9,11 +9,11 @@ def __sort(lst: list, left: int, right: int) -> None:
     pass
 
 
-def __partition(lst: list, left: int, right: int) -> int:
+def partition(lst: list, left: int, right: int) -> int:
     pass
 
 
-def __swap(lst: list, a: int, b: int):
+def swap(lst: list, a: int, b: int):
     pass
 
 
