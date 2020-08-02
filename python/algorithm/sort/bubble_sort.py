@@ -4,10 +4,10 @@ import unittest
 def bubble_sort(lst: list) -> None:
     n = len(lst)
 
-    for i in range(n-1, 0, -1):
+    for i in range(n - 1, 0, -1):
         for j in range(i):
-            if lst[j] > lst[j+1]:
-                swap(lst, j, j+1)
+            if lst[j] > lst[j + 1]:
+                swap(lst, j, j + 1)
 
 
 def swap(lst: list, a: int, b: int) -> None:
