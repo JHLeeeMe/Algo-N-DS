@@ -5,10 +5,10 @@ def heap_sort(lst: list) -> None:
     n = len(lst)
 
     # create max_heap
-    # for i in reversed(range(n >> 1)):
-    #     heapify(lst, n, i)
     for i in range((n >> 1)-1, -1, -1):
         heapify(lst, heap_size=n, idx=i)
+    # for i in reversed(range(n >> 1)):
+    #     heapify(lst, n, i)
 
     # to asc_sorted_list
     for i in range(n - 1, 0, -1):
@@ -44,6 +44,8 @@ class HeapSortTest(unittest.TestCase):
 
     def test_empty_list(self):
         empty_list = []
+
+        heap_sort(empty_list)
         self.assertListEqual(empty_list, [])
 
     def test_all(self):
