@@ -2,27 +2,53 @@ import unittest
 
 
 def quick_sort(lst: list) -> None:
-    pass
+    __sort(lst, 0, len(lst) - 1)
 
 
 def __sort(lst: list, left: int, right: int) -> None:
-    pass
+    if left >= right:
+        return
+
+    pivot_idx = partition(lst, left, right)
+    __sort(lst, left, pivot_idx - 1)
+    __sort(lst, pivot_idx + 1, right)
 
 
 def partition(lst: list, left: int, right: int) -> int:
-    pass
+    mid = (left + right) >> 1
+    swap(lst, left, mid)
+
+    pivot = lst[left]
+    i = left
+    j = right
+
+    while i < j:
+        while pivot < lst[j]:
+            j -= 1
+        while pivot >= lst[i] and i < j:
+            i += 1
+        swap(lst, i, j)
+
+    lst[left] = lst[i]
+    lst[i] = pivot
+    return i
 
 
 def swap(lst: list, a: int, b: int):
-    pass
+    tmp = lst[a]
+    lst[a] = lst[b]
+    lst[b] = tmp
 
 
 class QuickSortTest(unittest.TestCase):
     def setUp(self):
-        pass
+        self.lst = [10, 2, 5, 123, 3, 82]
 
     def test_empty_list(self):
-        pass
+        empty_list = []
+        quick_sort(empty_list)
+        self.assertListEqual(empty_list, [])
 
     def test_quick_sort(self):
-        pass
+        quick_sort(self.lst)
+        self.assertListEqual(self.lst, [2, 3, 5, 10, 82, 123])
