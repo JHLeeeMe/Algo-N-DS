@@ -4,7 +4,7 @@ import unittest
 def heap_sort(lst: list) -> None:
     n = len(lst)
 
-    # create max heap
+    # create max_heap
     # for i in reversed(range(n >> 1)):
     #     heapify(lst, n, i)
     for i in range((n >> 1)-1, -1, -1):
