@@ -1,2 +1,2 @@
 # Algo-N-DS
-Algorithm and DataStructure practice with Java & Python
+Algorithm and DataStructure practice with Java & Python & C
