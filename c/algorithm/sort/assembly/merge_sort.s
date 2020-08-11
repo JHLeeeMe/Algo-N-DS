@@ -1,27 +1,5 @@
 	.file	"merge_sort.c"
 	.text
-	.globl	nArr
-	.data
-	.align 32
-	.type	nArr, @object
-	.size	nArr, 36
-nArr:
-	.long	1
-	.long	5
-	.long	2
-	.long	10
-	.long	32
-	.long	12
-	.long	60
-	.long	87
-	.long	7
-	.globl	nArr_len
-	.align 4
-	.type	nArr_len, @object
-	.size	nArr_len, 4
-nArr_len:
-	.long	9
-	.comm	nTmp,36,32
 	.section	.rodata
 .LC0:
 	.string	"%d "
@@ -29,118 +7,146 @@ nArr_len:
 	.globl	main
 	.type	main, @function
 main:
-.LFB0:
+.LFB5:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movl	$0, -8(%rbp)
+	subq	$80, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movl	$1, -48(%rbp)
+	movl	$99, -44(%rbp)
+	movl	$5, -40(%rbp)
+	movl	$2, -36(%rbp)
+	movl	$10, -32(%rbp)
+	movl	$32, -28(%rbp)
+	movl	$12, -24(%rbp)
+	movl	$60, -20(%rbp)
+	movl	$87, -16(%rbp)
+	movl	$7, -12(%rbp)
+	movl	$10, -60(%rbp)
+	movl	$40, %edi
+	call	malloc@PLT
+	movq	%rax, -56(%rbp)
+	movl	$0, -68(%rbp)
 	jmp	.L2
 .L3:
-	movl	-8(%rbp), %eax
+	movl	-68(%rbp), %eax
 	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	nArr(%rip), %rax
-	movl	(%rdx,%rax), %eax
+	movl	-48(%rbp,%rax,4), %eax
 	movl	%eax, %esi
 	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	addl	$1, -8(%rbp)
+	addl	$1, -68(%rbp)
 .L2:
-	movl	nArr_len(%rip), %eax
-	cmpl	%eax, -8(%rbp)
+	movl	-68(%rbp), %eax
+	cmpl	-60(%rbp), %eax
 	jl	.L3
 	movl	$10, %edi
 	call	putchar@PLT
-	movl	nArr_len(%rip), %eax
-	subl	$1, %eax
-	movl	%eax, %edx
-	movl	$0, %esi
-	leaq	nArr(%rip), %rdi
+	movl	-60(%rbp), %eax
+	leal	-1(%rax), %edx
+	movq	-56(%rbp), %rsi
+	leaq	-48(%rbp), %rax
+	movl	%edx, %ecx
+	movl	$0, %edx
+	movq	%rax, %rdi
 	call	mergeSort
-	movl	$0, -4(%rbp)
+	movl	$0, -64(%rbp)
 	jmp	.L4
 .L5:
-	movl	-4(%rbp), %eax
+	movl	-64(%rbp), %eax
 	cltq
-	leaq	0(,%rax,4), %rdx
-	leaq	nArr(%rip), %rax
-	movl	(%rdx,%rax), %eax
+	movl	-48(%rbp,%rax,4), %eax
 	movl	%eax, %esi
 	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	addl	$1, -4(%rbp)
+	addl	$1, -64(%rbp)
 .L4:
-	movl	nArr_len(%rip), %eax
-	cmpl	%eax, -4(%rbp)
+	movl	-64(%rbp), %eax
+	cmpl	-60(%rbp), %eax
 	jl	.L5
+	movq	-56(%rbp), %rax
+	movq	%rax, %rdi
+	call	free@PLT
 	movl	$0, %eax
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE0:
-	.size	main, .-main
-	.globl	mergeSort
-	.type	mergeSort, @function
-mergeSort:
-.LFB1:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movq	%rdi, -24(%rbp)
-	movl	%esi, -28(%rbp)
-	movl	%edx, -32(%rbp)
-	movl	-28(%rbp), %eax
-	cmpl	-32(%rbp), %eax
-	jge	.L10
-	movl	-28(%rbp), %edx
-	movl	-32(%rbp), %eax
-	addl	%edx, %eax
-	sarl	%eax
-	movl	%eax, -4(%rbp)
-	movl	-4(%rbp), %edx
-	movl	-28(%rbp), %ecx
-	movq	-24(%rbp), %rax
-	movl	%ecx, %esi
-	movq	%rax, %rdi
-	call	mergeSort
-	movl	-4(%rbp), %eax
-	leal	1(%rax), %ecx
-	movl	-32(%rbp), %edx
-	movq	-24(%rbp), %rax
-	movl	%ecx, %esi
-	movq	%rax, %rdi
-	call	mergeSort
-	movl	-32(%rbp), %ecx
-	movl	-4(%rbp), %edx
-	movl	-28(%rbp), %esi
-	movq	-24(%rbp), %rax
-	movq	%rax, %rdi
-	call	merge
-	jmp	.L7
-.L10:
-	nop
+	movq	-8(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L7
+	call	__stack_chk_fail@PLT
 .L7:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1:
+.LFE5:
+	.size	main, .-main
+	.globl	mergeSort
+	.type	mergeSort, @function
+mergeSort:
+.LFB6:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	movq	%rdi, -24(%rbp)
+	movq	%rsi, -32(%rbp)
+	movl	%edx, -36(%rbp)
+	movl	%ecx, -40(%rbp)
+	movl	-36(%rbp), %eax
+	cmpl	-40(%rbp), %eax
+	jge	.L11
+	movl	-36(%rbp), %edx
+	movl	-40(%rbp), %eax
+	addl	%edx, %eax
+	sarl	%eax
+	movl	%eax, -4(%rbp)
+	movl	-4(%rbp), %ecx
+	movl	-36(%rbp), %edx
+	movq	-32(%rbp), %rsi
+	movq	-24(%rbp), %rax
+	movq	%rax, %rdi
+	call	mergeSort
+	movl	-4(%rbp), %eax
+	leal	1(%rax), %edi
+	movl	-40(%rbp), %edx
+	movq	-32(%rbp), %rsi
+	movq	-24(%rbp), %rax
+	movl	%edx, %ecx
+	movl	%edi, %edx
+	movq	%rax, %rdi
+	call	mergeSort
+	movl	-40(%rbp), %edi
+	movl	-4(%rbp), %ecx
+	movl	-36(%rbp), %edx
+	movq	-32(%rbp), %rsi
+	movq	-24(%rbp), %rax
+	movl	%edi, %r8d
+	movq	%rax, %rdi
+	call	merge
+	jmp	.L8
+.L11:
+	nop
+.L8:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE6:
 	.size	mergeSort, .-mergeSort
 	.globl	merge
 	.type	merge, @function
 merge:
-.LFB2:
+.LFB7:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -148,18 +154,19 @@ merge:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	movq	%rdi, -24(%rbp)
-	movl	%esi, -28(%rbp)
-	movl	%edx, -32(%rbp)
-	movl	%ecx, -36(%rbp)
-	movl	-28(%rbp), %eax
+	movq	%rsi, -32(%rbp)
+	movl	%edx, -36(%rbp)
+	movl	%ecx, -40(%rbp)
+	movl	%r8d, -44(%rbp)
+	movl	-36(%rbp), %eax
 	movl	%eax, -16(%rbp)
-	movl	-32(%rbp), %eax
+	movl	-40(%rbp), %eax
 	addl	$1, %eax
 	movl	%eax, -12(%rbp)
-	movl	-28(%rbp), %eax
+	movl	-36(%rbp), %eax
 	movl	%eax, -8(%rbp)
-	jmp	.L12
-.L15:
+	jmp	.L13
+.L16:
 	movl	-16(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
@@ -173,7 +180,7 @@ merge:
 	addq	%rcx, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jg	.L13
+	jg	.L14
 	movl	-16(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	%edx, -16(%rbp)
@@ -184,13 +191,14 @@ merge:
 	movl	-8(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	%edx, -8(%rbp)
-	movl	(%rcx), %edx
 	cltq
-	leaq	0(,%rax,4), %rcx
-	leaq	nTmp(%rip), %rax
-	movl	%edx, (%rcx,%rax)
-	jmp	.L12
-.L13:
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rax, %rdx
+	movl	(%rcx), %eax
+	movl	%eax, (%rdx)
+	jmp	.L13
+.L14:
 	movl	-12(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	%edx, -12(%rbp)
@@ -201,41 +209,43 @@ merge:
 	movl	-8(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	%edx, -8(%rbp)
-	movl	(%rcx), %edx
 	cltq
-	leaq	0(,%rax,4), %rcx
-	leaq	nTmp(%rip), %rax
-	movl	%edx, (%rcx,%rax)
-.L12:
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rax, %rdx
+	movl	(%rcx), %eax
+	movl	%eax, (%rdx)
+.L13:
 	movl	-16(%rbp), %eax
-	cmpl	-32(%rbp), %eax
-	jg	.L16
+	cmpl	-40(%rbp), %eax
+	jg	.L17
 	movl	-12(%rbp), %eax
-	cmpl	-36(%rbp), %eax
-	jle	.L15
-	jmp	.L16
+	cmpl	-44(%rbp), %eax
+	jle	.L16
+	jmp	.L17
+.L18:
+	movl	-16(%rbp), %eax
+	leal	1(%rax), %edx
+	movl	%edx, -16(%rbp)
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	leaq	(%rdx,%rax), %rcx
+	movl	-8(%rbp), %eax
+	leal	1(%rax), %edx
+	movl	%edx, -8(%rbp)
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rax, %rdx
+	movl	(%rcx), %eax
+	movl	%eax, (%rdx)
 .L17:
 	movl	-16(%rbp), %eax
-	leal	1(%rax), %edx
-	movl	%edx, -16(%rbp)
-	cltq
-	leaq	0(,%rax,4), %rdx
-	movq	-24(%rbp), %rax
-	leaq	(%rdx,%rax), %rcx
-	movl	-8(%rbp), %eax
-	leal	1(%rax), %edx
-	movl	%edx, -8(%rbp)
-	movl	(%rcx), %edx
-	cltq
-	leaq	0(,%rax,4), %rcx
-	leaq	nTmp(%rip), %rax
-	movl	%edx, (%rcx,%rax)
-.L16:
-	movl	-16(%rbp), %eax
-	cmpl	-32(%rbp), %eax
-	jle	.L17
-	jmp	.L18
-.L19:
+	cmpl	-40(%rbp), %eax
+	jle	.L18
+	jmp	.L19
+.L20:
 	movl	-12(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	%edx, -12(%rbp)
@@ -246,41 +256,43 @@ merge:
 	movl	-8(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	%edx, -8(%rbp)
-	movl	(%rcx), %edx
 	cltq
-	leaq	0(,%rax,4), %rcx
-	leaq	nTmp(%rip), %rax
-	movl	%edx, (%rcx,%rax)
-.L18:
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	addq	%rax, %rdx
+	movl	(%rcx), %eax
+	movl	%eax, (%rdx)
+.L19:
 	movl	-12(%rbp), %eax
-	cmpl	-36(%rbp), %eax
-	jle	.L19
-	movl	-28(%rbp), %eax
+	cmpl	-44(%rbp), %eax
+	jle	.L20
+	movl	-36(%rbp), %eax
 	movl	%eax, -4(%rbp)
-	jmp	.L20
-.L21:
+	jmp	.L21
+.L22:
 	movl	-4(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
-	movq	-24(%rbp), %rax
-	addq	%rax, %rdx
-	movl	-4(%rbp), %eax
-	cltq
-	leaq	0(,%rax,4), %rcx
-	leaq	nTmp(%rip), %rax
-	movl	(%rcx,%rax), %eax
+	movq	-32(%rbp), %rax
+	addq	%rdx, %rax
+	movl	-4(%rbp), %edx
+	movslq	%edx, %rdx
+	leaq	0(,%rdx,4), %rcx
+	movq	-24(%rbp), %rdx
+	addq	%rcx, %rdx
+	movl	(%rax), %eax
 	movl	%eax, (%rdx)
 	addl	$1, -4(%rbp)
-.L20:
+.L21:
 	movl	-4(%rbp), %eax
-	cmpl	-36(%rbp), %eax
-	jle	.L21
+	cmpl	-44(%rbp), %eax
+	jle	.L22
 	nop
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE2:
+.LFE7:
 	.size	merge, .-merge
 	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 	.section	.note.GNU-stack,"",@progbits
