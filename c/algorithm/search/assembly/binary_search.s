@@ -37,7 +37,8 @@ main:
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	binarySearch
-	testb	%al, %al
+	movb	%al, -53(%rbp)
+	cmpb	$0, -53(%rbp)
 	je	.L2
 	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax

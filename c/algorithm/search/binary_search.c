@@ -13,7 +13,8 @@ int main(void)
     int nArr[] = {1, 3, 5, 6, 10, 11, 14, 15, 50};
     int nArr_len = sizeof(nArr) / sizeof(nArr[0]);
 
-    if (binarySearch(nArr, 0, nArr_len - 1, 50))
+    bool condition = binarySearch(nArr, 0, nArr_len - 1, 50);
+    if (condition)
         printf("found!");
     else
         printf("Not found!");
