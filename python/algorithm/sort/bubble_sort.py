@@ -5,9 +5,15 @@ def bubble_sort(lst: list) -> None:
     n = len(lst)
 
     for i in range(n - 1, 0, -1):
+        condition = True
         for j in range(i):
             if lst[j] > lst[j + 1]:
                 swap(lst, j, j + 1)
+                condition = False
+
+        # for Omega(n)
+        if condition:
+            break
 
 
 def swap(lst: list, a: int, b: int) -> None:
