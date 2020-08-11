@@ -2,7 +2,6 @@
  *
  * O(NlogN), Omega(NlogN)
  */
-
 #include <stdio.h>
 
 int nArr[] = {1, 5, 2, 10, 32, 12, 60, 87, 7};
