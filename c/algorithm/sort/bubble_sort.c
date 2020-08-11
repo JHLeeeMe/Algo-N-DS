@@ -4,36 +4,48 @@
  */
 
 #include <stdio.h>
+#include <stdbool.h>
 
-void bubbleSort(int arr[], int size);
+void bubbleSort(int nArr[], int nArr_len);
+void swap(int nArr[], int i, int j);
 
 int main(void)
 {
-    int arr[] = {5, 7, 1, 3, 2, 10, 9, 45};
-    int arr_length = sizeof(arr) / sizeof(arr[0]);
+    int nArr[] = {5, 7, 1, 3, 2, 10, 9, 45};
+    int nArr_len = sizeof(nArr) / sizeof(nArr[0]);
 
-    bubbleSort(arr, arr_length);
+    bubbleSort(nArr, nArr_len);
 
-    for (int i = 0; i < arr_length; i++) 
+    for (int i = 0; i < nArr_len; i++) 
     {
-        printf("%d ", arr[i]);
+        printf("%d ", nArr[i]);
     }
 
     return 0;
 }
 
-void bubbleSort(int arr[], int size)
+void bubbleSort(int nArr[], int nArr_len)
 {
-    for (int i = size - 1; i > 0; i--)
+    for (int i = nArr_len - 1; i > 0; i--)
     {
+        bool condition = true;
         for (int j = 0; j < i; j++)
         {
-            if (arr[j] > arr[j + 1])
+            if (nArr[j] > nArr[j + 1])
             {
-                int tmp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = tmp;
+                swap(nArr, j, j + 1);
+                condition = false;
             }
         }
+
+        // for Omega(n)
+        if (condition) break;
     }
+}
+
+void swap(int nArr[], int i, int j)
+{
+    int tmp = nArr[i];
+    nArr[i] = nArr[j];
+    nArr[j] = tmp;
 }

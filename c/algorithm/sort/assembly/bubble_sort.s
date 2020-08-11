@@ -69,23 +69,25 @@ bubbleSort:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
+	subq	$32, %rsp
 	movq	%rdi, -24(%rbp)
 	movl	%esi, -28(%rbp)
 	movl	-28(%rbp), %eax
 	subl	$1, %eax
-	movl	%eax, -12(%rbp)
+	movl	%eax, -8(%rbp)
 	jmp	.L7
-.L11:
-	movl	$0, -8(%rbp)
+.L13:
+	movb	$1, -9(%rbp)
+	movl	$0, -4(%rbp)
 	jmp	.L8
 .L10:
-	movl	-8(%rbp), %eax
+	movl	-4(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
 	movl	(%rax), %edx
-	movl	-8(%rbp), %eax
+	movl	-4(%rbp), %eax
 	cltq
 	addq	$1, %rax
 	leaq	0(,%rax,4), %rcx
@@ -94,50 +96,82 @@ bubbleSort:
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
 	jle	.L9
-	movl	-8(%rbp), %eax
+	movl	-4(%rbp), %eax
+	leal	1(%rax), %edx
+	movl	-4(%rbp), %ecx
+	movq	-24(%rbp), %rax
+	movl	%ecx, %esi
+	movq	%rax, %rdi
+	call	swap
+	movb	$0, -9(%rbp)
+.L9:
+	addl	$1, -4(%rbp)
+.L8:
+	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
+	jl	.L10
+	cmpb	$0, -9(%rbp)
+	jne	.L14
+	subl	$1, -8(%rbp)
+.L7:
+	cmpl	$0, -8(%rbp)
+	jg	.L13
+	jmp	.L12
+.L14:
+	nop
+.L12:
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	bubbleSort, .-bubbleSort
+	.globl	swap
+	.type	swap, @function
+swap:
+.LFB2:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movl	%edx, -32(%rbp)
+	movl	-28(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
 	movl	(%rax), %eax
 	movl	%eax, -4(%rbp)
-	movl	-8(%rbp), %eax
+	movl	-32(%rbp), %eax
 	cltq
-	addq	$1, %rax
 	leaq	0(,%rax,4), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
-	movl	-8(%rbp), %edx
+	movl	-28(%rbp), %edx
 	movslq	%edx, %rdx
 	leaq	0(,%rdx,4), %rcx
 	movq	-24(%rbp), %rdx
 	addq	%rcx, %rdx
 	movl	(%rax), %eax
 	movl	%eax, (%rdx)
-	movl	-8(%rbp), %eax
+	movl	-32(%rbp), %eax
 	cltq
-	addq	$1, %rax
 	leaq	0(,%rax,4), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rax, %rdx
 	movl	-4(%rbp), %eax
 	movl	%eax, (%rdx)
-.L9:
-	addl	$1, -8(%rbp)
-.L8:
-	movl	-8(%rbp), %eax
-	cmpl	-12(%rbp), %eax
-	jl	.L10
-	subl	$1, -12(%rbp)
-.L7:
-	cmpl	$0, -12(%rbp)
-	jg	.L11
 	nop
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1:
-	.size	bubbleSort, .-bubbleSort
+.LFE2:
+	.size	swap, .-swap
 	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 	.section	.note.GNU-stack,"",@progbits
