@@ -1,3 +1,8 @@
+/** Selection Sort
+ *
+ * O(n^2), Omega(n^2)
+ */
+
 #include <stdio.h>
 
 void selectionSort(int arr[], int arr_len);

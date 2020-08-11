@@ -1,3 +1,8 @@
+/** Bubble Sort
+ * 
+ * O(n^2), Omega(n^2)
+ */
+
 #include <stdio.h>
 
 void bubbleSort(int arr[], int size);
