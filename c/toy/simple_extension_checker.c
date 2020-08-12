@@ -1,4 +1,4 @@
-/* Simple File Extension Checker
+/** Simple File Extension Checker
  */
 
 #include <stdio.h>
