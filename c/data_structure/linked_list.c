@@ -90,9 +90,9 @@ bool add(linkedList *L, int item)
 //    node *head = NULL;
 //
 //    // add item
-//    add(&head, 1);
-//    add(&head, 2);
-//    add(&head, 3);
+//    add(&head, 1);        // head를 NULL로 초기화 했기 때문에 포인터의 주소를 쏨.
+//    add(&head, 2);        // if malloc() 함수로 초기화를 하면? head->data가 할당된 메모리에 전부 0으로 들어감.
+//    add(&head, 3);        // 그래서 안됨. 출력이 0 1 2 3 4 5 가 됨.
 //    add(&head, 4);
 //    add(&head, 5);
 //
