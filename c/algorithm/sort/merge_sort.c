@@ -14,6 +14,8 @@ int main(void)
     int nArr[] = {1, 99, 5, 2, 10, 32, 12, 60, 87, 7};
     int nArr_len = sizeof(nArr) / sizeof(nArr[0]);
     int *nTmp = malloc(sizeof(nArr));
+    if (nTmp == NULL)
+        return -1;
 
     for (int i = 0; i < nArr_len; i++)
         printf("%d ", nArr[i]);
@@ -27,7 +29,7 @@ int main(void)
     free(nTmp);
 }
 
-void mergeSort(int *nArr, int *nTmp, int nLeft, int nRight)
+void _mergeSort(int *nArr, int *nTmp, int nLeft, int nRight)
 {
     // base case
     if (nLeft >= nRight)
