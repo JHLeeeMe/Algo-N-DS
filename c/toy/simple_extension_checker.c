@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     if (file == NULL)
         return 1;
     
-    // Allocate 3 bytes buffer && Read 3 bytes
+    // Allocate 3 bytes buffer && Read 8 bytes
     unsigned char bytes[8];
     fread(bytes, 8, 1, file);
     
