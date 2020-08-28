@@ -3,11 +3,9 @@
 #include <stdint.h>
 #include <string.h>
 
-bool
-isUniqueStr(char* c_ptr);
+bool isUniqueStr(char* c_ptr);
 
-int
-main(void)
+int main(void)
 {
     char* str1 = "Hello";
     char* str2 = "abcde";
@@ -20,8 +18,7 @@ main(void)
     printf("\n");
 }
 
-bool
-isUniqueStr(char* c_ptr)
+bool isUniqueStr(char* c_ptr)
 {
     char* str = c_ptr;
 
