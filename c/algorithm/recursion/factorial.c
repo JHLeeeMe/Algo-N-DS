@@ -18,12 +18,12 @@ int main(void)
     printf("%d %d %d %d %d", test0, test1, test2, test3, test4);
     printf("\n");
 
-    uint32_t test0_rec = factorial_tailrec(0);
-    uint32_t test1_rec = factorial_tailrec(1);
-    uint32_t test2_rec = factorial_tailrec(2);
-    uint32_t test3_rec = factorial_tailrec(3);
-    uint32_t test4_rec = factorial_tailrec(4);
-    printf("%d %d %d %d %d", test0_rec, test1_rec, test2_rec, test3_rec, test4_rec);
+    uint32_t test0_tailrec = factorial_tailrec(0);
+    uint32_t test1_tailrec = factorial_tailrec(1);
+    uint32_t test2_tailrec = factorial_tailrec(2);
+    uint32_t test3_tailrec = factorial_tailrec(3);
+    uint32_t test4_tailrec = factorial_tailrec(4);
+    printf("%d %d %d %d %d", test0_tailrec, test1_tailrec, test2_tailrec, test3_tailrec, test4_tailrec);
 }
 
 uint32_t factorial(uint32_t n)
