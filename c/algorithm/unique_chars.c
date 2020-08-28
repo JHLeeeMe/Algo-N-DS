@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <string.h>
 
 bool
-isUniqueStr(char *c_ptr);
+isUniqueStr(char* c_ptr);
 
 int
 main(void)
 {
-    char *str1 = "Hello";
-    char *str2 = "abcde";
+    char* str1 = "Hello";
+    char* str2 = "abcde";
 
     printf("Hello => ");
     printf(isUniqueStr(str1) ? "유니크" : "중복");
@@ -20,16 +21,15 @@ main(void)
 }
 
 bool
-isUniqueStr(char *c_ptr)
+isUniqueStr(char* c_ptr)
 {
-    char *
-        str = c_ptr;
+    char* str = c_ptr;
 
-    int bit_bucket = 0;
+    uint32_t bit_bucket = 0;
 
-    for (unsigned int i = 0; i < strlen(str); i++)
+    for (uint8_t i = 0; i < strlen(str); i++)
     {
-        int n = str[i] - 'a';
+        uint32_t n = str[i] - 'a';
         if ((bit_bucket & (1 << n)) > 0)
             return false;
 
