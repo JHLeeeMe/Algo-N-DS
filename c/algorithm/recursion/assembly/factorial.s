@@ -44,19 +44,19 @@ main:
 	movl	$10, %edi
 	call	putchar@PLT
 	movl	$0, %edi
-	call	factorial_rec
+	call	factorial_tailrec
 	movl	%eax, -20(%rbp)
 	movl	$1, %edi
-	call	factorial_rec
+	call	factorial_tailrec
 	movl	%eax, -16(%rbp)
 	movl	$2, %edi
-	call	factorial_rec
+	call	factorial_tailrec
 	movl	%eax, -12(%rbp)
 	movl	$3, %edi
-	call	factorial_rec
+	call	factorial_tailrec
 	movl	%eax, -8(%rbp)
 	movl	$4, %edi
-	call	factorial_rec
+	call	factorial_tailrec
 	movl	%eax, -4(%rbp)
 	movl	-4(%rbp), %edi
 	movl	-8(%rbp), %esi
@@ -108,9 +108,9 @@ factorial:
 	.cfi_endproc
 .LFE1:
 	.size	factorial, .-factorial
-	.globl	factorial_rec
-	.type	factorial_rec, @function
-factorial_rec:
+	.globl	factorial_tailrec
+	.type	factorial_tailrec, @function
+factorial_tailrec:
 .LFB2:
 	.cfi_startproc
 	pushq	%rbp
@@ -123,16 +123,16 @@ factorial_rec:
 	movl	-4(%rbp), %eax
 	movl	$1, %esi
 	movl	%eax, %edi
-	call	__factorial_rec
+	call	__factorial_tailrec
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE2:
-	.size	factorial_rec, .-factorial_rec
-	.globl	__factorial_rec
-	.type	__factorial_rec, @function
-__factorial_rec:
+	.size	factorial_tailrec, .-factorial_tailrec
+	.globl	__factorial_tailrec
+	.type	__factorial_tailrec, @function
+__factorial_tailrec:
 .LFB3:
 	.cfi_startproc
 	pushq	%rbp
@@ -154,13 +154,13 @@ __factorial_rec:
 	subl	$1, %edx
 	movl	%eax, %esi
 	movl	%edx, %edi
-	call	__factorial_rec
+	call	__factorial_tailrec
 .L11:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE3:
-	.size	__factorial_rec, .-__factorial_rec
+	.size	__factorial_tailrec, .-__factorial_tailrec
 	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 	.section	.note.GNU-stack,"",@progbits
