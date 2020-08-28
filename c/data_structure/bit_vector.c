@@ -13,27 +13,27 @@ int main()
 {
     uint32_t test[] = {1, 82, 32, 9, 3, 103};
     uint32_t max_value = max(test, sizeof(test) / sizeof(uint32_t));
-    uint8_t arr[max_value / sizeof(uint8_t)];
+    uint8_t bit_vector[max_value / sizeof(uint8_t)];
 
     //uint8_t arr[10];
-    for (uint32_t i = 0; i < sizeof(uint8_t) * sizeof(arr); i++)
+    for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(uint8_t); i++)
     {
-        set_bit(arr, i);
+        set_bit(bit_vector, i);
     }
 
-    for (uint32_t i = 0; i < sizeof(uint8_t) * sizeof(arr); i++)
+    for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(uint8_t); i++)
     {
-        test_bit(arr, i);
+        test_bit(bit_vector, i);
     }
 
-    for (uint32_t i = 0; i < sizeof(uint8_t) * sizeof(arr); i++)
+    for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(uint8_t); i++)
     {
-        clear_bit(arr, i);
+        clear_bit(bit_vector, i);
     }
 
-    for (uint32_t i = 0; i < sizeof(uint8_t) * sizeof(arr); i++)
+    for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(uint8_t); i++)
     {
-        test_bit(arr, i);
+        test_bit(bit_vector, i);
     }
 }
 
