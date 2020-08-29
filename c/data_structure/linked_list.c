@@ -7,22 +7,22 @@
 
 typedef struct linkedList
 {
-    struct node *head;
+    struct node* head;
 } linkedList;
 
 typedef struct node
 {
     int data;
-    struct node *next;
+    struct node* next;
 } node;
 
 
-bool add(linkedList *L, int item);
+bool add(linkedList* L, int item);
 
 int main(void)
 {
     // init
-    linkedList *L = malloc(sizeof(linkedList));
+    linkedList* L = malloc(sizeof(linkedList));
     L->head = NULL;
 
     // add item
@@ -38,21 +38,21 @@ int main(void)
     add(L, 10);
 
     // traversal
-    for (node *tmp = L->head; tmp != NULL; tmp = tmp->next)
+    for (node* tmp = L->head; tmp != NULL; tmp = tmp->next)
         printf("%i ", tmp->data);
 
     // free
     while (L->head != NULL)
     {
-        node *tmp = L->head->next;
+        node* tmp = L->head->next;
         free(L->head);
         L->head = tmp;
     }
 }
 
-bool add(linkedList *L, int item)
+bool add(linkedList* L, int item)
 {
-    node *newNode = malloc(sizeof(node));
+    node* newNode = malloc(sizeof(node));
     if (newNode == NULL)
         return false;
     newNode->data = item;
@@ -62,7 +62,7 @@ bool add(linkedList *L, int item)
         L->head = newNode;
     else
     {
-        node *tmp = L->head;
+        node* tmp = L->head;
         while (tmp->next != NULL)
             tmp = tmp->next;
         tmp->next = newNode;
@@ -79,15 +79,15 @@ bool add(linkedList *L, int item)
 //typedef struct node
 //{
 //    int data;
-//    struct node *next;
+//    struct node* next;
 //} node;
 //
-//bool add(node **head, int item);
+//bool add(node** head, int item);
 //
 //int main(void)
 //{
 //    // init
-//    node *head = NULL;
+//    node* head = NULL;
 //
 //    // add item
 //    add(&head, 1);        // head를 NULL로 초기화 했기 때문에 포인터의 주소를 쏨.
@@ -97,21 +97,21 @@ bool add(linkedList *L, int item)
 //    add(&head, 5);
 //
 //    // traversal
-//    for (node *tmp = head; tmp != NULL; tmp = tmp->next)
+//    for (node* tmp = head; tmp != NULL; tmp = tmp->next)
 //        printf("%i ", tmp->data);
 //
 //    // free
 //    while (head != NULL)
 //    {
-//        node *tmp = head->next;
+//        node* tmp = head->next;
 //        free(head);
 //        head = tmp;
 //    }
 //}
 //
-//bool add(node **head, int item)
+//bool add(node** head, int item)
 //{
-//    node *newNode = malloc(sizeof(node));
+//    node* newNode = malloc(sizeof(node));
 //    if (newNode == NULL)
 //        return false;
 //    newNode->data = item;
@@ -121,7 +121,7 @@ bool add(linkedList *L, int item)
 //        *head = newNode;
 //    else
 //    {
-//        node *tmp = *head;
+//        node* tmp = *head;
 //        while (tmp->next != NULL)
 //            tmp = tmp->next;
 //        tmp->next = newNode;
