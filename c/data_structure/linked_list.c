@@ -1,8 +1,7 @@
 /** Linked List
  *
- * bool     add(linkedList* L, int32_t item)
- * int32_t  remove()
- * 
+ * bool add(linkedList* L, int32_t item)
+ * bool removeByItem(linkedList* L, int32_t item)
  */
 
 #include <stdio.h>
