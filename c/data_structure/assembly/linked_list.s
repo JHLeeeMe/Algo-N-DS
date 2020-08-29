@@ -18,6 +18,11 @@ main:
 	movl	$8, %edi
 	call	malloc@PLT
 	movq	%rax, -16(%rbp)
+	cmpq	$0, -16(%rbp)
+	jne	.L2
+	movl	$-1, %eax
+	jmp	.L3
+.L2:
 	movq	-16(%rbp), %rax
 	movq	$0, (%rax)
 	movq	-16(%rbp), %rax
@@ -63,8 +68,8 @@ main:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -32(%rbp)
-	jmp	.L2
-.L3:
+	jmp	.L4
+.L5:
 	movq	-32(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %esi
@@ -74,9 +79,9 @@ main:
 	movq	-32(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, -32(%rbp)
-.L2:
+.L4:
 	cmpq	$0, -32(%rbp)
-	jne	.L3
+	jne	.L5
 	movl	$10, %edi
 	call	putchar@PLT
 	movq	-16(%rbp), %rax
@@ -86,8 +91,8 @@ main:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L4
-.L5:
+	jmp	.L6
+.L7:
 	movq	-24(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %esi
@@ -97,13 +102,13 @@ main:
 	movq	-24(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, -24(%rbp)
-.L4:
+.L6:
 	cmpq	$0, -24(%rbp)
-	jne	.L5
+	jne	.L7
 	movl	$10, %edi
 	call	putchar@PLT
-	jmp	.L6
-.L7:
+	jmp	.L8
+.L9:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	movq	8(%rax), %rax
@@ -115,12 +120,13 @@ main:
 	movq	-16(%rbp), %rax
 	movq	-8(%rbp), %rdx
 	movq	%rdx, (%rax)
-.L6:
+.L8:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L7
+	jne	.L9
 	movl	$0, %eax
+.L3:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -144,10 +150,10 @@ add:
 	call	malloc@PLT
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	.L10
+	jne	.L11
 	movl	$0, %eax
-	jmp	.L11
-.L10:
+	jmp	.L12
+.L11:
 	movq	-8(%rbp), %rax
 	movl	-28(%rbp), %edx
 	movl	%edx, (%rax)
@@ -156,31 +162,31 @@ add:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L12
+	jne	.L13
 	movq	-24(%rbp), %rax
 	movq	-8(%rbp), %rdx
 	movq	%rdx, (%rax)
-	jmp	.L13
-.L12:
+	jmp	.L14
+.L13:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
-	jmp	.L14
-.L15:
+	jmp	.L15
+.L16:
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, -16(%rbp)
-.L14:
+.L15:
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rax
 	testq	%rax, %rax
-	jne	.L15
+	jne	.L16
 	movq	-16(%rbp), %rax
 	movq	-8(%rbp), %rdx
 	movq	%rdx, 8(%rax)
-.L13:
+.L14:
 	movl	$1, %eax
-.L11:
+.L12:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -207,47 +213,47 @@ removeByItem:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L17
+	jne	.L18
 	movl	$0, %eax
-	jmp	.L18
-.L17:
+	jmp	.L19
+.L18:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movl	(%rax), %eax
 	cmpl	%eax, -28(%rbp)
-	jne	.L19
+	jne	.L20
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movq	8(%rax), %rdx
 	movq	-24(%rbp), %rax
 	movq	%rdx, (%rax)
-	jmp	.L20
-.L19:
+	jmp	.L21
+.L20:
 	movq	$0, -16(%rbp)
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -8(%rbp)
-	jmp	.L21
-.L23:
+	jmp	.L22
+.L24:
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	testq	%rax, %rax
-	jne	.L22
+	jne	.L23
 	leaq	.LC1(%rip), %rdi
 	call	puts@PLT
 	movl	$0, %eax
-	jmp	.L18
-.L22:
+	jmp	.L19
+.L23:
 	movq	-8(%rbp), %rax
 	movq	%rax, -16(%rbp)
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, -8(%rbp)
-.L21:
+.L22:
 	movq	-8(%rbp), %rax
 	movl	(%rax), %eax
 	cmpl	%eax, -28(%rbp)
-	jne	.L23
+	jne	.L24
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rdx
 	movq	-16(%rbp), %rax
@@ -255,9 +261,9 @@ removeByItem:
 	movq	-8(%rbp), %rax
 	movq	%rax, %rdi
 	call	free@PLT
-.L20:
+.L21:
 	movl	$1, %eax
-.L18:
+.L19:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
