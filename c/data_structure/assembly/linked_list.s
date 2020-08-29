@@ -62,9 +62,32 @@ main:
 	call	add
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
-	movq	%rax, -24(%rbp)
+	movq	%rax, -32(%rbp)
 	jmp	.L2
 .L3:
+	movq	-32(%rbp), %rax
+	movl	(%rax), %eax
+	movl	%eax, %esi
+	leaq	.LC0(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-32(%rbp), %rax
+	movq	8(%rax), %rax
+	movq	%rax, -32(%rbp)
+.L2:
+	cmpq	$0, -32(%rbp)
+	jne	.L3
+	movl	$10, %edi
+	call	putchar@PLT
+	movq	-16(%rbp), %rax
+	movl	$4, %esi
+	movq	%rax, %rdi
+	call	removeByItem
+	movq	-16(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -24(%rbp)
+	jmp	.L4
+.L5:
 	movq	-24(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %esi
@@ -74,11 +97,13 @@ main:
 	movq	-24(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, -24(%rbp)
-.L2:
+.L4:
 	cmpq	$0, -24(%rbp)
-	jne	.L3
-	jmp	.L4
-.L5:
+	jne	.L5
+	movl	$10, %edi
+	call	putchar@PLT
+	jmp	.L6
+.L7:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	movq	8(%rax), %rax
@@ -90,11 +115,11 @@ main:
 	movq	-16(%rbp), %rax
 	movq	-8(%rbp), %rdx
 	movq	%rdx, (%rax)
-.L4:
+.L6:
 	movq	-16(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L5
+	jne	.L7
 	movl	$0, %eax
 	leave
 	.cfi_def_cfa 7, 8
@@ -119,10 +144,10 @@ add:
 	call	malloc@PLT
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	.L8
+	jne	.L10
 	movl	$0, %eax
-	jmp	.L9
-.L8:
+	jmp	.L11
+.L10:
 	movq	-8(%rbp), %rax
 	movl	-28(%rbp), %edx
 	movl	%edx, (%rax)
@@ -131,36 +156,113 @@ add:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L10
+	jne	.L12
 	movq	-24(%rbp), %rax
 	movq	-8(%rbp), %rdx
 	movq	%rdx, (%rax)
-	jmp	.L11
-.L10:
+	jmp	.L13
+.L12:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -16(%rbp)
-	jmp	.L12
-.L13:
+	jmp	.L14
+.L15:
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, -16(%rbp)
-.L12:
+.L14:
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rax
 	testq	%rax, %rax
-	jne	.L13
+	jne	.L15
 	movq	-16(%rbp), %rax
 	movq	-8(%rbp), %rdx
 	movq	%rdx, 8(%rax)
-.L11:
+.L13:
 	movl	$1, %eax
-.L9:
+.L11:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE6:
 	.size	add, .-add
+	.section	.rodata
+.LC1:
+	.string	"item is not exists."
+	.text
+	.globl	removeByItem
+	.type	removeByItem, @function
+removeByItem:
+.LFB7:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
+	testq	%rax, %rax
+	jne	.L17
+	movl	$0, %eax
+	jmp	.L18
+.L17:
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
+	movl	(%rax), %eax
+	cmpl	%eax, -28(%rbp)
+	jne	.L19
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
+	movq	8(%rax), %rdx
+	movq	-24(%rbp), %rax
+	movq	%rdx, (%rax)
+	jmp	.L20
+.L19:
+	movq	$0, -16(%rbp)
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -8(%rbp)
+	jmp	.L21
+.L23:
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	testq	%rax, %rax
+	jne	.L22
+	leaq	.LC1(%rip), %rdi
+	call	puts@PLT
+	movl	$0, %eax
+	jmp	.L18
+.L22:
+	movq	-8(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	movq	%rax, -8(%rbp)
+.L21:
+	movq	-8(%rbp), %rax
+	movl	(%rax), %eax
+	cmpl	%eax, -28(%rbp)
+	jne	.L23
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rdx
+	movq	-16(%rbp), %rax
+	movq	%rdx, 8(%rax)
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	free@PLT
+.L20:
+	movl	$1, %eax
+.L18:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE7:
+	.size	removeByItem, .-removeByItem
 	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 	.section	.note.GNU-stack,"",@progbits

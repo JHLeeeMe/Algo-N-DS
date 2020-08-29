@@ -1,9 +1,14 @@
 /** Linked List
+ *
+ * bool     add(linkedList* L, int32_t item)
+ * int32_t  remove()
+ * 
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 typedef struct linkedList
 {
@@ -12,17 +17,17 @@ typedef struct linkedList
 
 typedef struct node
 {
-    int data;
+    int32_t data;
     struct node* next;
 } node;
 
+bool add(linkedList* L, int32_t item);
+bool removeByItem(linkedList* L, int32_t item);
 
-bool add(linkedList* L, int item);
-
-int main(void)
+int32_t main(void)
 {
     // init
-    linkedList* L = malloc(sizeof(linkedList));
+    linkedList* L = (linkedList*)malloc(sizeof(linkedList));
     L->head = NULL;
 
     // add item
@@ -40,6 +45,12 @@ int main(void)
     // traversal
     for (node* tmp = L->head; tmp != NULL; tmp = tmp->next)
         printf("%i ", tmp->data);
+    printf("\n");
+
+    removeByItem(L, 4);
+    for (node* tmp = L->head; tmp != NULL; tmp = tmp->next)
+        printf("%i ", tmp->data);
+    printf("\n");
 
     // free
     while (L->head != NULL)
@@ -50,11 +61,11 @@ int main(void)
     }
 }
 
-bool add(linkedList* L, int item)
+bool add(linkedList* L, int32_t item)
 {
-    node* newNode = malloc(sizeof(node));
-    if (newNode == NULL)
-        return false;
+    node* newNode = (node*)malloc(sizeof(node));
+    if (newNode == NULL) return false;
+
     newNode->data = item;
     newNode->next = NULL;
 
@@ -65,8 +76,39 @@ bool add(linkedList* L, int item)
         node* tmp = L->head;
         while (tmp->next != NULL)
             tmp = tmp->next;
+
         tmp->next = newNode;
-        //free(tmp);
+    }
+    
+    return true;
+}
+
+bool removeByItem(linkedList* L, int32_t item)
+{
+    if (L->head == NULL)
+        return false;
+
+    if (L->head->data == item)
+        L->head = L->head->next;
+    else
+    {
+        node* before = NULL;
+        node* curr = L->head;
+
+        while (curr->data != item)
+        {
+            if (curr->next == NULL)
+            {
+                printf("item is not exists.\n");
+                return false;
+            }
+
+            before = curr;
+            curr = curr->next;
+        }
+        
+        before->next = curr->next;
+        free(curr);
     }
     
     return true;
@@ -78,13 +120,13 @@ bool add(linkedList* L, int item)
 //
 //typedef struct node
 //{
-//    int data;
+//    int32_t data;
 //    struct node* next;
 //} node;
 //
-//bool add(node** head, int item);
+//bool add(node** head, int32_t item);
 //
-//int main(void)
+//int32_t main(void)
 //{
 //    // init
 //    node* head = NULL;
@@ -109,11 +151,11 @@ bool add(linkedList* L, int item)
 //    }
 //}
 //
-//bool add(node** head, int item)
+//bool add(node** head, int32_t item)
 //{
-//    node* newNode = malloc(sizeof(node));
-//    if (newNode == NULL)
-//        return false;
+//    node* newNode = (node*)malloc(sizeof(node));
+//    if (newNode == NULL) return false;
+//
 //    newNode->data = item;
 //    newNode->next = NULL;
 //
