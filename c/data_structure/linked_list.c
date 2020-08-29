@@ -27,6 +27,7 @@ int32_t main(void)
 {
     // init
     linkedList* L = (linkedList*)malloc(sizeof(linkedList));
+    if (L == NULL) return -1;
     L->head = NULL;
 
     // add item
