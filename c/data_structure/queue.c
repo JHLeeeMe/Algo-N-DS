@@ -1,4 +1,12 @@
 /** Queue
+ * 
+ * bool is_empty(Queue* Q);
+ * void clear(Queue* Q);
+ * bool enqueue(Queue* Q, int32_t item);
+ * int32_t dequeue(Queue* Q);
+ * int32_t peek(Queue* Q);
+ * uint32_t get_size(Queue* Q);
+ * void print_queue(Queue* Q);
  */
 
 #include <stdio.h>
