@@ -1,7 +1,7 @@
 /** Linked List
  *
- * bool add(linkedList* L, int32_t item)
- * bool removeByItem(linkedList* L, int32_t item)
+ * bool add(LinkedList* L, int32_t item)
+ * bool remove_by_item(LinkedList* L, int32_t item)
  */
 
 #include <stdio.h>
@@ -9,26 +9,27 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct linkedList
-{
-    struct node* head;
-} linkedList;
+typedef struct LinkedList {
+    struct Node* head;
+} LinkedList;
 
-typedef struct node
-{
+typedef struct Node {
     int32_t data;
-    struct node* next;
-} node;
+    struct Node* next;
+} Node;
 
-bool add(linkedList* L, int32_t item);
-bool removeByItem(linkedList* L, int32_t item);
+bool add(LinkedList* L, int32_t item);
+bool remove_by_item(LinkedList* L, int32_t item);
 
 int32_t main(void)
 {
     // init
-    linkedList* L = (linkedList*)malloc(sizeof(linkedList));
-    if (L == NULL) return -1;
-    L->head = NULL;
+    LinkedList* L = (LinkedList*)malloc(sizeof(LinkedList));
+    if (L == NULL) {
+        return -1;
+    } else {
+        L->head = NULL;
+    }
 
     // add item
     add(L, 1);
@@ -43,37 +44,45 @@ int32_t main(void)
     add(L, 10);
 
     // traversal
-    for (node* tmp = L->head; tmp != NULL; tmp = tmp->next)
+    for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next) {
         printf("%i ", tmp->data);
+    }
     printf("\n");
 
-    removeByItem(L, 4);
-    for (node* tmp = L->head; tmp != NULL; tmp = tmp->next)
+    remove_by_item(L, 4);
+    for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next) {
         printf("%i ", tmp->data);
+    }
     printf("\n");
 
     // free
-    while (L->head != NULL)
-    {
-        node* tmp = L->head->next;
+    while (L->head != NULL) {
+        Node* tmp = L->head->next;
         free(L->head);
         L->head = tmp;
     }
 }
 
-bool add(linkedList* L, int32_t item)
+/*
+ * Function: add
+ * -------------
+ * Add item into LinkedList
+ *
+ *  params: LinkedList* L, int32_t item
+ *  returns: bool
+ */
+bool add(LinkedList* L, int32_t item)
 {
-    node* newNode = (node*)malloc(sizeof(node));
+    Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL) return false;
 
     newNode->data = item;
     newNode->next = NULL;
 
-    if (L->head == NULL)
+    if (L->head == NULL) {
         L->head = newNode;
-    else
-    {
-        node* tmp = L->head;
+    } else {
+        Node* tmp = L->head;
         while (tmp->next != NULL)
             tmp = tmp->next;
 
@@ -83,30 +92,34 @@ bool add(linkedList* L, int32_t item)
     return true;
 }
 
-bool removeByItem(linkedList* L, int32_t item)
+/*
+ * Function: remove_by_item
+ * -------------
+ * Remove item in LinkedList
+ *
+ *  params: LinkedList* L, int32_t item
+ *  returns: bool
+ */
+bool remove_by_item(LinkedList* L, int32_t item)
 {
-    if (L->head == NULL)
+    if (L->head == NULL) {
         return false;
+    }
 
-    if (L->head->data == item)
+    if (L->head->data == item) {
         L->head = L->head->next;
-    else
-    {
-        node* before = NULL;
-        node* curr = L->head;
+    } else {
+        Node* before = NULL;
+        Node* curr = L->head;
 
-        while (curr->data != item)
-        {
-            if (curr->next == NULL)
-            {
+        while (curr->data != item) {
+            if (curr->next == NULL) {
                 printf("item is not exists.\n");
                 return false;
             }
-
             before = curr;
             curr = curr->next;
         }
-        
         before->next = curr->next;
         free(curr);
     }
@@ -118,18 +131,18 @@ bool removeByItem(linkedList* L, int32_t item)
 //#include <stdlib.h>
 //#include <stdbool.h>
 //
-//typedef struct node
+//typedef struct Node
 //{
 //    int32_t data;
-//    struct node* next;
-//} node;
+//    struct Node* next;
+//} Node;
 //
-//bool add(node** head, int32_t item);
+//bool add(Node** head, int32_t item);
 //
 //int32_t main(void)
 //{
 //    // init
-//    node* head = NULL;
+//    Node* head = NULL;
 //
 //    // add item
 //    add(&head, 1);        // head를 NULL로 초기화 했기 때문에 포인터의 주소를 쏨.
@@ -139,21 +152,21 @@ bool removeByItem(linkedList* L, int32_t item)
 //    add(&head, 5);
 //
 //    // traversal
-//    for (node* tmp = head; tmp != NULL; tmp = tmp->next)
+//    for (Node* tmp = head; tmp != NULL; tmp = tmp->next)
 //        printf("%i ", tmp->data);
 //
 //    // free
 //    while (head != NULL)
 //    {
-//        node* tmp = head->next;
+//        Node* tmp = head->next;
 //        free(head);
 //        head = tmp;
 //    }
 //}
 //
-//bool add(node** head, int32_t item)
+//bool add(Node** head, int32_t item)
 //{
-//    node* newNode = (node*)malloc(sizeof(node));
+//    Node* newNode = (Node*)malloc(sizeof(Node));
 //    if (newNode == NULL) return false;
 //
 //    newNode->data = item;
@@ -163,7 +176,7 @@ bool removeByItem(linkedList* L, int32_t item)
 //        *head = newNode;
 //    else
 //    {
-//        node* tmp = *head;
+//        Node* tmp = *head;
 //        while (tmp->next != NULL)
 //            tmp = tmp->next;
 //        tmp->next = newNode;
