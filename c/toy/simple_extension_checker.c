@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
         return 1;
 
     // Open img file
-    FILE *file = fopen(argv[1], "r");
+    FILE* file = fopen(argv[1], "r");
     if (file == NULL)
         return 1;
     
