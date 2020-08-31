@@ -29,7 +29,7 @@ public class MyQueue<T> implements InnerMyQueue<T> {
 
     @Override
     public void clear() {
-        front = rear= null;
+        front = rear = null;
         size = 0;
     }
 
