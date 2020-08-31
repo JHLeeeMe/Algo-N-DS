@@ -1,5 +1,19 @@
 	.file	"bit_vector.c"
 	.text
+	.section	.rodata
+.LC0:
+	.string	"###################"
+.LC1:
+	.string	"# Init bit_vector #"
+.LC2:
+	.string	"##################"
+.LC3:
+	.string	"# Set bit_vector #"
+.LC4:
+	.string	"####################"
+.LC5:
+	.string	"# Clear bit_vector #"
+	.text
 	.globl	main
 	.type	main, @function
 main:
@@ -14,7 +28,7 @@ main:
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	subq	$96, %rsp
+	subq	$112, %rsp
 	.cfi_offset 14, -24
 	.cfi_offset 13, -32
 	.cfi_offset 12, -40
@@ -24,23 +38,26 @@ main:
 	xorl	%eax, %eax
 	movq	%rsp, %rax
 	movq	%rax, %r12
-	movl	$1, -64(%rbp)
-	movl	$82, -60(%rbp)
-	movl	$32, -56(%rbp)
-	movl	$9, -52(%rbp)
-	movl	$3, -48(%rbp)
-	movl	$103, -44(%rbp)
-	leaq	-64(%rbp), %rax
-	movl	$6, %esi
+	movl	$1, -80(%rbp)
+	movl	$20, -76(%rbp)
+	movl	$32, -72(%rbp)
+	movl	$9, -68(%rbp)
+	movl	$3, -64(%rbp)
+	movl	$10, -60(%rbp)
+	movl	$7, -56(%rbp)
+	movl	$19, -52(%rbp)
+	movl	$16, -48(%rbp)
+	leaq	-80(%rbp), %rax
+	movl	$9, %esi
 	movq	%rax, %rdi
 	call	max
-	movl	%eax, -84(%rbp)
-	movl	-84(%rbp), %ebx
+	movl	%eax, -100(%rbp)
+	movl	-100(%rbp), %ebx
 	movq	%rbx, %rax
 	subq	$1, %rax
-	movq	%rax, -80(%rbp)
-	movq	%rbx, -128(%rbp)
-	movq	$0, -120(%rbp)
+	movq	%rax, -96(%rbp)
+	movq	%rbx, -144(%rbp)
+	movq	$0, -136(%rbp)
 	movq	%rbx, %r13
 	movl	$0, %r14d
 	movl	$16, %eax
@@ -53,59 +70,94 @@ main:
 	subq	%rax, %rsp
 	movq	%rsp, %rax
 	addq	$0, %rax
-	movq	%rax, -72(%rbp)
-	movl	$0, -92(%rbp)
+	movq	%rax, -88(%rbp)
+	movl	-100(%rbp), %edx
+	movq	-88(%rbp), %rax
+	movl	$0, %esi
+	movq	%rax, %rdi
+	call	memset@PLT
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	leaq	.LC1(%rip), %rdi
+	call	puts@PLT
+	leaq	.LC0(%rip), %rdi
+	call	puts@PLT
+	movl	$0, -108(%rbp)
 	jmp	.L2
 .L3:
-	movq	-72(%rbp), %rax
-	movl	-92(%rbp), %edx
+	movq	-88(%rbp), %rax
+	movl	-108(%rbp), %edx
+	movl	%edx, %esi
+	movq	%rax, %rdi
+	call	test_bit
+	addl	$1, -108(%rbp)
+.L2:
+	movl	-108(%rbp), %edx
+	leaq	1(%rbx), %rax
+	cmpq	%rax, %rdx
+	jb	.L3
+	movl	$10, %edi
+	call	putchar@PLT
+	leaq	.LC2(%rip), %rdi
+	call	puts@PLT
+	leaq	.LC3(%rip), %rdi
+	call	puts@PLT
+	leaq	.LC2(%rip), %rdi
+	call	puts@PLT
+	movl	$0, -112(%rbp)
+	jmp	.L4
+.L5:
+	movl	-112(%rbp), %eax
+	movl	-80(%rbp,%rax,4), %edx
+	movq	-88(%rbp), %rax
 	movl	%edx, %esi
 	movq	%rax, %rdi
 	call	set_bit
-	addl	$1, -92(%rbp)
-.L2:
-	movl	-92(%rbp), %eax
-	cmpq	%rax, %rbx
-	ja	.L3
-	movl	$0, -96(%rbp)
-	jmp	.L4
-.L5:
-	movq	-72(%rbp), %rax
-	movl	-96(%rbp), %edx
+	addl	$1, -112(%rbp)
+.L4:
+	cmpl	$8, -112(%rbp)
+	jbe	.L5
+	movl	$0, -116(%rbp)
+	jmp	.L6
+.L7:
+	movq	-88(%rbp), %rax
+	movl	-116(%rbp), %edx
 	movl	%edx, %esi
 	movq	%rax, %rdi
 	call	test_bit
-	addl	$1, -96(%rbp)
-.L4:
-	movl	-96(%rbp), %eax
-	cmpq	%rax, %rbx
-	ja	.L5
-	movl	$0, -100(%rbp)
-	jmp	.L6
-.L7:
-	movq	-72(%rbp), %rax
+	addl	$1, -116(%rbp)
+.L6:
+	movl	-116(%rbp), %edx
+	leaq	1(%rbx), %rax
+	cmpq	%rax, %rdx
+	jb	.L7
+	movl	$10, %edi
+	call	putchar@PLT
+	leaq	.LC4(%rip), %rdi
+	call	puts@PLT
+	leaq	.LC5(%rip), %rdi
+	call	puts@PLT
+	leaq	.LC4(%rip), %rdi
+	call	puts@PLT
+	movq	-88(%rbp), %rax
 	movl	-100(%rbp), %edx
 	movl	%edx, %esi
 	movq	%rax, %rdi
-	call	clear_bit
-	addl	$1, -100(%rbp)
-.L6:
-	movl	-100(%rbp), %eax
-	cmpq	%rax, %rbx
-	ja	.L7
-	movl	$0, -88(%rbp)
+	call	clear_bit_all
+	movl	$0, -104(%rbp)
 	jmp	.L8
 .L9:
-	movq	-72(%rbp), %rax
-	movl	-88(%rbp), %edx
+	movq	-88(%rbp), %rax
+	movl	-104(%rbp), %edx
 	movl	%edx, %esi
 	movq	%rax, %rdi
 	call	test_bit
-	addl	$1, -88(%rbp)
+	addl	$1, -104(%rbp)
 .L8:
-	movl	-88(%rbp), %eax
-	cmpq	%rax, %rbx
-	ja	.L9
+	movl	-104(%rbp), %edx
+	leaq	1(%rbx), %rax
+	cmpq	%rax, %rdx
+	jb	.L9
 	movq	%r12, %rsp
 	movl	$0, %eax
 	movq	-40(%rbp), %rcx
@@ -141,18 +193,19 @@ set_bit:
 	movl	%eax, %ecx
 	movq	-8(%rbp), %rdx
 	addq	%rcx, %rdx
-	movzbl	(%rdx), %edx
-	movl	%edx, %edi
+	movzbl	(%rdx), %esi
 	movl	-12(%rbp), %edx
 	andl	$7, %edx
-	movl	$1, %esi
+	movl	$1, %edi
 	movl	%edx, %ecx
-	sall	%cl, %esi
-	movl	%esi, %edx
-	orl	%edi, %edx
-	movl	%eax, %ecx
+	sall	%cl, %edi
+	movl	%edi, %edx
+	movl	%edx, %ecx
+	movl	%eax, %edx
 	movq	-8(%rbp), %rax
-	addq	%rcx, %rax
+	addq	%rdx, %rax
+	orl	%ecx, %esi
+	movl	%esi, %edx
 	movb	%dl, (%rax)
 	nop
 	popq	%rbp
@@ -179,18 +232,16 @@ clear_bit:
 	movq	-8(%rbp), %rdx
 	addq	%rcx, %rdx
 	movzbl	(%rdx), %edx
-	movl	%edx, %esi
-	movl	-12(%rbp), %edx
-	andl	$7, %edx
-	movl	$1, %edi
-	movl	%edx, %ecx
-	sall	%cl, %edi
-	movl	%edi, %edx
-	notl	%edx
-	andl	%esi, %edx
-	movl	%eax, %ecx
+	movl	-12(%rbp), %ecx
+	andl	$7, %ecx
+	movl	$1, %esi
+	sall	%cl, %esi
+	movl	%esi, %ecx
+	notl	%ecx
+	movl	%eax, %esi
 	movq	-8(%rbp), %rax
-	addq	%rcx, %rax
+	addq	%rsi, %rax
+	andl	%ecx, %edx
 	movb	%dl, (%rax)
 	nop
 	popq	%rbp
@@ -199,15 +250,9 @@ clear_bit:
 	.cfi_endproc
 .LFE2:
 	.size	clear_bit, .-clear_bit
-	.section	.rodata
-.LC0:
-	.string	"%d-th bit is 1\n"
-.LC1:
-	.string	"%d-th bit is 0\n"
-	.text
-	.globl	test_bit
-	.type	test_bit, @function
-test_bit:
+	.globl	clear_bit_all
+	.type	clear_bit_all, @function
+clear_bit_all:
 .LFB3:
 	.cfi_startproc
 	pushq	%rbp
@@ -218,41 +263,18 @@ test_bit:
 	subq	$16, %rsp
 	movq	%rdi, -8(%rbp)
 	movl	%esi, -12(%rbp)
-	movl	-12(%rbp), %eax
-	shrl	$3, %eax
-	movl	%eax, %edx
+	movl	-12(%rbp), %edx
 	movq	-8(%rbp), %rax
-	addq	%rdx, %rax
-	movzbl	(%rax), %eax
-	movzbl	%al, %edx
-	movl	-12(%rbp), %eax
-	andl	$7, %eax
-	movl	%eax, %ecx
-	sarl	%cl, %edx
-	movl	%edx, %eax
-	andl	$1, %eax
-	testl	%eax, %eax
-	je	.L15
-	movl	-12(%rbp), %eax
-	movl	%eax, %esi
-	leaq	.LC0(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-	jmp	.L17
-.L15:
-	movl	-12(%rbp), %eax
-	movl	%eax, %esi
-	leaq	.LC1(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-.L17:
+	movl	$0, %esi
+	movq	%rax, %rdi
+	call	memset@PLT
 	nop
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE3:
-	.size	test_bit, .-test_bit
+	.size	clear_bit_all, .-clear_bit_all
 	.globl	max
 	.type	max, @function
 max:
@@ -269,27 +291,27 @@ max:
 	movl	(%rax), %eax
 	movl	%eax, -8(%rbp)
 	movl	$0, -4(%rbp)
-	jmp	.L19
-.L21:
+	jmp	.L16
+.L18:
 	movl	-4(%rbp), %eax
 	leaq	0(,%rax,4), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, -8(%rbp)
-	jnb	.L20
+	jnb	.L17
 	movl	-4(%rbp), %eax
 	leaq	0(,%rax,4), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
 	movl	(%rax), %eax
 	movl	%eax, -8(%rbp)
-.L20:
+.L17:
 	addl	$1, -4(%rbp)
-.L19:
+.L16:
 	movl	-4(%rbp), %eax
 	cmpl	-28(%rbp), %eax
-	jb	.L21
+	jb	.L18
 	movl	-8(%rbp), %eax
 	popq	%rbp
 	.cfi_def_cfa 7, 8
@@ -297,5 +319,59 @@ max:
 	.cfi_endproc
 .LFE4:
 	.size	max, .-max
+	.section	.rodata
+.LC6:
+	.string	"%d-th bit is 1\n"
+.LC7:
+	.string	"%d-th bit is 0\n"
+	.text
+	.globl	test_bit
+	.type	test_bit, @function
+test_bit:
+.LFB5:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movl	%esi, -12(%rbp)
+	movl	-12(%rbp), %eax
+	shrl	$3, %eax
+	movl	%eax, %edx
+	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	movsbl	%al, %edx
+	movl	-12(%rbp), %eax
+	andl	$7, %eax
+	movl	%eax, %ecx
+	sarl	%cl, %edx
+	movl	%edx, %eax
+	andl	$1, %eax
+	testl	%eax, %eax
+	je	.L21
+	movl	-12(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC6(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	jmp	.L23
+.L21:
+	movl	-12(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC7(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+.L23:
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE5:
+	.size	test_bit, .-test_bit
 	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 	.section	.note.GNU-stack,"",@progbits
