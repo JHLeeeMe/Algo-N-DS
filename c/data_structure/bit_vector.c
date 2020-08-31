@@ -1,4 +1,10 @@
 /** Bit Vector
+ *
+ * void set_bit(char* bit_vector, uint32_t k);
+ * void clear_bit(char* bit_vector, uint32_t k);
+ * void clear_bit_all(char* bit_vector, uint32_t max_value);
+ * uint32_t max(uint32_t* arr, uint32_t size);
+ * void test_bit(char* bit_vector, uint32_t k);
  */
 
 #include <stdio.h>
@@ -49,16 +55,40 @@ int main()
         test_bit(bit_vector, i);
 }
 
+/*
+ * Function: set_bit
+ * ------------------
+ * Set kth-bit (0 -> 1)
+ *
+ *  params: char* bit_vector, uint32_t k
+ *  returns: void
+ */
 void set_bit(char* bit_vector, uint32_t k)
 {
     bit_vector[k / 8] |= 1 << (k % 8);
 }
 
+/*
+ * Function: clear_bit
+ * ------------------
+ * Clear kth-bit (1 -> 0)
+ *
+ *  params: char* bit_vector, uint32_t k
+ *  returns: void
+ */
 void clear_bit(char* bit_vector, uint32_t k)
 {
     bit_vector[k / 8] &= ~(1 << (k % 8));
 }
 
+/*
+ * Function: clear_bit_all
+ * ------------------
+ * Clear all bit_vector (1 -> 0)
+ *
+ *  params: char* bit_vector, uint32_t max_value
+ *  returns: void
+ */
 void clear_bit_all(char* bit_vector, uint32_t max_value)
 {
     //for (int32_t i = max_value / 8; i >= 0; i--)
@@ -66,6 +96,14 @@ void clear_bit_all(char* bit_vector, uint32_t max_value)
     memset(bit_vector, 0, max_value / sizeof(char));
 }
 
+/*
+ * Function: max
+ * ------------------
+ * Return max value in array
+ *
+ *  params: char* bit_vector, uint32_t k
+ *  returns: uint32_t
+ */
 uint32_t max(uint32_t* arr, uint32_t size)
 {
     uint32_t max_value = arr[0];
@@ -76,7 +114,14 @@ uint32_t max(uint32_t* arr, uint32_t size)
     return max_value;
 }
 
-// test
+/*
+ * Function: test_bit
+ * ------------------
+ * Print bit_vector elements
+ *
+ *  params: char* bit_vector, uint32_t k
+ *  returns: void
+ */
 void test_bit(char* bit_vector, uint32_t k)
 {
     if ((bit_vector[k / 8] & (1 << (k % 8))) != 0) {
