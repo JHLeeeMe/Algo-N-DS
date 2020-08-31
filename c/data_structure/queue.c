@@ -21,7 +21,7 @@ bool is_empty(Queue* Q);
 void clear(Queue* Q);
 bool enqueue(Queue* Q, int32_t item);
 int32_t dequeue(Queue* Q);
-int32_t peek();
+int32_t peek(Queue* Q);
 uint32_t get_size(Queue* Q);
 void print_queue(Queue* Q);
 
@@ -80,11 +80,27 @@ int32_t main(void)
     printf("get_size(Q): %d\n", get_size(Q));     // 8
 }
 
+/*
+ * Function: is_empty
+ * ------------------
+ * Empty check
+ *
+ *  params: Queue* Q
+ *  returns: bool
+ */
 bool is_empty(Queue* Q)
 {
     return Q->size == 0;
 }
 
+/*
+ * Function: clear
+ * ---------------
+ * Clear queue
+ *
+ *  params: Queue* Q
+ *  returns: void
+ */
 void clear(Queue* Q)
 {
     if (is_empty(Q)) {
@@ -100,6 +116,14 @@ void clear(Queue* Q)
     }
 }
 
+/*
+ * Function: enqueue
+ * -----------------
+ * Add data into queue
+ *
+ *  params: Queue* Q, int32_t item
+ *  returns: bool
+ */
 bool enqueue(Queue* Q, int32_t item)
 {
     Node* new_node = (Node*)malloc(sizeof(Node));
@@ -121,6 +145,14 @@ bool enqueue(Queue* Q, int32_t item)
     return true;
 }
 
+/*
+ * Function: dequeue
+ * -----------------
+ * Return & Remove front data
+ *
+ *  params: Queue* Q
+ *  returns: int32_t
+ */
 int32_t dequeue(Queue* Q)
 {
     if (is_empty(Q)) {
@@ -135,6 +167,14 @@ int32_t dequeue(Queue* Q)
     return tmp;
 }
 
+/*
+ * Function: peek
+ * --------------
+ * Return front data
+ *
+ *  params: Queue* Q
+ *  returns: int32_t
+ */
 int32_t peek(Queue* Q)
 {
     if (is_empty(Q)) {
@@ -145,11 +185,28 @@ int32_t peek(Queue* Q)
     return Q->front->data;
 }
 
+/*
+ * Function: get_size
+ * ------------------
+ * Return number of elements
+ *
+ *  params: Queue* Q
+ *  returns: uint32_t
+ */
 uint32_t get_size(Queue* Q)
 {
     return Q->size;
 }
 
+/*
+ * Function: print_queue
+ * ---------------------
+ * prints all elements
+ *   e.g. { 1, 2, 3, ..., 10 }
+ *
+ *  params: Queue* Q
+ *  returns: void
+ */
 void print_queue(Queue* Q) {
     Node* tmp = Q->front;
 
