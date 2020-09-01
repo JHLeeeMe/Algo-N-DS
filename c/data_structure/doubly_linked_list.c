@@ -28,6 +28,26 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
+/*
+ * Function: create_node
+ * ---------------------
+ * Create node
+ *
+ *  params: int32_t item
+ *  returns: Node*
+ */
+Node* create_node(int32_t item)
+{
+    Node* node = (Node*)malloc(sizeof(Node));
+    if (node == NULL) { return false; }
+
+    node->data = item;
+    node->prev = NULL;
+    node->next = NULL;
+
+    return node;
+}
+
 bool is_empty(DoublyLinkedList* DL);
 bool add_first(DoublyLinkedList* DL, int32_t item);
 bool add_last(DoublyLinkedList* DL, int32_t item);
@@ -51,11 +71,95 @@ int32_t main(void)
      }
 }
 
+/*
+ * Function: is_empty
+ * ------------------
+ * Empty check
+ *
+ *  params: DoublyLinkedList* DL
+ *  returns: bool
+ */
 bool is_empty(DoublyLinkedList* DL)
 {
     return DL->size == 0;
 }
 
+/*
+ * Function: add_first
+ * ------------------
+ * Add item to first index
+ *
+ *  params: DoublyLinkedList* DL, int32_t item
+ *  returns: bool
+ */
+bool add_first(DoublyLinkedList* DL, int32_t item)
+{
+    Node* new_node = create_node(item);
+    if (new_node == NULL) { return false; }
+
+    new_node->next = DL->head;
+    DL->head = new_node;
+    (DL->size)++;
+
+    return true;
+}
+
+/*
+ * Function: add_last
+ * ------------------
+ * Add item to last index
+ *
+ *  params: DoublyLinkedList* DL, int32_t item
+ *  returns: bool
+ */
+bool add_last(DoublyLinkedList* DL, int32_t item)
+{
+    Node* new_node = create_node(item);
+    if (new_node == NULL) { return false; }
+
+    new_node->prev = DL->tail;
+    DL->tail = new_node;
+    (DL->size)++;
+
+    return true;
+}
+
+/*
+ * Function: add_to_index
+ * ------------------
+ * Add item to param index
+ *
+ *  params: DoublyLinkedList* DL, uint32_t idx, int32_t item
+ *  returns: bool
+ */
+bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
+{
+    if (idx > (DL->size - 1)) { return false; }
+
+    Node* new_node = create_node(item);
+    if (new_node == NULL) { return false; }
+
+    if (idx == 0) {
+        add_first(DL, item);
+    } else if (idx == (DL->size - 1)) {
+        add_last(DL, item);
+    } else {
+        Node* prev = node(DL, idx - 1);
+        prev->next = new_node;
+        new_node->next = node(DL, idx);
+        (DL->size)++;
+        return true;
+    }
+}
+
+/*
+ * Function: node
+ * ------------------
+ * Return node of index
+ *
+ *  params: DoublyLinkedList* DL, uint32_t idx
+ *  returns: Node*
+ */
 Node* node(DoublyLinkedList* DL, uint32_t idx)
 {
     if (is_empty(DL)) {
