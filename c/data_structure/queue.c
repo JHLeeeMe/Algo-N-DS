@@ -25,6 +25,26 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
+/*
+ * Function: create_queue
+ * ----------------------
+ * Create queue
+ *
+ *  params: void
+ *  returns: Queue*
+ */
+Queue* create_queue(void)
+{
+    Queue* Q = (Queue*)malloc(sizeof(Queue));
+    if (Q == NULL) { return NULL; }
+
+    Q->front = NULL;
+    Q->rear = NULL;
+    Q->size = 0;
+
+    return Q;
+}
+
 bool is_empty(Queue* Q);
 void clear(Queue* Q);
 bool enqueue(Queue* Q, int32_t item);
@@ -35,14 +55,8 @@ void print_queue(Queue* Q);
 
 int32_t main(void)
 {
-    Queue* Q = (Queue*)malloc(sizeof(Queue));
-    if (Q == NULL) {
-        return -1;
-    } else {
-        Q->front = NULL;
-        Q->rear = NULL;
-        Q->size = 0;
-    }
+    Queue* Q = create_queue();
+    if (Q == NULL) { return -1; }
 
     printf("empty Queue: %s\n", is_empty(Q) ? "true" : "false");  // true
     printf("clear(Q): ");
