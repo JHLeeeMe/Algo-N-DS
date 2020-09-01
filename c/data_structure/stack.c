@@ -1,7 +1,13 @@
 /** Stack
+ *
+ * bool is_full(Stack* S);
+ * bool is_empty(Stack* S);
+ * bool push(Stack* S, int32_t item);
+ * int32_t pop(Stack* S);
+ * int32_t peek(Stack* S);
+ * int32_t size(Stack* S);
+ * void print_stack(Stack* S);
  */
-
-#define DEFAULT_STACK_SIZE (10)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +33,7 @@ Stack* create_stack(uint32_t capacity) {
     if (S != NULL) {
         S->capacity = capacity;
         S->top = -1;
-        S->array = malloc(S->capacity * sizeof(int32_t));
+        S->array = (int32_t*)malloc(S->capacity * sizeof(int32_t));
     }
 
     return S;
@@ -38,6 +44,8 @@ bool is_empty(Stack* S);
 bool push(Stack* S, int32_t item);
 int32_t pop(Stack* S);
 int32_t peek(Stack* S);
+int32_t size(Stack* S);
+void print_stack(Stack* S);
 
 int32_t main(void)
 {
@@ -46,6 +54,8 @@ int32_t main(void)
 
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // false
     printf("is_empty: %s\n", (is_empty(stack)) ? "true" : "false"); // true
+    printf("size: %d\n", size(stack));  // 10
+    print_stack(stack);
 
     printf("###################\n");
     printf("# Push item 0 ~ 9 #\n");
@@ -53,9 +63,32 @@ int32_t main(void)
     for (int i = 0; i < 10; i++) {
         push(stack, i);
     }
-
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // true
     printf("is_empty: %s\n", (is_empty(stack)) ? "true" : "false"); // false
+    printf("size: %d\n", size(stack));  // 10
+    print_stack(stack);
+
+    push(stack, 123);   // prints "Stack is Full."
+
+    printf("#######\n");
+    printf("# Pop #\n");
+    printf("#######\n");
+    for (int i = 0; i < 3; i++) {
+        pop(stack);
+    }
+    printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // false
+    printf("is_empty: %s\n", (is_empty(stack)) ? "true" : "false"); // false
+    printf("size: %d\n", size(stack));  // 7
+    print_stack(stack);
+
+
+    printf("########\n");
+    printf("# Peek #\n");
+    printf("########\n");
+    printf("peek: %d\n", peek(stack));  // 6
+    printf("peek: %d\n", peek(stack));  // 6
+    printf("size: %d\n", size(stack));  // 7
+    print_stack(stack);
 }
 
 /*
@@ -86,7 +119,7 @@ bool is_empty(Stack* S)
 
 /*
  * Function: push
- * -----------------
+ * --------------
  * Push item into stack
  *
  *  params: Stack* S, int32_t item
@@ -104,6 +137,72 @@ bool push(Stack* S, int32_t item)
     return true;
 }
 
-//int32_t pop(Stack* S);
+/*
+ * Function: pop
+ * -------------
+ * Return & Remove last pushed element 
+ *
+ *  params: Stack* S
+ *  returns: int32_t
+ */
+int32_t pop(Stack* S)
+{
+    if (is_empty(S)) {
+        printf("Stack is Empty.\n");
+        return INT32_MIN;
+    }
+    int32_t tmp = S->array[S->top];
+    S->array[(S->top)--] = INT32_MIN;
+    printf("Pop !\n");
+    
+    return tmp;
+}
 
-//int32_t peek(Stack* S);
+/*
+ * Function: peek
+ * -----------------
+ * Return last pushed element
+ *
+ *  params: Stack* S
+ *  returns: int32_t
+ */
+int32_t peek(Stack* S)
+{
+    if (is_empty(S)) {
+        printf("Stack is Empty.\n");
+        return INT32_MIN;
+    }
+
+    return S->array[S->top];
+}
+
+/*
+ * Function: size
+ * --------------
+ * Return number of elements
+ *
+ *  params: Stack* S
+ *  returns: int32_t
+ */
+int32_t size(Stack* S)
+{
+    return (S->top) + 1;
+}
+
+/*
+ * Function: print_stack
+ * -----------------
+ * Print stack
+ *  e.g. { 1 2 ... 9 10 }
+ *
+ *  params: Stack* S
+ *  returns: void
+ */
+void print_stack(Stack* S)
+{
+    printf("{ ");
+    for (int32_t i = 0; i <= S->top; i++) {
+        printf("%d ", S->array[i]);
+    }
+    printf("}\n");
+}
