@@ -6,7 +6,7 @@
  * int32_t remove_by_index(DoublyLinkedList* DL, uint32_t idx);
  * int32_t remove_by_item(DoublyLinkedList* DL, int32_t item);
  * bool set(DoublyLinkedList* DL, uint32_t idx, int32_t item);
- * bool get(DoublyLinkedList* DL, uint32_t idx);
+ * Node* get(DoublyLinkedList* DL, uint32_t idx);
  * DoublyLinkedList* node(DoublyLinkedList* DL, uint32_t idx);
  * int32_t index_of(DoublyLinkedList* DL, int32_t item);
  */
@@ -55,7 +55,7 @@ bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item);
 int32_t remove_by_index(DoublyLinkedList* DL, uint32_t idx);
 int32_t remove_by_item(DoublyLinkedList* DL, int32_t item);
 bool set(DoublyLinkedList* DL, uint32_t idx, int32_t item);
-bool get(DoublyLinkedList* DL, uint32_t idx);
+Node* get(DoublyLinkedList* DL, uint32_t idx);
 Node* node(DoublyLinkedList* DL, uint32_t idx);
 int32_t index_of(DoublyLinkedList* DL, int32_t item);
 
@@ -127,7 +127,7 @@ bool add_last(DoublyLinkedList* DL, int32_t item)
 /*
  * Function: add_to_index
  * ------------------
- * Add item to param index
+ * Add item to index
  *
  *  params: DoublyLinkedList* DL, uint32_t idx, int32_t item
  *  returns: bool
@@ -154,6 +154,91 @@ bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
     }
 
     return flag;
+}
+
+/*
+ * Function: remove_by_index
+ * -------------------------
+ * Remove item of index
+ *
+ *  params: DoublyLinkedList* Dl, uint32_t idx
+ *  returns: int32_t
+ */
+int32_t remove_by_index(DoublyLinkedList* DL, uint32_t idx)
+{
+    if (idx > (DL->size - 1)) { return INT32_MIN; }
+
+    Node* tmp = node(DL, idx);
+    if (tmp == NULL) { return INT32_MIN; }
+
+    int32_t data = tmp->data;
+    Node* prev = tmp->prev;
+    Node* next = tmp->next;
+
+    if (prev == NULL) {
+        DL->head = next;
+    } else {
+        prev->next = next;
+    }
+
+    if (next == NULL) {
+        DL->tail = prev;
+    } else {
+        next->prev = prev;
+    }
+    (DL->size)--;
+    free(tmp);
+
+    return data;
+}
+
+/*
+ * Function: remove_by_item
+ * ------------------------
+ * Remove by item
+ *
+ *  params: DoublyLinkedList* DL, int32_t item
+ *  returns: int32_t
+ */
+int32_t remove_by_item(DoublyLinkedList* DL, int32_t item)
+{
+    int32_t idx = index_of(DL, item);
+    if (idx < 0) { return idx; }
+
+    return remove_by_index(DL, idx);
+}
+
+/*
+ * Function: set
+ * -------------
+ * Set item of idx to param item
+ *
+ *  params: DoublyLinkedList* Dl, uint32_t idx, int32_t item
+ *  returns: bool
+ */
+bool set(DoublyLinkedList* DL, uint32_t idx, int32_t item)
+{
+    Node* tmp = node(DL, idx);
+    if (tmp == NULL) { return false; }
+
+    tmp->data = item;
+    return true;
+}
+
+/*
+ * Function: get
+ * ------------------
+ * Return node of index
+ *
+ *  params: DoublyLinkedList* DL, uint32_t idx
+ *  returns: Node*
+ */
+Node* get(DoublyLinkedList* DL, uint32_t idx)
+{
+    Node* tmp = node(DL, idx);
+    if (tmp == NULL) { return NULL; }
+
+    return tmp;
 }
 
 /*
