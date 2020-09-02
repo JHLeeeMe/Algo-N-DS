@@ -386,6 +386,15 @@ int32_t index_of(DoublyLinkedList* DL, int32_t item)
     return idx;
 }
 
+/*
+ * Function: print
+ * ---------------
+ * Print all
+ *  e.g. { 0 1 2 3 4 5 ... }
+ *
+ *  params: DoublyLinkedList* DL
+ *  returns: void
+ */
 void print(DoublyLinkedList* DL)
 {
     printf("{ ");
