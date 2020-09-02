@@ -9,6 +9,7 @@
  * Node* get(DoublyLinkedList* DL, uint32_t idx);
  * DoublyLinkedList* node(DoublyLinkedList* DL, uint32_t idx);
  * int32_t index_of(DoublyLinkedList* DL, int32_t item);
+ * void print(DoublyLinkedList* DL);
  */
 
 #include <stdio.h>
@@ -70,6 +71,7 @@ int32_t main(void)
          DL->tail = NULL;
          DL->size = 0;
      }
+    printf("size: %d\n", DL->size);  // 0
 
     printf("#############\n");
     printf("# add_first #\n");
@@ -78,6 +80,8 @@ int32_t main(void)
         add_first(DL, i);
     }
     print(DL);  // { 9 8 7 6 5 4 3 2 1 0 }
+    printf("size: %d\n", DL->size);  // 10
+    printf("\n");
 
     printf("############\n");
     printf("# add_last #\n");
@@ -86,6 +90,8 @@ int32_t main(void)
         add_last(DL, i);
     }
     print(DL);  // { 9 8 7 6 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 9 }
+    printf("size: %d\n", DL->size);  // 20
+    printf("\n");
 
     printf("################\n");
     printf("# add_to_index #\n");
@@ -94,6 +100,42 @@ int32_t main(void)
         add_to_index(DL, i, -1);
     }
     print(DL);  // { -1 -1 -1 9 8 7 6 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 9 }
+    printf("size: %d\n", DL->size);  // 23
+    printf("\n");
+
+    printf("###################\n");
+    printf("# remove_by_index #\n");
+    printf("###################\n");
+    printf("Removed element: %d\n", remove_by_index(DL, 0));   // -1
+    printf("Removed element: %d\n", remove_by_index(DL, 21));  // 9
+    printf("Removed element: %d\n", remove_by_index(DL, 5));   // 6
+    print(DL);  // { -1 -1 9 8 7 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 }
+    printf("size: %d\n", DL->size);  // 20
+    printf("\n");
+
+    printf("##################\n");
+    printf("# remove_by_item #\n");
+    printf("##################\n");
+    printf("Removed element: %d\n", remove_by_item(DL, 1));   // 1
+    printf("Removed element: %d\n", remove_by_item(DL, 8));   // 8
+    printf("Removed element: %d\n", remove_by_item(DL, 8));   // 8
+    printf("Removed element: %d\n", remove_by_item(DL, -1));  // -1
+    print(DL);  // { -1 9 7 5 4 3 2 0 0 1 2 3 4 5 6 7 }
+    printf("size: %d\n", DL->size);  // 16
+    printf("\n");
+
+
+    printf("############\n");
+    printf("# get, set #\n");
+    printf("############\n");
+    printf("get(DL, 3)->data: %d\n", get(DL, 3)->data);  // 5
+    printf("get(DL, 3)->data: %d\n", get(DL, 3)->data);  // 5
+
+    printf("set(DL, 3, 123)\n");
+    set(DL, 3, 123);
+    printf("get(DL, 3)->data: %d\n", get(DL, 3)->data);  // 123
+
+    print(DL);  // { -1 9 7 123 4 3 2 0 0 1 2 3 4 5 6 7 }
 }
 
 /*
@@ -209,26 +251,26 @@ int32_t remove_by_index(DoublyLinkedList* DL, uint32_t idx)
 {
     if (idx > (DL->size - 1)) { return INT32_MIN; }
 
-    Node* tmp = node(DL, idx);
-    if (tmp == NULL) { return INT32_MIN; }
+    Node* curr = node(DL, idx);
+    if (curr == NULL) { return INT32_MIN; }
 
-    int32_t data = tmp->data;
-    Node* prev = tmp->prev;
-    Node* next = tmp->next;
+    int32_t data = curr->data;
+    Node* prev = curr->prev;
+    Node* next = curr->next;
 
-    if (prev == NULL) {
+    if (prev == NULL) {  // Remove head node 
         DL->head = next;
     } else {
         prev->next = next;
     }
 
-    if (next == NULL) {
+    if (next == NULL) {  // Remove tail node
         DL->tail = prev;
     } else {
         next->prev = prev;
     }
     (DL->size)--;
-    free(tmp);
+    free(curr);
 
     return data;
 }
