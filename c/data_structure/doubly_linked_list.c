@@ -134,22 +134,26 @@ bool add_last(DoublyLinkedList* DL, int32_t item)
  */
 bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
 {
-    if (idx > (DL->size - 1)) { return false; }
+    bool flag = false;
+    if (idx <= (DL->size - 1)) {
+        if (idx == 0) {
+            flag = add_first(DL, item);
+        } else if (idx == (DL->size - 1)) {
+            flag = add_last(DL, item);
+        } else {
+            Node* new_node = create_node(item);
+            if (new_node == NULL) { return false; }
 
-    Node* new_node = create_node(item);
-    if (new_node == NULL) { return false; }
+            Node* prev = node(DL, idx - 1);
+            prev->next = new_node;
+            new_node->next = node(DL, idx);
+            (DL->size)++;
 
-    if (idx == 0) {
-        add_first(DL, item);
-    } else if (idx == (DL->size - 1)) {
-        add_last(DL, item);
-    } else {
-        Node* prev = node(DL, idx - 1);
-        prev->next = new_node;
-        new_node->next = node(DL, idx);
-        (DL->size)++;
-        return true;
+            flag = true;
+        }
     }
+
+    return flag;
 }
 
 /*
