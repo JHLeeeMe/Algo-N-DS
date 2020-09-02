@@ -58,6 +58,7 @@ bool set(DoublyLinkedList* DL, uint32_t idx, int32_t item);
 Node* get(DoublyLinkedList* DL, uint32_t idx);
 Node* node(DoublyLinkedList* DL, uint32_t idx);
 int32_t index_of(DoublyLinkedList* DL, int32_t item);
+void print(DoublyLinkedList* DL);
 
 int32_t main(void)
 {
@@ -69,6 +70,30 @@ int32_t main(void)
          DL->tail = NULL;
          DL->size = 0;
      }
+
+    printf("#############\n");
+    printf("# add_first #\n");
+    printf("#############\n");
+    for (uint32_t i = 0; i < 10; i++) {
+        add_first(DL, i);
+    }
+    print(DL);  // { 9 8 7 6 5 4 3 2 1 0 }
+
+    printf("############\n");
+    printf("# add_last #\n");
+    printf("############\n");
+    for (uint32_t i = 0; i < 10; i++) {
+        add_last(DL, i);
+    }
+    print(DL);  // { 9 8 7 6 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 9 }
+
+    printf("################\n");
+    printf("# add_to_index #\n");
+    printf("################\n");
+    for (uint32_t i = 0; i < 3; i++) {
+        add_to_index(DL, i, -1);
+    }
+    print(DL);  // { -1 -1 -1 9 8 7 6 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 9 }
 }
 
 /*
@@ -97,8 +122,13 @@ bool add_first(DoublyLinkedList* DL, int32_t item)
     Node* new_node = create_node(item);
     if (new_node == NULL) { return false; }
 
-    new_node->next = DL->head;
-    DL->head = new_node;
+    if(is_empty(DL)) {
+        DL->head = DL->tail = new_node;
+    } else {
+        DL->head->prev = new_node;
+        new_node->next = DL->head;
+        DL->head = new_node;
+    }
     (DL->size)++;
 
     return true;
@@ -117,8 +147,13 @@ bool add_last(DoublyLinkedList* DL, int32_t item)
     Node* new_node = create_node(item);
     if (new_node == NULL) { return false; }
 
-    new_node->prev = DL->tail;
-    DL->tail = new_node;
+    if (is_empty(DL)) {
+        DL->tail = DL->head = new_node;
+    } else {
+        DL->tail->next = new_node;
+        new_node->prev = DL->tail;
+        DL->tail = new_node;
+    }
     (DL->size)++;
 
     return true;
@@ -145,8 +180,14 @@ bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
             if (new_node == NULL) { return false; }
 
             Node* prev = node(DL, idx - 1);
+            Node* curr = node(DL, idx);
+
+            new_node->next = curr;
+            curr->prev = new_node;
+
+            new_node->prev = prev;
             prev->next = new_node;
-            new_node->next = node(DL, idx);
+
             (DL->size)++;
 
             flag = true;
@@ -301,4 +342,15 @@ int32_t index_of(DoublyLinkedList* DL, int32_t item)
     }
 
     return idx;
+}
+
+void print(DoublyLinkedList* DL)
+{
+    printf("{ ");
+    Node* tmp = DL->head;
+    while(tmp != NULL) {
+        printf("%d ", tmp->data);
+        tmp = tmp->next;
+    }
+    printf("}\n");
 }
