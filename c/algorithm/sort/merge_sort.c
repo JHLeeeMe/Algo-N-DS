@@ -17,14 +17,16 @@ int main(void)
     if (nTmp == NULL)
         return -1;
 
-    for (int i = 0; i < nArr_len; i++)
+    for (int i = 0; i < nArr_len; i++) {
         printf("%d ", nArr[i]);
+    }
     printf("\n");
 
     mergeSort(nArr, nTmp, 0, nArr_len - 1);
 
-    for (int i = 0; i < nArr_len; i++)
+    for (int i = 0; i < nArr_len; i++) {
         printf("%d ", nArr[i]);
+    }
 
     free(nTmp);
 }
@@ -32,8 +34,9 @@ int main(void)
 void _mergeSort(int *nArr, int *nTmp, int nLeft, int nRight)
 {
     // base case
-    if (nLeft >= nRight)
-        return;
+    if (nLeft >= nRight) { 
+        return; 
+    }
 
     int nMid = (nLeft + nRight) >> 1;
     mergeSort(nArr, nTmp, nLeft, nMid);
@@ -47,22 +50,25 @@ void merge(int *nArr, int *nTmp, int nLeft, int nMid, int nRight)
     int j = nMid + 1;
     int k = nLeft;
 
-    while (i <= nMid && j <= nRight)
-    {
-        if (nArr[i] <= nArr[j])
+    while (i <= nMid && j <= nRight) {
+        if (nArr[i] <= nArr[j]) {
             nTmp[k++] = nArr[i++];
-        else
+        } else {
             nTmp[k++] = nArr[j++];
+        }
     }
 
-    while (i <= nMid)
+    while (i <= nMid) {
         nTmp[k++] = nArr[i++];
+    }
 
-    while (j <= nRight)
+    while (j <= nRight) {
         nTmp[k++] = nArr[j++];
+    }
 
-    for (int idx = nLeft; idx <= nRight; idx++)
+    for (int idx = nLeft; idx <= nRight; idx++) {
         nArr[idx] = nTmp[idx];
+    }
 }
 
 

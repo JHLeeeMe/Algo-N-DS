@@ -16,8 +16,7 @@ int main(void)
 
     bubbleSort(nArr, nArr_len);
 
-    for (int i = 0; i < nArr_len; i++) 
-    {
+    for (int i = 0; i < nArr_len; i++) {
         printf("%d ", nArr[i]);
     }
 
@@ -26,13 +25,12 @@ int main(void)
 
 void bubbleSort(int nArr[], int nArr_len)
 {
-    for (int i = nArr_len - 1; i > 0; i--)
-    {
+    for (int i = nArr_len - 1; i > 0; i--) {
+
         bool condition = true;
-        for (int j = 0; j < i; j++)
-        {
-            if (nArr[j] > nArr[j + 1])
-            {
+        for (int j = 0; j < i; j++) {
+
+            if (nArr[j] > nArr[j + 1]) {
                 swap(nArr, j, j + 1);
                 condition = false;
             }
