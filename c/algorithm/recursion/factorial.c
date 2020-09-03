@@ -43,8 +43,7 @@ uint32_t factorial_tailrec(uint32_t n)
 
 uint32_t __factorial_tailrec(uint32_t n, uint32_t result)
 {
-    if (n == 0)
-    {
+    if (n == 0) {
         return result;
     }
 
