@@ -28,10 +28,10 @@ public class QuickSort {
         int pivot = arr[left];
         int i = left, j = right;
 
-        while(i < j) {
-            while(pivot < arr[j])
+        while (i < j) {
+            while (pivot < arr[j])
                 j--;
-            while(pivot >= arr[i] && i < j)
+            while (pivot >= arr[i] && i < j)
                 i++;
             swap(arr, i, j);
         }
