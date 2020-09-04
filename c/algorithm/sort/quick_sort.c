@@ -2,6 +2,7 @@
  *
  * O(NlogN), Omega(NlogN)
  * worst: O(n^2)
+ *  e.g. sorted array
  */
 
 #include <stdio.h>
