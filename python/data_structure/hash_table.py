@@ -29,17 +29,8 @@ class HashTable(InnerHashTable):
 
 
 class HashTableTest(unittest.TestCase):
-    def set_up(self):
+    def setUp(self):
         ...
 
-    def test_put(self):
-        ...
-
-    def test_get(self):
-        ...
-
-    def test_delete(self):
-        ...
-
-    def test_print_all(self):
+    def test_all(self):
         ...
