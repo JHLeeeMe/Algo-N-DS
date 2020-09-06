@@ -27,6 +27,7 @@ Node* create_node(char* item) {
 uint64_t hash(char* item);
 bool put(char* item);
 char* get(char* item);
+char* delete(char* item);
 void print(void);
 
 // create hash_table
@@ -48,6 +49,16 @@ int32_t main(void)
     (tmp == NULL)
         ? printf("WTF\n")
         : printf("%s\n", tmp);
+
+    char* tmp2 = delete("Hello World");
+    strcmp(tmp2, "Hello World") == 0
+        ? printf("ok\n")
+        : printf("WTF\n");
+
+    char* result = get("Hello World");
+    (result == NULL)
+        ? printf("ok\n")
+        : printf("%s\n", result);
 }
 
 uint64_t hash(char* item)
@@ -94,8 +105,32 @@ char* get(char* item)
     } else {
         Node* curr = hash_table[idx];
         do {
-            if (strcmp(curr->data,item) == 0) {
+            if (strcmp(curr->data, item) == 0) {
                 return curr->data;
+            }
+            curr = curr->next;
+        } while (curr != NULL);
+
+        printf("Not Found.\n");
+        return NULL;
+    }
+}
+
+char* delete(char* item)
+{
+    uint64_t idx = hash(item);
+
+    if (hash_table[idx] == NULL) {
+        printf("Not Found.\n");
+        return NULL;
+    } else {
+        Node* curr = hash_table[idx];
+        do {
+            if (strcmp(curr->data, item)) {
+                char* tmp = curr->data;
+                hash_table[idx] = curr->next;
+                free(curr);
+                return tmp;
             }
             curr = curr->next;
         } while (curr != NULL);
