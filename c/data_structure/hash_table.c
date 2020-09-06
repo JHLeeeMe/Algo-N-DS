@@ -7,85 +7,82 @@
 #include <string.h>
 #include <stdint.h>
 
-#define DEFAUlT_CAPACITY (10)
+#define DEFAULT_CAPACITY (10)
 
 typedef struct Node {
-    char data[100];
+    int32_t key;
+    char value[100];
     struct Node* next;
 } Node;
 
-Node* create_node(char* item) {
+Node* create_node(int32_t key, char* item) {
     Node* node = (Node*)malloc(sizeof(Node));
     if (node == NULL) { return NULL; }
 
-    strcpy(node->data, item);
+    node->key = key;
+    strcpy(node->value, item);
     node->next = NULL;
 
     return node;
 }
 
-uint64_t hash(char* item);
-bool put(char* item);
-char* get(char* item);
-char* delete(char* item);
+uint32_t hash(int32_t key);
+bool put(int32_t key, char* item);
+char* get(int32_t item);
+bool delete(int32_t key);
 void print(void);
 
 // create hash_table
-Node* hash_table[DEFAUlT_CAPACITY];
+Node* hash_table[DEFAULT_CAPACITY];
 
 int32_t main(void)
 {
     print();
-    put("Hello World");
-    put("Hello Hash Table");
-    put("abcde");
-    put("aaabbbcccccccccoiu");
+    put(515, "Hello World");
+    put(11, "Hello Hash Table");
+    put(-24, "abcde");
+    put(11, "aaabbbcccccccccoiu");
     print();
 
-    uint32_t idx = hash("Hello World");
-    printf("%s\n", hash_table[idx]->data);
-
-    char* tmp = get("Hello World");
+    char* tmp = get(515);
     (tmp == NULL)
         ? printf("WTF\n")
         : printf("%s\n", tmp);
 
-    char* tmp2 = delete("Hello World");
-    strcmp(tmp2, "Hello World") == 0
+    bool tmp2 = delete(-24);
+    (tmp2 == true)
         ? printf("ok\n")
         : printf("WTF\n");
 
-    char* result = get("Hello World");
-    (result == NULL)
+    char* tmp3 = get(-24);
+    (tmp3 == NULL)
         ? printf("ok\n")
-        : printf("%s\n", result);
+        : printf("%s\n", tmp3);
 }
 
-uint64_t hash(char* item)
+uint32_t hash(int32_t key)
 {
-    uint64_t hash_idx = 0;
-    while (*item != '\0') {
-        hash_idx += (*item) * 31;
-        item++;
-    }
+    uint32_t hash_idx = 0;
+    // for uint
+    hash_idx = (key & 0x7fffffff) * 31;
 
-    return hash_idx % DEFAUlT_CAPACITY;
+    return hash_idx % DEFAULT_CAPACITY;
 }
 
-bool put(char* item)
+bool put(int32_t key, char* item)
 {
-    uint64_t idx = hash(item);
-    Node* new_node = create_node(item);
-    printf("%s \n", new_node->data);
+    uint32_t idx = hash(key);
+    Node* new_node = create_node(key, item);
+    if (new_node == NULL) { return false; }
 
     if (hash_table[idx] == NULL) {
         hash_table[idx] = new_node;
     } else {
         Node* curr = hash_table[idx];
+        
         do {
-            if (strcmp(curr->data, item)) {
-                printf("중복된 item이 있으므로 put하지 않음.\n");
-                return false;
+            if (curr->key == key) {
+                strcpy(curr->value, item);
             }
             curr = curr->next;
         } while (curr != NULL);
@@ -95,9 +92,9 @@ bool put(char* item)
     return true;
 }
 
-char* get(char* item)
+char* get(int32_t key)
 {
-    uint64_t idx = hash(item);
+    uint32_t idx = hash(key);
 
     if (hash_table[idx] == NULL) {
         printf("Not Found.\n");
@@ -105,8 +102,8 @@ char* get(char* item)
     } else {
         Node* curr = hash_table[idx];
         do {
-            if (strcmp(curr->data, item) == 0) {
-                return curr->data;
+            if (curr->key == key) {
+                return curr->value;
             }
             curr = curr->next;
         } while (curr != NULL);
@@ -116,37 +113,36 @@ char* get(char* item)
     }
 }
 
-char* delete(char* item)
+bool delete(int32_t key)
 {
-    uint64_t idx = hash(item);
+    uint64_t idx = hash(key);
 
     if (hash_table[idx] == NULL) {
         printf("Not Found.\n");
-        return NULL;
+        return false;
     } else {
         Node* curr = hash_table[idx];
         do {
-            if (strcmp(curr->data, item)) {
-                char* tmp = curr->data;
+            if (curr->key == key) {
                 hash_table[idx] = curr->next;
                 free(curr);
-                return tmp;
+                return true;
             }
             curr = curr->next;
         } while (curr != NULL);
 
         printf("Not Found.\n");
-        return NULL;
+        return false;
     }
 }
 
 void print(void)
 {
     printf("{ ");
-    for (uint32_t i = 0; i < DEFAUlT_CAPACITY; i++) {
+    for (uint32_t i = 0; i < DEFAULT_CAPACITY; i++) {
         Node* tmp = hash_table[i];
         while (tmp != NULL) {
-            printf("%s ", tmp->data);
+            printf("(key: %d, value: %s) ", tmp->key, tmp->value);
             tmp = tmp->next;
         }
     }
