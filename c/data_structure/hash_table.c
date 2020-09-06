@@ -58,6 +58,8 @@ int32_t main(void)
     (tmp3 == NULL)
         ? printf("ok\n")
         : printf("%s\n", tmp3);
+
+    print();
 }
 
 /*
@@ -94,15 +96,18 @@ bool put(int32_t key, char* item)
     if (hash_table[idx] == NULL) {
         hash_table[idx] = new_node;
     } else {
+        Node* prev = NULL;
         Node* curr = hash_table[idx];
         
         do {
             if (curr->key == key) {
                 strcpy(curr->value, item);
+                return true;
             }
+            prev = curr;
             curr = curr->next;
         } while (curr != NULL);
-        curr = new_node;
+        prev->next = new_node;
     }
 
     return true;
