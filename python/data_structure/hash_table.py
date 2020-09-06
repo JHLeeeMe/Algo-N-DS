@@ -31,6 +31,13 @@ class HashTable(InnerHashTable):
             self.next = None
 
     def hash_function(self, key: object) -> int:
+        """Return hash code of key
+
+        Keyword arguments:
+            key: object
+        Returns:
+            : int
+        """
         try:
             if key is None:
                 raise Exception('key is None.')
@@ -42,6 +49,14 @@ class HashTable(InnerHashTable):
         return hash_idx % self.capacity
 
     def put(self, key: object, value: object) -> bool:
+        """Put key, value pair
+
+        Keyword arguments:
+            key: object
+            value: object
+        Returns:
+            : bool
+        """
         hash_idx = self.hash_function(key)
         new_node = self.Node(key, value)
 
@@ -64,6 +79,13 @@ class HashTable(InnerHashTable):
         return True
 
     def get(self, key: object) -> object:
+        """Get value of key in Hash Table
+
+        Keyword arguments:
+            key: object
+        Returns:
+            : object or None
+        """
         hash_idx = self.hash_function(key)
 
         if self.lst[hash_idx] is None:
@@ -80,6 +102,13 @@ class HashTable(InnerHashTable):
             return None
 
     def delete(self, key: object) -> bool:
+        """Delete node of key
+
+        Keyword arguments:
+            key: object
+        Returns:
+            : bool
+        """
         hash_idx = self.hash_function(key)
 
         if self.lst[hash_idx] is None:
@@ -104,7 +133,11 @@ class HashTable(InnerHashTable):
             return False
 
     def print_all(self):
+        """Print Hash Table
 
+        Returns:
+            : None
+        """
         print('{', end=' ')
         for node in self.lst:
             node
