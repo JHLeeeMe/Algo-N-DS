@@ -60,6 +60,14 @@ int32_t main(void)
         : printf("%s\n", tmp3);
 }
 
+/*
+ * Function: hash
+ * --------------
+ * Return hash code
+ *
+ *  params; int32_t key
+ *  returns: uint32_t
+ */
 uint32_t hash(int32_t key)
 {
     uint32_t hash_idx = 0;
@@ -69,6 +77,14 @@ uint32_t hash(int32_t key)
     return hash_idx % DEFAULT_CAPACITY;
 }
 
+/*
+ * Function: put
+ * ---------------
+ * Put key, value pair
+ *
+ *  params: int32_t key, char* item
+ *  returns: bool
+ */
 bool put(int32_t key, char* item)
 {
     uint32_t idx = hash(key);
@@ -92,6 +108,14 @@ bool put(int32_t key, char* item)
     return true;
 }
 
+/*
+ * Function: get
+ * ---------------
+ * Get value of key
+ *
+ *  params: int32_t key
+ *  returns: char*
+ */
 char* get(int32_t key)
 {
     uint32_t idx = hash(key);
@@ -113,6 +137,14 @@ char* get(int32_t key)
     }
 }
 
+/*
+ * Function: delete
+ * ---------------
+ * Delete key, value pair
+ *
+ *  params: int32_t key
+ *  returns: bool
+ */
 bool delete(int32_t key)
 {
     uint64_t idx = hash(key);
@@ -136,6 +168,14 @@ bool delete(int32_t key)
     }
 }
 
+/*
+ * Function: print
+ * ---------------
+ * Print Hash Table
+ *
+ *  params: void
+ *  returns: void
+ */
 void print(void)
 {
     printf("{ ");
