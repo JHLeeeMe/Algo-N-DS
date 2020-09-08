@@ -229,7 +229,8 @@ uint32_t get_size(Queue* Q)
  *  params: Queue* Q
  *  returns: void
  */
-void print_queue(Queue* Q) {
+void print_queue(Queue* Q)
+{
     Node* tmp = Q->front;
 
     printf("{ ");
