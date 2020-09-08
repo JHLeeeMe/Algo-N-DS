@@ -28,7 +28,8 @@ typedef struct Stack {
  *  params: uint32_t capacity
  *  returns: Stack*
  */
-Stack* create_stack(uint32_t capacity) {
+Stack* create_stack(uint32_t capacity)
+{
     Stack* S = (Stack*)malloc(sizeof(Stack));
     if (S != NULL) {
         S->capacity = capacity;
