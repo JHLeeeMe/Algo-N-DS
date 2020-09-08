@@ -15,7 +15,16 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-Node* create_node(int32_t key, char* item) {
+/*
+ * Function: create_node
+ * ---------------------
+ * Create node
+ *
+ *  params: int32_t key, char* item
+ *  returns: Node*
+ */
+Node* create_node(int32_t key, char* item)
+{
     Node* node = (Node*)malloc(sizeof(Node));
     if (node == NULL) { return NULL; }
 
