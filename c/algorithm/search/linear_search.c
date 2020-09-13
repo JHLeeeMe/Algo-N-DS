@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-bool linearSearch(int *arr, int arr_len, int i);
+bool linearSearch(int* arr, int arr_len, int target);
 
 int main(void)
 {
@@ -17,15 +17,13 @@ int main(void)
         printf("found!\n");
     else
         printf("Not found!");
-
-    return 0;
 }
 
-bool linearSearch(int *arr, int arr_len, int i)
+bool linearSearch(int* arr, int arr_len, int target)
 {
-    for (int j = 0; j < arr_len; j ++)
+    for (int i = 0; i < arr_len; i++)
     {
-        if (arr[j] == i)
+        if (arr[i] == target)
             return true;
     }
     return false;
