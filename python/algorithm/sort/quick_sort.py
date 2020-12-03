@@ -34,7 +34,7 @@ def partition(lst: list, left: int, right: int) -> int:
     return i
 
 
-def swap(lst: list, a: int, b: int):
+def swap(lst: list, a: int, b: int) -> None:
     tmp = lst[a]
     lst[a] = lst[b]
     lst[b] = tmp
