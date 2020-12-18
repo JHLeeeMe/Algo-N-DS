@@ -107,7 +107,6 @@ bool put(int32_t key, char* item)
     } else {
         Node* prev = NULL;
         Node* curr = hash_table[idx];
-        
         do {
             if (curr->key == key) {
                 strcpy(curr->value, item);
@@ -134,21 +133,18 @@ char* get(int32_t key)
 {
     uint32_t idx = hash(key);
 
-    if (hash_table[idx] == NULL) {
-        printf("Not Found.\n");
-        return NULL;
-    } else {
-        Node* curr = hash_table[idx];
+    if (hash_table[idx] != NULL) {
+        Node* curr = hash_table[dix];
         do {
             if (curr->key == key) {
                 return curr->value;
             }
             curr = curr->next;
         } while (curr != NULL);
-
-        printf("Not Found.\n");
-        return NULL;
     }
+    
+    printf("Not Found.\n");
+    return NULL;
 }
 
 /*
@@ -162,24 +158,23 @@ char* get(int32_t key)
 bool delete(int32_t key)
 {
     uint64_t idx = hash(key);
-
-    if (hash_table[idx] == NULL) {
-        printf("Not Found.\n");
-        return false;
-    } else {
+    
+    if (hash_table[idx] != NULL) {
+        Node* prev = NULL;
         Node* curr = hash_table[idx];
         do {
             if (curr->key == key) {
-                hash_table[idx] = curr->next;
+                prev->next = curr->next;
                 free(curr);
                 return true;
             }
+            prev = curr;
             curr = curr->next;
         } while (curr != NULL);
-
-        printf("Not Found.\n");
-        return false;
     }
+    
+    printf("Not Found.\n");
+    return false;
 }
 
 /*
