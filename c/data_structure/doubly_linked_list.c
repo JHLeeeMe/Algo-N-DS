@@ -348,14 +348,14 @@ Node* node(DoublyLinkedList* DL, uint32_t idx)
         for (uint32_t i = 0; i < idx; i++) {
             tmp = tmp->next;
         }
-        return tmp;
     } else {
         Node* tmp = DL->tail;
         for (uint32_t i = (DL->size - 1); i > idx; i--) {
             tmp = tmp->prev;
         }
-        return tmp;
     }
+    
+    return tmp;
 }
 
 /*
