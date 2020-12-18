@@ -40,7 +40,7 @@ typedef struct Node {
 Node* create_node(int32_t item)
 {
     Node* node = (Node*)malloc(sizeof(Node));
-    if (node == NULL) { return false; }
+    if (node == NULL) { return NULL; }
 
     node->data = item;
     node->prev = NULL;
@@ -66,11 +66,11 @@ int32_t main(void)
     DoublyLinkedList* DL = (DoublyLinkedList*)malloc(sizeof(DoublyLinkedList));
     if (DL == NULL) {
         return -1; 
-     } else {
-         DL->head = NULL;
-         DL->tail = NULL;
-         DL->size = 0;
-     }
+    } else {
+        DL->head = NULL;
+        DL->tail = NULL;
+        DL->size = 0;
+    }
     printf("size: %d\n", DL->size);  // 0
 
     printf("#############\n");
