@@ -3,15 +3,18 @@
 
 #include <stdio.h>
 
-int main(int argc, char *argv[])
+int
+main(int argc, char* argv[])
 {
-    if (argc != 2)
+    if (argc != 2) {
         return 1;
+    }
 
     // Open img file
     FILE* file = fopen(argv[1], "r");
-    if (file == NULL)
+    if (file == NULL) {
         return 1;
+    }
     
     // Allocate 3 bytes buffer && Read 8 bytes
     unsigned char bytes[8];
