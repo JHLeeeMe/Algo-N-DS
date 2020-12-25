@@ -9,7 +9,8 @@
 
 void insertion_sort(int arr[], int arr_len);
 
-int main(void)
+int
+main(void)
 {
     printf("##################\n");
     printf("# arr[], arr_len #\n");
@@ -44,7 +45,8 @@ int main(void)
  *  params: int arr[], int arr_len
  *  returns: void
  */
-void insertion_sort(int arr[], int arr_len)
+void
+insertion_sort(int arr[], int arr_len)
 {
     for (int i = 1; i < arr_len; i++) {
         int tmp = arr[i];

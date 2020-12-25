@@ -14,7 +14,8 @@ uint32_t partition(int32_t arr[], int32_t left, int32_t right);
 void sort(int32_t arr[], int32_t left, int32_t right);
 void swap(int32_t arr[], int32_t i, int32_t j);
 
-int32_t main(void)
+int32_t
+main(void)
 {
     int32_t arr[] = { 5, 1, 2, 10, 8, 0, 23, 7 };
     uint32_t size = sizeof(arr) / sizeof(int32_t);
@@ -36,7 +37,8 @@ int32_t main(void)
  *  params: int32_t arr[], uint32_t size
  *  returns: void
  */
-void quick_sort(int32_t arr[], uint32_t size)
+void
+quick_sort(int32_t arr[], uint32_t size)
 {
     sort(arr, 0, size);
 }
@@ -49,7 +51,8 @@ void quick_sort(int32_t arr[], uint32_t size)
  *  params: int32_t arr[], int32_t left, int32_t right
  *  returns: void
  */
-void sort(int32_t arr[], int32_t left, int32_t right)
+void
+sort(int32_t arr[], int32_t left, int32_t right)
 {
     // base case
     if (left >= right) {
@@ -69,7 +72,8 @@ void sort(int32_t arr[], int32_t left, int32_t right)
  *  params: int32_t arr[], int32_t left, int32_t right
  *  returns: uint32_t
  */
-uint32_t partition(int32_t arr[], int32_t left, int32_t right)
+uint32_t
+partition(int32_t arr[], int32_t left, int32_t right)
 {
     int32_t mid = (left + right) >> 1;
     swap(arr, left, mid);
@@ -100,7 +104,8 @@ uint32_t partition(int32_t arr[], int32_t left, int32_t right)
  *  params: int32_t arr[], int32_t a, int32_t b
  *  returns: void
  */
-void swap(int32_t arr[], int32_t a, int32_t b)
+void
+swap(int32_t arr[], int32_t a, int32_t b)
 {
     int32_t tmp = arr[a];
     arr[a] = arr[b];
