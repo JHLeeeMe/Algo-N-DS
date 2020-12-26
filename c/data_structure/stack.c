@@ -28,7 +28,8 @@ typedef struct Stack {
  *  params: uint32_t capacity
  *  returns: Stack*
  */
-Stack* create_stack(uint32_t capacity)
+Stack* 
+create_stack(uint32_t capacity)
 {
     Stack* S = (Stack*)malloc(sizeof(Stack));
     if (S != NULL) {
@@ -48,7 +49,8 @@ int32_t peek(Stack* S);
 int32_t size(Stack* S);
 void print_stack(Stack* S);
 
-int32_t main(void)
+int32_t 
+main(void)
 {
     Stack* stack = create_stack(10);
     if (stack == NULL) { return -1; }
@@ -100,7 +102,8 @@ int32_t main(void)
  *  params: Stack* S
  *  returns: bool
  */
-bool is_full(Stack* S)
+bool 
+is_full(Stack* S)
 {
     return S->top == (int32_t)(S->capacity - 1);
 }
@@ -113,7 +116,8 @@ bool is_full(Stack* S)
  *  params: Stack* S
  *  returns: bool
  */
-bool is_empty(Stack* S)
+bool 
+is_empty(Stack* S)
 {
     return S->top == -1;
 }
@@ -126,7 +130,8 @@ bool is_empty(Stack* S)
  *  params: Stack* S, int32_t item
  *  returns: bool
  */
-bool push(Stack* S, int32_t item)
+bool 
+push(Stack* S, int32_t item)
 {
     if (is_full(S)) {
         printf("Stack is Full.\n");
@@ -146,7 +151,8 @@ bool push(Stack* S, int32_t item)
  *  params: Stack* S
  *  returns: int32_t
  */
-int32_t pop(Stack* S)
+int32_t 
+pop(Stack* S)
 {
     if (is_empty(S)) {
         printf("Stack is Empty.\n");
@@ -167,7 +173,8 @@ int32_t pop(Stack* S)
  *  params: Stack* S
  *  returns: int32_t
  */
-int32_t peek(Stack* S)
+int32_t 
+peek(Stack* S)
 {
     if (is_empty(S)) {
         printf("Stack is Empty.\n");
@@ -185,7 +192,8 @@ int32_t peek(Stack* S)
  *  params: Stack* S
  *  returns: int32_t
  */
-int32_t size(Stack* S)
+int32_t 
+size(Stack* S)
 {
     return (S->top) + 1;
 }
@@ -199,7 +207,8 @@ int32_t size(Stack* S)
  *  params: Stack* S
  *  returns: void
  */
-void print_stack(Stack* S)
+void 
+print_stack(Stack* S)
 {
     printf("{ ");
     for (int32_t i = 0; i <= S->top; i++) {

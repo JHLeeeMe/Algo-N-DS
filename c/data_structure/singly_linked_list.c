@@ -21,7 +21,8 @@ typedef struct Node {
 bool add(LinkedList* L, int32_t item);
 bool remove_by_item(LinkedList* L, int32_t item);
 
-int32_t main(void)
+int32_t 
+main(void)
 {
     // init
     LinkedList* L = (LinkedList*)malloc(sizeof(LinkedList));
@@ -71,7 +72,8 @@ int32_t main(void)
  *  params: LinkedList* L, int32_t item
  *  returns: bool
  */
-bool add(LinkedList* L, int32_t item)
+bool 
+add(LinkedList* L, int32_t item)
 {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL) return false;
@@ -100,7 +102,8 @@ bool add(LinkedList* L, int32_t item)
  *  params: LinkedList* L, int32_t item
  *  returns: bool
  */
-bool remove_by_item(LinkedList* L, int32_t item)
+bool 
+remove_by_item(LinkedList* L, int32_t item)
 {
     if (L->head == NULL) {
         return false;

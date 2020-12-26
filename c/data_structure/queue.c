@@ -33,7 +33,8 @@ typedef struct Node {
  *  params: void
  *  returns: Queue*
  */
-Queue* create_queue(void)
+Queue* 
+create_queue(void)
 {
     Queue* Q = (Queue*)malloc(sizeof(Queue));
     if (Q == NULL) { return NULL; }
@@ -53,7 +54,8 @@ int32_t peek(Queue* Q);
 uint32_t get_size(Queue* Q);
 void print_queue(Queue* Q);
 
-int32_t main(void)
+int32_t 
+main(void)
 {
     Queue* Q = create_queue();
     if (Q == NULL) { return -1; }
@@ -110,7 +112,8 @@ int32_t main(void)
  *  params: Queue* Q
  *  returns: bool
  */
-bool is_empty(Queue* Q)
+bool 
+is_empty(Queue* Q)
 {
     return Q->size == 0;
 }
@@ -123,7 +126,8 @@ bool is_empty(Queue* Q)
  *  params: Queue* Q
  *  returns: void
  */
-void clear(Queue* Q)
+void 
+clear(Queue* Q)
 {
     if (is_empty(Q)) {
         printf("already empty Queue\n");
@@ -146,7 +150,8 @@ void clear(Queue* Q)
  *  params: Queue* Q, int32_t item
  *  returns: bool
  */
-bool enqueue(Queue* Q, int32_t item)
+bool 
+enqueue(Queue* Q, int32_t item)
 {
     Node* new_node = (Node*)malloc(sizeof(Node));
     if (new_node == NULL) {
@@ -175,7 +180,8 @@ bool enqueue(Queue* Q, int32_t item)
  *  params: Queue* Q
  *  returns: int32_t
  */
-int32_t dequeue(Queue* Q)
+int32_t 
+dequeue(Queue* Q)
 {
     if (is_empty(Q)) {
         printf("Queue is empty\n");
@@ -197,7 +203,8 @@ int32_t dequeue(Queue* Q)
  *  params: Queue* Q
  *  returns: int32_t
  */
-int32_t peek(Queue* Q)
+int32_t 
+peek(Queue* Q)
 {
     if (is_empty(Q)) {
         printf("Queue is empty\n");
@@ -215,7 +222,8 @@ int32_t peek(Queue* Q)
  *  params: Queue* Q
  *  returns: uint32_t
  */
-uint32_t get_size(Queue* Q)
+uint32_t 
+get_size(Queue* Q)
 {
     return Q->size;
 }
@@ -229,7 +237,8 @@ uint32_t get_size(Queue* Q)
  *  params: Queue* Q
  *  returns: void
  */
-void print_queue(Queue* Q)
+void 
+print_queue(Queue* Q)
 {
     Node* tmp = Q->front;
 
