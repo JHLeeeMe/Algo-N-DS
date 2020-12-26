@@ -17,7 +17,8 @@ void clear_bit_all(char* bit_vector, uint32_t max_value);
 uint32_t max(uint32_t* arr, uint32_t size);
 void test_bit(char* bit_vector, uint32_t k);
 
-int main()
+int 
+main()
 {
     uint32_t test[] = {1, 20, 32, 9, 3, 10, 7, 19, 16};
     uint32_t max_value = max(test, sizeof(test) / sizeof(uint32_t));
@@ -63,7 +64,8 @@ int main()
  *  params: char* bit_vector, uint32_t k
  *  returns: void
  */
-void set_bit(char* bit_vector, uint32_t k)
+void
+set_bit(char* bit_vector, uint32_t k)
 {
     bit_vector[k / 8] |= 1 << (k % 8);
 }
@@ -76,7 +78,8 @@ void set_bit(char* bit_vector, uint32_t k)
  *  params: char* bit_vector, uint32_t k
  *  returns: void
  */
-void clear_bit(char* bit_vector, uint32_t k)
+void 
+clear_bit(char* bit_vector, uint32_t k)
 {
     bit_vector[k / 8] &= ~(1 << (k % 8));
 }
@@ -89,7 +92,8 @@ void clear_bit(char* bit_vector, uint32_t k)
  *  params: char* bit_vector, uint32_t max_value
  *  returns: void
  */
-void clear_bit_all(char* bit_vector, uint32_t max_value)
+void 
+clear_bit_all(char* bit_vector, uint32_t max_value)
 {
     //for (int32_t i = max_value / 8; i >= 0; i--)
     //    bit_vector[i] &= ~(bit_vector[i]);
@@ -104,13 +108,16 @@ void clear_bit_all(char* bit_vector, uint32_t max_value)
  *  params: char* bit_vector, uint32_t k
  *  returns: uint32_t
  */
-uint32_t max(uint32_t* arr, uint32_t size)
+uint32_t 
+max(uint32_t* arr, uint32_t size)
 {
     uint32_t max_value = arr[0];
     for (uint32_t i = 0; i < size; i++) {
-        if (max_value < arr[i])
+        if (max_value < arr[i]) {
             max_value = arr[i];
+        }
     }
+
     return max_value;
 }
 
@@ -122,7 +129,8 @@ uint32_t max(uint32_t* arr, uint32_t size)
  *  params: char* bit_vector, uint32_t k
  *  returns: void
  */
-void test_bit(char* bit_vector, uint32_t k)
+void 
+test_bit(char* bit_vector, uint32_t k)
 {
     if ((bit_vector[k / 8] & (1 << (k % 8))) != 0) {
         printf("%d-th bit is 1\n", k);
