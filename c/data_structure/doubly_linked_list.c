@@ -37,7 +37,8 @@ typedef struct Node {
  *  params: int32_t item
  *  returns: Node*
  */
-Node* create_node(int32_t item)
+Node* 
+create_node(int32_t item)
 {
     Node* node = (Node*)malloc(sizeof(Node));
     if (node == NULL) { return NULL; }
@@ -61,7 +62,8 @@ Node* node(DoublyLinkedList* DL, uint32_t idx);
 int32_t index_of(DoublyLinkedList* DL, int32_t item);
 void print(DoublyLinkedList* DL);
 
-int32_t main(void)
+int32_t 
+main(void)
 {
     DoublyLinkedList* DL = (DoublyLinkedList*)malloc(sizeof(DoublyLinkedList));
     if (DL == NULL) {
@@ -146,7 +148,8 @@ int32_t main(void)
  *  params: DoublyLinkedList* DL
  *  returns: bool
  */
-bool is_empty(DoublyLinkedList* DL)
+bool 
+is_empty(DoublyLinkedList* DL)
 {
     return DL->size == 0;
 }
@@ -159,7 +162,8 @@ bool is_empty(DoublyLinkedList* DL)
  *  params: DoublyLinkedList* DL, int32_t item
  *  returns: bool
  */
-bool add_first(DoublyLinkedList* DL, int32_t item)
+bool 
+add_first(DoublyLinkedList* DL, int32_t item)
 {
     Node* new_node = create_node(item);
     if (new_node == NULL) { return false; }
@@ -184,7 +188,8 @@ bool add_first(DoublyLinkedList* DL, int32_t item)
  *  params: DoublyLinkedList* DL, int32_t item
  *  returns: bool
  */
-bool add_last(DoublyLinkedList* DL, int32_t item)
+bool 
+add_last(DoublyLinkedList* DL, int32_t item)
 {
     Node* new_node = create_node(item);
     if (new_node == NULL) { return false; }
@@ -209,7 +214,8 @@ bool add_last(DoublyLinkedList* DL, int32_t item)
  *  params: DoublyLinkedList* DL, uint32_t idx, int32_t item
  *  returns: bool
  */
-bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
+bool 
+add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
 {
     bool flag = false;
     if (idx <= (DL->size - 1)) {
@@ -247,7 +253,8 @@ bool add_to_index(DoublyLinkedList* DL, uint32_t idx, int32_t item)
  *  params: DoublyLinkedList* Dl, uint32_t idx
  *  returns: int32_t
  */
-int32_t remove_by_index(DoublyLinkedList* DL, uint32_t idx)
+int32_t 
+remove_by_index(DoublyLinkedList* DL, uint32_t idx)
 {
     if (idx > (DL->size - 1)) { return INT32_MIN; }
 
@@ -283,7 +290,8 @@ int32_t remove_by_index(DoublyLinkedList* DL, uint32_t idx)
  *  params: DoublyLinkedList* DL, int32_t item
  *  returns: int32_t
  */
-int32_t remove_by_item(DoublyLinkedList* DL, int32_t item)
+int32_t 
+remove_by_item(DoublyLinkedList* DL, int32_t item)
 {
     int32_t idx = index_of(DL, item);
     if (idx < 0) { return idx; }
@@ -299,12 +307,14 @@ int32_t remove_by_item(DoublyLinkedList* DL, int32_t item)
  *  params: DoublyLinkedList* Dl, uint32_t idx, int32_t item
  *  returns: bool
  */
-bool set(DoublyLinkedList* DL, uint32_t idx, int32_t item)
+bool 
+set(DoublyLinkedList* DL, uint32_t idx, int32_t item)
 {
     Node* tmp = node(DL, idx);
     if (tmp == NULL) { return false; }
 
     tmp->data = item;
+
     return true;
 }
 
@@ -316,7 +326,8 @@ bool set(DoublyLinkedList* DL, uint32_t idx, int32_t item)
  *  params: DoublyLinkedList* DL, uint32_t idx
  *  returns: Node*
  */
-Node* get(DoublyLinkedList* DL, uint32_t idx)
+Node* 
+get(DoublyLinkedList* DL, uint32_t idx)
 {
     Node* tmp = node(DL, idx);
     if (tmp == NULL) { return NULL; }
@@ -332,7 +343,8 @@ Node* get(DoublyLinkedList* DL, uint32_t idx)
  *  params: DoublyLinkedList* DL, uint32_t idx
  *  returns: Node*
  */
-Node* node(DoublyLinkedList* DL, uint32_t idx)
+Node* 
+node(DoublyLinkedList* DL, uint32_t idx)
 {
     if (is_empty(DL)) {
         printf("Empty List.\n");
@@ -343,13 +355,14 @@ Node* node(DoublyLinkedList* DL, uint32_t idx)
         return NULL;
     }
 
+    Node* tmp = NULL;
     if (idx < (DL->size >> 1)) {
-        Node* tmp = DL->head;
+        tmp = DL->head;
         for (uint32_t i = 0; i < idx; i++) {
             tmp = tmp->next;
         }
     } else {
-        Node* tmp = DL->tail;
+        tmp = DL->tail;
         for (uint32_t i = (DL->size - 1); i > idx; i--) {
             tmp = tmp->prev;
         }
@@ -366,7 +379,8 @@ Node* node(DoublyLinkedList* DL, uint32_t idx)
  *  params: DoublyLinkedList* DL, int32_t item
  *  returns: int32_t
  */
-int32_t index_of(DoublyLinkedList* DL, int32_t item)
+int32_t 
+index_of(DoublyLinkedList* DL, int32_t item)
 {
     if (is_empty(DL)) {
         printf("Empty List.\n");
@@ -395,7 +409,8 @@ int32_t index_of(DoublyLinkedList* DL, int32_t item)
  *  params: DoublyLinkedList* DL
  *  returns: void
  */
-void print(DoublyLinkedList* DL)
+void 
+print(DoublyLinkedList* DL)
 {
     printf("{ ");
     Node* tmp = DL->head;
