@@ -62,12 +62,29 @@ class Graph {
     }
 
     public void dfsRecursive(int idx) {
+        if ((idx < 0) || (this.size <= idx)) {
+            throw new Error();
+        }
+
         Node node = nodes[idx];
         dfsRecursive(node);
     }
 
     public void dfsRecursive(Node node) {
-        ;
+        //assert (node != null);
+
+        // 1. 방문 마킹
+        node.marked = true;
+
+        // 2. 데이터 출력
+        System.out.print(node.data + " ");
+
+        // 3. 현재 노드와 간선으로 연결된 노드들 보기
+        for (Node n : node.adjacent) {
+            if (!n.marked) {  // 4. 방문이 안된 곳이라면
+                dfsRecursive(n);
+            }
+        }
     }
 
     class Node {
@@ -104,5 +121,7 @@ public class DFS {
         graph.addEdge(5, 6);
         graph.addEdge(5, 7);
         graph.addEdge(6, 8);
+
+        graph.dfsRecursive();
     }
 }
