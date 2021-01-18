@@ -1,10 +1,11 @@
+/**
+ * DoublyLinkedList
+ */
+
 package dataStructure;
 
 import java.util.ListIterator;
 
-/**
- * DoublyLinkedList
- */
 public class DoublyLinkedList<T> {
     private Node<T> first;
     private Node<T> last;

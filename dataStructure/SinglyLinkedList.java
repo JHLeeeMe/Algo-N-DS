@@ -1,10 +1,11 @@
+/**
+ * SinglyLinkedList
+ */
+
 package dataStructure;
 
 import java.util.Iterator;
 
-/**
- * SinglyLinkedList
- */
 public class SinglyLinkedList<T> {
     private Node<T> head;
     private int size = 0;

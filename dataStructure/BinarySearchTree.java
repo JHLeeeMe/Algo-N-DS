@@ -1,10 +1,11 @@
-package dataStructure;
-
 /**
  * BinarySearchTree
  * 
  * search, delete, insert => O(logN)
  */
+
+package dataStructure;
+
 public class BinarySearchTree {
     Node root;
 
