@@ -5,7 +5,7 @@
  * 
  */
 
-package algorithm;
+package algorithm.graph;
 
 import java.util.LinkedList;
 
