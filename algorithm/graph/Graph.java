@@ -1,3 +1,7 @@
+/**
+ * Graph
+ */
+
 package algorithm.graph;
 
 import java.util.LinkedList;
