@@ -2,7 +2,6 @@
  * DFS (Depth-First Search, 깊이 우선 탐색)
  *  1. stack을 활용한 구현
  *  2. 재귀함수를 활용한 구현
- * 
  */
 
 package algorithm.graph;
