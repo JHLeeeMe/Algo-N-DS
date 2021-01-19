@@ -8,6 +8,7 @@
 package algorithm.graph;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 class Graph {
     int size;
@@ -48,12 +49,39 @@ class Graph {
     }
 
     public void dfs(int idx) {
+        if ((idx < 0) || (idx >= this.size)) {
+            throw new Error();
+        }
+
         Node node = this.nodes[idx];
         dfs(node);
     }
 
-    public void dfs(Node node) {
-        ;
+    private void dfs(Node node) {
+        assert (node != null);
+
+        // 1. stack 할당 & 시작 노드를 넣으면 준비 끝
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+        node.marked = true;  // 넣은 node는 마킹
+
+        while (!stack.isEmpty()) {
+            Node tmp = stack.pop();  // 2. stack에서 node를 하나 꺼내서
+
+            /** 
+             * 3. 현재 노드와 간선으로 연결된 노드들 중 
+             *   마킹이 안돼있는 놈들만 stack에 넣고, 마킹
+             */
+            for (Node n : tmp.adjacent) {
+                if (!n.marked) {
+                    stack.push(n);
+                    n.marked = true;
+                }
+            }
+            
+            // 4. 꺼낸 node는 print
+            System.out.print(tmp.data + " ");
+        }
     }
 
     /* 2. 재귀함수를 활용한 구현 */
@@ -70,8 +98,8 @@ class Graph {
         dfsRecursive(node);
     }
 
-    public void dfsRecursive(Node node) {
-        //assert (node != null);
+    private void dfsRecursive(Node node) {
+        assert (node != null);
 
         // 1. 방문 마킹
         node.marked = true;
@@ -122,6 +150,7 @@ public class DFS {
         graph.addEdge(5, 7);
         graph.addEdge(6, 8);
 
-        graph.dfsRecursive();
+        graph.dfs();
+        //graph.dfsRecursive();
     }
 }
