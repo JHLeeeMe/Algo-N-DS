@@ -6,6 +6,7 @@
 package algorithm.graph;
 
 import java.util.Queue;
+import java.util.LinkedList;
 
 import algorithm.graph.Graph.Node;
 
@@ -34,7 +35,7 @@ public class BFS {
         assert (node != null);
 
         // 1. queue 할당 & 시작 노드를 넣으면 준비 끝
-        Queue<Node> queue = new Queue<>();
+        Queue<Node> queue = new LinkedList<>();
         queue.add(node);
         node.marked = true;  // 넣은 node는 마킹
 
@@ -53,7 +54,7 @@ public class BFS {
             }
 
             // 4. 꺼낸 node는 print
-            System.out.println(tmp.data + " ");
+            System.out.print(tmp.data + " ");
         }
     }
 
@@ -79,6 +80,7 @@ public class BFS {
         graph.addEdge(6, 8);
 
         BFS bfs = new BFS(graph);
-        bfs.bfs();
+        //bfs.bfs();
+        bfs.bfs(3);
     }
 }
