@@ -4,9 +4,7 @@
 
 package algorithm.graph;
 
-import java.util.LinkedList;
-
-public class UndirectedGraph {
+public class UndirectedGraph extends AbstGraph {
     private int size;
     private Node[] nodes;
 
@@ -23,6 +21,7 @@ public class UndirectedGraph {
      * addEdge
      *  - 두 노드간 간선 추가
      */
+    @Override
     public void addEdge(int a, int b) {
         if ((a < 0) || (b < 0) || 
             (this.size < a) || (this.size < b)) {
@@ -49,6 +48,7 @@ public class UndirectedGraph {
         return this.nodes[idx];
     }
 
+    /*
     class Node {
         int data;
         boolean marked;
@@ -60,4 +60,5 @@ public class UndirectedGraph {
             this.adjacent = new LinkedList<>();
         }
     }
+    */
 }

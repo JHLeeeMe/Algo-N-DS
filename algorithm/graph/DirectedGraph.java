@@ -4,9 +4,7 @@
 
 package algorithm.graph;
 
-import java.util.LinkedList;
-
-public class DirectedGraph {
+public class DirectedGraph extends AbstGraph {
     private int size;
     private Node[] nodes;
 
@@ -23,6 +21,7 @@ public class DirectedGraph {
      * addEdge
      *  - 두 노드간 간선 추가
      */
+    @Override
     public void addEdge(int from, int to) {
         if ((from < 0) || (to < 0) || 
             (this.size < from) || (this.size < to)) {
@@ -46,6 +45,7 @@ public class DirectedGraph {
         return this.nodes[idx];
     }
 
+    /*
     class Node {
         int data;
         boolean marked;
@@ -57,4 +57,5 @@ public class DirectedGraph {
             this.adjacent = new LinkedList<>();
         }
     }
+    */
 }
