@@ -44,18 +44,4 @@ public class DirectedGraph extends AbstGraph {
     public Node getNode(int idx) {
         return this.nodes[idx];
     }
-
-    /*
-    class Node {
-        int data;
-        boolean marked;
-        LinkedList<Node> adjacent;
-
-        Node(int data) {
-            this.data = data;
-            this.marked = false;
-            this.adjacent = new LinkedList<>();
-        }
-    }
-    */
 }
