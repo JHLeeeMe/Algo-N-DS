@@ -24,7 +24,9 @@ public class UndirectedGraph {
      *  - 두 노드간 간선 추가
      */
     public void addEdge(int a, int b) {
-        if (this.size < a || this.size < b) {
+        if ((a < 0) || (b < 0) || 
+            (this.size < a) || (this.size < b)) {
+
             throw new Error();
         }
 
