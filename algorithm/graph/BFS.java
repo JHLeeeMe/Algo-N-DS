@@ -8,13 +8,13 @@ package algorithm.graph;
 import java.util.Queue;
 import java.util.LinkedList;
 
-import algorithm.graph.UndirectedGraph.Node;
+import algorithm.graph.AbstGraph.Node;
 
 public class BFS {
     UndirectedGraph graph;
 
-    public BFS(UndirectedGraph graph) {
-        this.graph = graph;
+    public BFS(AbstGraph graph) {
+        this.graph = (UndirectedGraph)graph;
     }
 
     /* queue를 활용한 구현 */
@@ -67,19 +67,19 @@ public class BFS {
          *   | /  |      6 -- 8     
          *   2 -- 4
          */
-        UndirectedGraph uGraph = new UndirectedGraph(9);
-        uGraph.addEdge(0, 1);
-        uGraph.addEdge(1, 2);
-        uGraph.addEdge(1, 3);
-        uGraph.addEdge(2, 3);
-        uGraph.addEdge(2, 4);
-        uGraph.addEdge(3, 4);
-        uGraph.addEdge(3, 5);
-        uGraph.addEdge(5, 6);
-        uGraph.addEdge(5, 7);
-        uGraph.addEdge(6, 8);
+        AbstGraph undirectedGraph = new UndirectedGraph(9);
+        undirectedGraph.addEdge(0, 1);
+        undirectedGraph.addEdge(1, 2);
+        undirectedGraph.addEdge(1, 3);
+        undirectedGraph.addEdge(2, 3);
+        undirectedGraph.addEdge(2, 4);
+        undirectedGraph.addEdge(3, 4);
+        undirectedGraph.addEdge(3, 5);
+        undirectedGraph.addEdge(5, 6);
+        undirectedGraph.addEdge(5, 7);
+        undirectedGraph.addEdge(6, 8);
 
-        BFS bfs = new BFS(uGraph);
+        BFS bfs = new BFS(undirectedGraph);
         //bfs.bfs();
         bfs.bfs(3);
     }

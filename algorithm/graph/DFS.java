@@ -8,13 +8,13 @@ package algorithm.graph;
 
 import java.util.Stack;
 
-import algorithm.graph.UndirectedGraph.Node;
+import algorithm.graph.AbstGraph.Node;
 
 public class DFS {
     UndirectedGraph graph;
 
-    public DFS(UndirectedGraph graph) {
-        this.graph = graph;
+    public DFS(AbstGraph graph) {
+        this.graph = (UndirectedGraph)graph;
     }
 
     /* 1. stack을 활용한 구현 */
@@ -98,7 +98,7 @@ public class DFS {
          *   | /  |      6 -- 8     
          *   2 -- 4
          */
-        UndirectedGraph uGraph = new UndirectedGraph(9);
+        AbstGraph uGraph = new UndirectedGraph(9);
         uGraph.addEdge(0, 1);
         uGraph.addEdge(1, 2);
         uGraph.addEdge(1, 3);
