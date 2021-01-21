@@ -1,16 +1,16 @@
 /**
- * Graph
+ * UndirectedGraph
  */
 
 package algorithm.graph;
 
 import java.util.LinkedList;
 
-public class Graph {
+public class UndirectedGraph {
     private int size;
     private Node[] nodes;
 
-    public Graph(int size) {
+    public UndirectedGraph(int size) {
         this.size = size;
         this.nodes = new Node[size];
 

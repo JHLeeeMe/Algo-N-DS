@@ -8,12 +8,12 @@ package algorithm.graph;
 import java.util.Queue;
 import java.util.LinkedList;
 
-import algorithm.graph.Graph.Node;
+import algorithm.graph.UndirectedGraph.Node;
 
 public class BFS {
-    Graph graph;
+    UndirectedGraph graph;
 
-    public BFS(Graph graph) {
+    public BFS(UndirectedGraph graph) {
         this.graph = graph;
     }
 
@@ -67,19 +67,19 @@ public class BFS {
          *   | /  |      6 -- 8     
          *   2 -- 4
          */
-        Graph graph = new Graph(9);
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(2, 3);
-        graph.addEdge(2, 4);
-        graph.addEdge(3, 4);
-        graph.addEdge(3, 5);
-        graph.addEdge(5, 6);
-        graph.addEdge(5, 7);
-        graph.addEdge(6, 8);
+        UndirectedGraph uGraph = new UndirectedGraph(9);
+        uGraph.addEdge(0, 1);
+        uGraph.addEdge(1, 2);
+        uGraph.addEdge(1, 3);
+        uGraph.addEdge(2, 3);
+        uGraph.addEdge(2, 4);
+        uGraph.addEdge(3, 4);
+        uGraph.addEdge(3, 5);
+        uGraph.addEdge(5, 6);
+        uGraph.addEdge(5, 7);
+        uGraph.addEdge(6, 8);
 
-        BFS bfs = new BFS(graph);
+        BFS bfs = new BFS(uGraph);
         //bfs.bfs();
         bfs.bfs(3);
     }
