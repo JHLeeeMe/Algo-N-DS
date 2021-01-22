@@ -11,10 +11,10 @@ import java.util.LinkedList;
 import algorithm.graph.AbstGraph.Node;
 
 public class BFS {
-    UndirectedGraph graph;
+    UnDirectedGraph graph;
 
     public BFS(AbstGraph graph) {
-        this.graph = (UndirectedGraph)graph;
+        this.graph = (UnDirectedGraph)graph;
     }
 
     /* queue를 활용한 구현 */
@@ -67,7 +67,7 @@ public class BFS {
          *   | /  |      6 -- 8     
          *   2 -- 4
          */
-        AbstGraph undirectedGraph = new UndirectedGraph(9);
+        AbstGraph undirectedGraph = new UnDirectedGraph(9);
         undirectedGraph.addEdge(0, 1);
         undirectedGraph.addEdge(1, 2);
         undirectedGraph.addEdge(1, 3);

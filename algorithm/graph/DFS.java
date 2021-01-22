@@ -11,10 +11,10 @@ import java.util.Stack;
 import algorithm.graph.AbstGraph.Node;
 
 public class DFS {
-    UndirectedGraph graph;
+    UnDirectedGraph graph;
 
     public DFS(AbstGraph graph) {
-        this.graph = (UndirectedGraph)graph;
+        this.graph = (UnDirectedGraph)graph;
     }
 
     /* 1. stack을 활용한 구현 */
@@ -98,7 +98,7 @@ public class DFS {
          *   | /  |      6 -- 8     
          *   2 -- 4
          */
-        AbstGraph uGraph = new UndirectedGraph(9);
+        AbstGraph uGraph = new UnDirectedGraph(9);
         uGraph.addEdge(0, 1);
         uGraph.addEdge(1, 2);
         uGraph.addEdge(1, 3);

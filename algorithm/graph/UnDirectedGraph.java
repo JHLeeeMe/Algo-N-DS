@@ -1,14 +1,14 @@
 /**
- * UndirectedGraph
+ * UnDirectedGraph
  */
 
 package algorithm.graph;
 
-public class UndirectedGraph extends AbstGraph {
+public class UnDirectedGraph extends AbstGraph {
     private int size;
     private Node[] nodes;
 
-    public UndirectedGraph(int size) {
+    public UnDirectedGraph(int size) {
         this.size = size;
         this.nodes = new Node[size];
 
