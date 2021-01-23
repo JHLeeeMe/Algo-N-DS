@@ -4,12 +4,18 @@
 
 package algorithm.graph;
 
+import algorithm.graph.AbstGraph.Node;
+
 public class CycleDetection {
+    private AbstGraph graph;
+
     boolean hasCycle(AbstGraph graph) {
         if (graph instanceof DirectedGraph) {
-            return hasCycleInDirectedGraph((DirectedGraph)graph);
+            this.graph = graph;
+            return hasCycleInDirectedGraph((DirectedGraph)this.graph);
         } else if (graph instanceof UnDirectedGraph) {
-            return hasCycleInUnDirectedGraph((UnDirectedGraph)graph);
+            this.graph = graph;
+            return hasCycleInUnDirectedGraph((UnDirectedGraph)this.graph);
         }
 
         throw new Error("CycleDetection::hasCycle(AbstGraph)");
@@ -29,6 +35,35 @@ public class CycleDetection {
         return false;
     }
 
+    public void dfsRecursive() {
+        dfsRecursive(0);
+    }
+
+    public void dfsRecursive(int idx) {
+        if ((idx < 0) || (graph.getSize() <= idx)) {
+            throw new Error();
+        }
+
+        Node node = graph.getNode(idx);
+        dfsRecursive(node);
+    }
+
+    private void dfsRecursive(Node node) {
+        assert (node != null);
+
+        // 1. 방문 마킹
+        node.marked = true;
+
+        // 2. 데이터 출력
+        System.out.print(node.data + " ");
+
+        // 3. 현재 노드와 간선으로 연결된 노드들 보기
+        for (Node n : node.adjacent) {
+            if (!n.marked) { // 4. 방문이 안된 곳이라면
+                dfsRecursive(n);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         /**
@@ -49,6 +84,6 @@ public class CycleDetection {
 
         CycleDetection cycleDetection = new CycleDetection();
         cycleDetection.hasCycle(unDirectedGraph);
-        cycleDetection.hasCycle(null);
+        //cycleDetection.hasCycle(null);
     }
 }
