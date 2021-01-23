@@ -10,6 +10,10 @@ public class CycleDetection {
     private AbstGraph graph;
     private boolean flag = false;
 
+    public CycleDetection(AbstGraph graph) {
+        this.graph = graph;
+    }
+
     boolean hasCycle(AbstGraph graph) {
         if (!(graph instanceof DirectedGraph) && !(graph instanceof UnDirectedGraph)) {
             throw new Error("CycleDetection::hasCycle(AbstGraph)");
@@ -159,11 +163,19 @@ public class CycleDetection {
         directedGraph.addEdge(2, 3);
         directedGraph.addEdge(3, 4);
 
-        CycleDetection cycleDetection = new CycleDetection();
+        CycleDetection cycleDetection = new CycleDetection(directedGraph);
+
+        cycleDetection.dfsRecursive();
+
         if (cycleDetection.hasCycle(directedGraph)) {
             System.out.println("싸이클 존재");
         } else {
             System.out.println("안존재");
         }
+
+
+        // 3부터가면 싸이클 존재로 찍힘 
+        // detect 알고리즘 변경해야됨.
+
     }
 }
