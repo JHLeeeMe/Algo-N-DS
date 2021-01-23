@@ -37,6 +37,7 @@ public class DirectedGraph extends AbstGraph {
         }
     }
 
+    @Override
     public int getSize() {
         return this.size;
     }

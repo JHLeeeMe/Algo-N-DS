@@ -40,10 +40,12 @@ public class UnDirectedGraph extends AbstGraph {
         }
     }
 
+    @Override
     public int getSize() {
         return this.size;
     }
 
+    @Override
     public Node getNode(int idx) {
         return this.nodes[idx];
     }
