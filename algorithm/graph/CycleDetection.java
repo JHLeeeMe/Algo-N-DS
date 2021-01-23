@@ -4,10 +4,6 @@
 
 package algorithm.graph;
 
-import algorithm.graph.AbstGraph;
-import algorithm.graph.DirectedGraph;
-import algorithm.graph.UnDirectedGraph;
-
 public class CycleDetection {
     boolean hasCycle(AbstGraph graph) {
         if (graph instanceof DirectedGraph) {
