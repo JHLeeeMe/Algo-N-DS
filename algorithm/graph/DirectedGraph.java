@@ -42,6 +42,7 @@ public class DirectedGraph extends AbstGraph {
         return this.size;
     }
 
+    @Override
     public Node getNode(int idx) {
         return this.nodes[idx];
     }
