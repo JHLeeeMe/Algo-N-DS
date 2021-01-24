@@ -43,6 +43,7 @@ public class CycleDetection {
         }
     }
 
+    /* DirectedGraph의 경우 */
     private void detectCycleInDirectedGraphRecursive(Node curr) {
         assert (curr != null);
 
@@ -66,6 +67,7 @@ public class CycleDetection {
         this.processStack.pop();
     }
 
+    /* UnDirectedGraph의 경우 */
     private void detectCycleInUnDirectedGraphRecursive(Node curr, Node parent) {
         assert (curr != null);
 
