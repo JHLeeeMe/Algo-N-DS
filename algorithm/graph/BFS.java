@@ -11,10 +11,10 @@ import java.util.LinkedList;
 import algorithm.graph.AbstGraph.Node;
 
 public class BFS {
-    UnDirectedGraph graph;
+    AbstGraph graph;
 
     public BFS(AbstGraph graph) {
-        this.graph = (UnDirectedGraph)graph;
+        this.graph = graph;
     }
 
     /* queue를 활용한 구현 */
@@ -23,11 +23,11 @@ public class BFS {
     }
 
     public void bfs(int idx) {
-        if ((idx < 0) || (idx >= graph.getSize())) {
+        if ((idx < 0) || (idx >= this.graph.getSize())) {
             throw new Error();
         }
 
-        Node node = graph.getNode(idx);
+        Node node = this.graph.getNode(idx);
         bfs(node);
     }
 
@@ -60,6 +60,8 @@ public class BFS {
 
     public static void main(String[] args) {
         /**
+         * UnDirectedGraph
+         * 
          *     0
          *    /
          *   1 -- 3 -- 5 -- 7

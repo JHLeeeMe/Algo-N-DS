@@ -11,10 +11,10 @@ import java.util.Stack;
 import algorithm.graph.AbstGraph.Node;
 
 public class DFS {
-    UnDirectedGraph graph;
+    AbstGraph graph;
 
     public DFS(AbstGraph graph) {
-        this.graph = (UnDirectedGraph)graph;
+        this.graph = graph;
     }
 
     /* 1. stack을 활용한 구현 */
@@ -23,11 +23,11 @@ public class DFS {
     }
 
     public void dfs(int idx) {
-        if ((idx < 0) || (idx >= graph.getSize())) {
+        if ((idx < 0) || (idx >= this.graph.getSize())) {
             throw new Error();
         }
 
-        Node node = graph.getNode(idx);
+        Node node = this.graph.getNode(idx);
         dfs(node);
     }
 
@@ -64,11 +64,11 @@ public class DFS {
     }
 
     public void dfsRecursive(int idx) {
-        if ((idx < 0) || (graph.getSize() <= idx)) {
+        if ((idx < 0) || (this.graph.getSize() <= idx)) {
             throw new Error();
         }
 
-        Node node = graph.getNode(idx);
+        Node node = this.graph.getNode(idx);
         dfsRecursive(node);
     }
 
@@ -91,6 +91,8 @@ public class DFS {
 
     public static void main(String[] args) {
         /**
+         * UnDirectedGraph
+         * 
          *     0
          *    /
          *   1 -- 3 -- 5 -- 7
@@ -113,5 +115,32 @@ public class DFS {
         DFS dfs = new DFS(uGraph);
         //dfs.dfs(7);
         dfs.dfsRecursive(4);
+
+        System.out.println();
+
+        /**
+         * DirectedGraph
+         * 
+         *      0
+         *    ↙ ↘
+         *   1     2 → 3
+         *   ↓   ↓ ↖
+         *   4 →  5 → 6
+         * 
+         *  (2 -> 5 -> 6 cycle)
+         */
+        AbstGraph dGraph = new DirectedGraph(7);
+        dGraph.addEdge(0, 1);
+        dGraph.addEdge(0, 2);
+        dGraph.addEdge(1, 4);
+        dGraph.addEdge(2, 3);
+        dGraph.addEdge(2, 5);
+        dGraph.addEdge(4, 5);
+        dGraph.addEdge(5, 6);
+        dGraph.addEdge(6, 2);
+
+        DFS dfs1 = new DFS(dGraph);
+        //dfs1.dfs();
+        dfs1.dfsRecursive(6);
     }
 }
