@@ -25,6 +25,7 @@ public class CycleDetection {
         return this.flag;
     }
 
+    /* detect cycle algorithm */
     public void detectCycle() {
         detectCycle(0);
     }
@@ -37,28 +38,29 @@ public class CycleDetection {
         Node node = graph.getNode(idx);
 
         if (graph instanceof DirectedGraph) {
-            detectCycleInDirectedGraphRecursive(node);
+            //detectCycleInDirectedGraphRecursive(node);
         } else {
             detectCycleInUnDirectedGraphRecursive(node, null);
         }
     }
 
-    private void detectCycleInDirectedGraphRecursive(Node curr) {
-        assert (curr != null);
+    // 버그, 엎어야 함.
+    //private void detectCycleInDirectedGraphRecursive(Node curr) {
+    //    assert (curr != null);
 
-        // 1. 방문 마킹
-        curr.marked = true;
+    //    // 1. 방문 마킹
+    //    curr.marked = true;
 
-        // 2. 현재 노드와 간선으로 연결된 노드들 보기
-        for (Node n : curr.adjacent) {
-            if (!n.marked) { // 3. 방문이 안된 곳이라면
-                detectCycleInDirectedGraphRecursive(n);
-            } else {
-                this.flag = true;
-                break;
-            }
-        }
-    }
+    //    // 2. 현재 노드와 간선으로 연결된 노드들 보기
+    //    for (Node n : curr.adjacent) {
+    //        if (!n.marked) { // 3. 방문이 안된 곳이라면
+    //            detectCycleInDirectedGraphRecursive(n);
+    //        } else {
+    //            this.flag = true;
+    //            break;
+    //        }
+    //    }
+    //}
 
     private void detectCycleInUnDirectedGraphRecursive(Node curr, Node parent) {
         assert (curr != null);
@@ -79,6 +81,7 @@ public class CycleDetection {
         }
     }
 
+    /* dfs recursion altorithm */
     public void dfsRecursive() {
         dfsRecursive(0);
     }
@@ -109,42 +112,6 @@ public class CycleDetection {
         }
     }
 
-    //private void dfsInDirectedGraphRecursive(Node curr) {
-    //    assert (curr != null);
-
-    //    // 1. 방문 마킹
-    //    curr.marked = true;
-
-    //    // 2. 현재 노드와 간선으로 연결된 노드들 보기
-    //    for (Node n : curr.adjacent) {
-    //        if (!n.marked) { // 3. 방문이 안된 곳이라면
-    //            dfsInDirectedGraphRecursive(n);
-    //        } else {
-    //            this.flag = true;
-    //            break;
-    //        }
-    //    }
-    //}
-
-    //private void dfsInUnDirectedGraphRecursive(Node curr, Node parent) {
-    //    assert (curr != null);
-
-    //    // 1. 방문 마킹
-    //    curr.marked = true;
-
-    //    // 2. 현재 노드와 간선으로 연결된 노드들 보기
-    //    for (Node n : curr.adjacent) {
-    //        if (!n.marked) { // 3. 방문이 안된 곳이라면
-    //            dfsInUnDirectedGraphRecursive(n, curr);
-    //        } else {
-    //            if (n != parent) {  // detect back edge
-    //                this.flag = true;
-    //                break;
-    //            }
-    //        }
-    //    }
-    //}
-
     public static void main(String[] args) {
         /**
          * UnDirectedGraph
@@ -172,10 +139,5 @@ public class CycleDetection {
         } else {
             System.out.println("안존재");
         }
-
-
-        // 3부터가면 싸이클 존재로 찍힘 
-        // detect 알고리즘 변경해야됨.
-
     }
 }
