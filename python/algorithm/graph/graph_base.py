@@ -11,7 +11,7 @@ class GraphBase(ABC):
     @abstractmethod
     def get_node(idx: int): pass
 
-    class Node():
+    class Node:
         def __init__(self, data: int):
             self.data = data
             self.marked = False
