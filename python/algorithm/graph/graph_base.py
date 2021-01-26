@@ -2,9 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class GraphBase(ABC):
-    def __init__(self):
-        self.size = 0
-
     @abstractmethod
     def add_edge(self, a: int, b: int): pass
 
