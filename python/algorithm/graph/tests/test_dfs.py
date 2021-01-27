@@ -29,43 +29,47 @@ class DFSTests(unittest.TestCase):
         self.undirected_graph.add_edge(5, 7)
         self.undirected_graph.add_edge(6, 8)
 
-        #"""
-        #DirectedGraph
+        """
+        DirectedGraph
 
-        #     0
-        #   ↙ ↘
-        #  1     2 → 3
-        #  ↓   ↓ ↖
-        #  4 →  5 → 6
+             0
+           ↙ ↘
+          1     2 → 3
+          ↓   ↓ ↖
+          4 →  5 → 6
 
-        #  (2 -> 5 -> 6 cycle)
-        #"""
-        #self.directed_graph = DirectedGraph(7)
-        #self.directed_graph.add_edge(0, 1)
-        #self.directed_graph.add_edge(0, 2)
-        #self.directed_graph.add_edge(1, 4)
-        #self.directed_graph.add_edge(2, 3)
-        #self.directed_graph.add_edge(2, 5)
-        #self.directed_graph.add_edge(4, 5)
-        #self.directed_graph.add_edge(5, 6)
-        #self.directed_graph.add_edge(6, 2)
-        #print("hi1")
+          (2 -> 5 -> 6 cycle)
+        """
+        self.directed_graph = DirectedGraph(7)
+        self.directed_graph.add_edge(0, 1)
+        self.directed_graph.add_edge(0, 2)
+        self.directed_graph.add_edge(1, 4)
+        self.directed_graph.add_edge(2, 3)
+        self.directed_graph.add_edge(2, 5)
+        self.directed_graph.add_edge(4, 5)
+        self.directed_graph.add_edge(5, 6)
+        self.directed_graph.add_edge(6, 2)
 
     def test_undirected_graph_dfs(self):
+        print("# UnDirected Graph DFS Recursive")
         dfs = DFS(self.undirected_graph)
         dfs.dfs()
         print()
 
     def test_undirected_graph_dfs_recursive(self):
+        print("# UnDirected Graph DFS")
         dfs = DFS(self.undirected_graph)
         dfs.dfs_recursive()
         print()
-#
-#    def directed_graph_dfs_test(self):
-#        dfs = DFS(self.directed_graph)
-#        dfs.dfs()
-#
-#    def directed_graph_dfs_recursive_test(self):
-#        dfs = DFS(self.directed_graph)
-#        dfs.dfs_recursive()
-#
+
+    def test_directed_graph_dfs(self):
+        print("# Directed Graph DFS")
+        dfs = DFS(self.directed_graph)
+        dfs.dfs()
+        print()
+
+    def test_directed_graph_dfs_recursive(self):
+        print("# Directed Graph DFS Recursive")
+        dfs = DFS(self.directed_graph)
+        dfs.dfs_recursive()
+        print()
