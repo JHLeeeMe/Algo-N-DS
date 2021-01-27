@@ -9,6 +9,9 @@ class DirectedGraph(GraphBase):
         self.__size = size
         self.__nodes = []
 
+        for i in range(self.__size):
+            self.__nodes.append(Node(i))
+
     def add_edge(self, _from: int, _to: int):
         if (_from < 0) or (_to < 0) or \
                 (self.__size < _from) or (self.__size < _to):
