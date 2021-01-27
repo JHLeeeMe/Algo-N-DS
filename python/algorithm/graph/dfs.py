@@ -26,7 +26,7 @@ class DFS:
         node.marked = True  # 추가된 노드 마킹
 
         while len(stack) > 0:
-            tmp_node = stack.pop()  # 1. stack 에서 노드를 하나 꺼내서
+            tmp_node = stack.pop()  # 2. stack 에서 노드를 하나 꺼내서
 
             # 3. 현재 노드와 간선으로 연결된 노드들 중
             #    마킹이 안돼있는 놈들만 stack 에 넣고, 마킹
