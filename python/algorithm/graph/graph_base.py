@@ -6,7 +6,7 @@ class GraphBase(ABC):
     def add_edge(self, a: int, b: int): pass
 
     @abstractmethod
-    def get_node(self, idx: int): pass
+    def node(self, idx: int): pass
 
     class Node:
         def __init__(self, data: int):
