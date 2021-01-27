@@ -1,6 +1,9 @@
 from .graph_base import GraphBase
 
 
+Node = GraphBase.Node
+
+
 class UnDirectedGraph(GraphBase):
     def __init__(self, size: int):
         self.__size = size
@@ -20,7 +23,7 @@ class UnDirectedGraph(GraphBase):
             n2.adjacent.append(n1)
 
     @property
-    def node(self, idx: int):
+    def node(self, idx: int) -> Node:
         return self.nodes[idx]
 
     @property

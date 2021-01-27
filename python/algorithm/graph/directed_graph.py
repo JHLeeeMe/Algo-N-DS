@@ -1,6 +1,9 @@
 from .graph_base import GraphBase
 
 
+Node = GraphBase.Node
+
+
 class DirectedGraph(GraphBase):
     def __init__(self, size: int):
         self.__size = size
@@ -18,7 +21,7 @@ class DirectedGraph(GraphBase):
             n1.adjacent.append(n2)
 
     @property
-    def node(self, idx: int):
+    def node(self, idx: int) -> Node:
         return self.nodes[idx]
 
     @property
