@@ -1,6 +1,4 @@
 from .graph_base import GraphBase
-from directed_graph import DirectedGraph
-from undirected_graph import UnDirectedGraph
 
 
 Node = GraphBase.Node
