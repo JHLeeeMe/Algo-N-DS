@@ -17,7 +17,7 @@ class CycleDetection:
             raise TypeError("graph instance must be in (DirectedGraph or UnDirectedGraph)")
 
         if self.graph is not None:
-            self.graph = None
+            self.__init__()
 
         self.graph = graph
         self.detect_cycle()
@@ -35,7 +35,22 @@ class CycleDetection:
             self.__detect_cycle_in_undirected_graph_recursive(node)
 
     def __detect_cycle_in_directed_graph_recursive(self, curr: Node):
-        pass
+        assert (curr is not None)
+
+        # 1. 현재 노드 마킹
+        curr.marked = True
+
+        # 2. 현재 노드를 process_list 에 적재
+        self.process_list.append(curr)
+
+        # 3. 현재 노드와 간선으로 연결된 노드 보기
+        for n in curr.adjacent:
+            if n.marked is False:  # 3-1. 마킹이 안된 노드라면
+                self.__detect_cycle_in_directed_graph_recursive(n)
+            else:
+                if n in self.process_list:  # 3-2. 마킹은 돼있는데 프로세스에 있다면 (detect back edge)
+                    self.flag = True
+                    break
 
     def __detect_cycle_in_undirected_graph_recursive(self, curr: Node, prev: Node = None):
         assert (curr is not None)
@@ -45,9 +60,9 @@ class CycleDetection:
 
         # 2. 현재 노드와 간선으로 연결된 노드들 보기
         for n in curr.adjacent:
-            if n.marked is False:  # 3. 마킹이 안된 노드라면
+            if n.marked is False:  # 2-1. 마킹이 안된 노드라면
                 self.__detect_cycle_in_undirected_graph_recursive(curr=n, prev=curr)
             else:
-                if n != prev:  # detect back edge
+                if n != prev:  # 2-2. 마킹은 돼있는데 이전노드가 아니라면 (detect back edge)
                     self.flag = True
                     break
