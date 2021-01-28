@@ -5,6 +5,6 @@ from algorithm.graph.directed_graph import DirectedGraph
 from algorithm.graph.undirected_graph import UnDirectedGraph
 
 
-class CycleDetectionTests(unittest.TestCase)
+class CycleDetectionTests(unittest.TestCase):
     def setUp(self):
         pass
