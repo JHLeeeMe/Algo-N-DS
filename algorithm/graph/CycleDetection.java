@@ -53,12 +53,12 @@ public class CycleDetection {
         // 2. 현재 노드를 stack에 push
         this.processStack.push(curr);
 
-        // 2. 현재 노드와 간선으로 연결된 노드들 보기
+        // 3. 현재 노드와 간선으로 연결된 노드들 보기
         for (Node n : curr.adjacent) {
-            if (!n.marked) { // 3. 방문이 안된 곳이라면
+            if (!n.marked) { // 3-1. 방문이 안된 곳이라면
                 detectCycleInDirectedGraphRecursive(n);
             } else {
-                if (this.processStack.contains(n)) {  // 방문이 됐는데 진행중인 process라면 back edge
+                if (this.processStack.contains(n)) {  // 3-2. 방문이 됐는데 진행중인 process라면 back edge
                     this.flag = true;
                     break;
                 }
@@ -76,10 +76,10 @@ public class CycleDetection {
 
         // 2. 현재 노드와 간선으로 연결된 노드들 보기
         for (Node n : curr.adjacent) {
-            if (!n.marked) { // 3. 방문이 안된 곳이라면
+            if (!n.marked) { // 2-1. 방문이 안된 곳이라면
                 detectCycleInUnDirectedGraphRecursive(n, curr);
             } else {
-                if (n != prev) {  // detect back edge
+                if (n != prev) {  // 2-2. detect back edge
                     this.flag = true;
                     break;
                 }
