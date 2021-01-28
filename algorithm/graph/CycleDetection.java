@@ -68,7 +68,7 @@ public class CycleDetection {
     }
 
     /* UnDirectedGraph의 경우 */
-    private void detectCycleInUnDirectedGraphRecursive(Node curr, Node parent) {
+    private void detectCycleInUnDirectedGraphRecursive(Node curr, Node prev) {
         assert (curr != null);
 
         // 1. 방문 마킹
@@ -79,7 +79,7 @@ public class CycleDetection {
             if (!n.marked) { // 3. 방문이 안된 곳이라면
                 detectCycleInUnDirectedGraphRecursive(n, curr);
             } else {
-                if (n != parent) {  // detect back edge
+                if (n != prev) {  // detect back edge
                     this.flag = true;
                     break;
                 }
