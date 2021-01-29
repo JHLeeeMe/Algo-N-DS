@@ -28,7 +28,7 @@ class DFS:
         while len(stack) > 0:
             tmp_node = stack.pop()  # 2. stack 에서 노드를 하나 꺼내서
 
-            # 3. 현재 노드와 간선으로 연결된 노드들 중
+            # 3. 꺼낸 노드와 간선으로 연결된 노드들 중
             #    마킹이 안돼있는 놈들만 stack 에 넣고, 마킹
             for n in tmp_node.adjacent:
                 if n.marked is False:
