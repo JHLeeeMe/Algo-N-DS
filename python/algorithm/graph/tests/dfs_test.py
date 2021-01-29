@@ -32,7 +32,7 @@ class DFSTests(unittest.TestCase):
         """
         DirectedGraph
 
-             0
+            0
            ↙ ↘
           1     2 → 3
           ↓   ↓ ↖
