@@ -7,26 +7,25 @@ Node = GraphBase.Node
 
 
 class CycleDetection:
-    def __init__(self):
-        self.graph = None
+    def __init__(self, graph: GraphBase = None):
+        self.graph = graph
         self.flag = False
         self.process_list = []
 
-    def has_cycle(self, graph: GraphBase) -> bool:
+    def has_cycle(self, graph: GraphBase, idx: int = 0) -> bool:
         if not isinstance(graph, (DirectedGraph, UnDirectedGraph)):
             raise TypeError("graph instance must be in (DirectedGraph or UnDirectedGraph)")
+        if (idx < 0) or (idx >= self.graph.size):
+            raise ValueError(f"idx must be (0 <= idx < {self.graph.size})")
 
-        if self.graph is not None:
-            self.__init__()
+        self.__init__(graph)
 
-        self.graph = graph
-        self.detect_cycle()
+        self.__detect_cycle(idx)
 
         return self.flag
 
-    def detect_cycle(self, idx: int = 0):
-        if (idx < 0) or (idx >= self.graph.size):
-            raise ValueError(f"idx must be (0 <= idx < {self.graph.size})")
+    def __detect_cycle(self, idx):
+        assert (idx >= 0 & idx < self.graph.size)
 
         node = self.graph.node_at(idx)
         if isinstance(self.graph, DirectedGraph):
