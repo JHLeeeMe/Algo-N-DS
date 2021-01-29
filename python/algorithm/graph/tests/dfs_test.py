@@ -50,25 +50,25 @@ class DFSTests(unittest.TestCase):
         self.directed_graph.add_edge(5, 6)
         self.directed_graph.add_edge(6, 2)
 
-    def test_undirected_graph_dfs(self):
+    def test_dfs_in_undirected_graph(self):
         print("# UnDirected Graph DFS Recursive")
         dfs = DFS(self.undirected_graph)
         dfs.dfs()
         print()
 
-    def test_undirected_graph_dfs_recursive(self):
+    def test_dfs_in_undirected_graph_recursive(self):
         print("# UnDirected Graph DFS")
         dfs = DFS(self.undirected_graph)
         dfs.dfs_recursive()
         print()
 
-    def test_directed_graph_dfs(self):
+    def test_dfs_in_directed_graph(self):
         print("# Directed Graph DFS")
         dfs = DFS(self.directed_graph)
         dfs.dfs()
         print()
 
-    def test_directed_graph_dfs_recursive(self):
+    def test_dfs_in_directed_graph_recursive(self):
         print("# Directed Graph DFS Recursive")
         dfs = DFS(self.directed_graph)
         dfs.dfs_recursive()
