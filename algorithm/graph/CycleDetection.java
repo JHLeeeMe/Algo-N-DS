@@ -18,21 +18,29 @@ public class CycleDetection {
             throw new Error("CycleDetection::hasCycle(AbstGraph)");
         }
 
+        return hasCycle(graph, 0);
+    }
+
+    public boolean hasCycle(AbstGraph graph, int idx) {
+        if (!(graph instanceof DirectedGraph) && !(graph instanceof UnDirectedGraph)) {
+            throw new Error("CycleDetection::hasCycle(AbstGraph)");
+        }
+        if ((idx < 0) || (this.graph.getSize() <= idx)) {
+            throw new Error("idx is must be between 0 and graph.getSize().");
+        }
+
         this.graph = graph;
-        detectCycle();
+        this.flag = false;
+        this.processStack.clear();
+
+        detectCycle(idx);
 
         return this.flag;
     }
 
     /* detect cycle algorithm */
-    private void detectCycle() {
-        detectCycle(0);
-    }
-
     private void detectCycle(int idx) {
-        if ((idx < 0) || (this.graph.getSize() <= idx)) {
-            throw new Error("idx is must be between 0 and graph.getSize().");
-        }
+        assert (idx >= 0 && idx < this.graph.getSize());
 
         Node node = this.graph.getNode(idx);
 
