@@ -51,18 +51,21 @@ class CycleDetectionTests(unittest.TestCase):
         self.directed_graph.add_edge(6, 2)
 
     def test_has_cycle_in_directed_graph_recursive(self):
+        print("# directed graph has_cycle()...")
         cycle_detection = CycleDetection()
         flag = cycle_detection.has_cycle(self.directed_graph)
         self.assertTrue(flag)
         print()
 
     def test_has_cycle_in_undirected_graph_recursive(self):
+        print("# unDirected graph has_cycle()...")
         cycle_detection = CycleDetection()
         flag = cycle_detection.has_cycle(self.undirected_graph)
         self.assertTrue(flag)
         print()
 
     def test_detect_cycle_in_directed_graph_recursive(self):
+        print("# directed graph detect_cycle()...")
         cycle_detection = CycleDetection()
         cycle_detection.has_cycle(self.directed_graph, 3)
         self.assertFalse(cycle_detection.flag)
@@ -73,6 +76,7 @@ class CycleDetectionTests(unittest.TestCase):
         print()
 
     def test_detect_cycle_in_undirected_graph_recursive(self):
+        print("# unDirected graph detect_cycle()...")
         cycle_detection = CycleDetection()
         cycle_detection.has_cycle(self.undirected_graph, 7)
         self.assertTrue(cycle_detection.flag)
