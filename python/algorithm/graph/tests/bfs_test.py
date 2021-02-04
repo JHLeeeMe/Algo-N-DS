@@ -5,7 +5,7 @@ from algorithm.graph.directed_graph import DirectedGraph
 from algorithm.graph.undirected_graph import UnDirectedGraph
 
 
-class BFSTest(unittest.TestCase):
+class BFSTests(unittest.TestCase):
     def setUp(self):
         """
         UnDirectedGraph
