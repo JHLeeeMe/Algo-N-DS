@@ -6,19 +6,19 @@ Node = GraphBase.Node
 
 class UnDirectedGraph(GraphBase):
     def __init__(self, size: int):
-        self.__size = size
-        self.__nodes = []
+        self._size = size
+        self._nodes = []
 
-        for i in range(self.__size):
-            self.__nodes.append(Node(i))
+        for i in range(self._size):
+            self._nodes.append(Node(i))
 
-    def add_edge(self, _from: int, _to: int):
-        if (_from < 0) or (_to < 0) or \
-                (self.__size < _from) or (self.__size < _to):
+    def add_edge(self, from_: int, to_: int):
+        if (from_ < 0) or (to_ < 0) or \
+                (self._size < from_) or (self._size < to_):
             raise IndexError("")
 
-        n1 = self.node_at(_from)
-        n2 = self.node_at(_to)
+        n1 = self.node_at(from_)
+        n2 = self.node_at(to_)
 
         if n2 not in n1.adjacent:
             n1.adjacent.append(n2)
@@ -26,8 +26,8 @@ class UnDirectedGraph(GraphBase):
             n2.adjacent.append(n1)
 
     def node_at(self, idx: int) -> Node:
-        return self.__nodes[idx]
+        return self._nodes[idx]
 
     @property
     def size(self) -> int:
-        return self.__size
+        return self._size

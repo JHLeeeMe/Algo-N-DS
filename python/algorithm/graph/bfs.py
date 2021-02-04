@@ -1,5 +1,6 @@
-from algorithm.graph.graph_base import GraphBase
 from queue import Queue
+
+from algorithm.graph.graph_base import GraphBase
 
 
 Node = GraphBase.Node
@@ -10,16 +11,16 @@ class BFS:
         if not isinstance(graph, GraphBase):
             raise TypeError()
 
-        self.graph = graph
+        self._graph = graph
 
     def bfs(self, idx: int = 0):
-        if (idx < 0) or (idx >= self.graph.size):
-            raise IndexError("0 <= idx < self.graph.size")
+        if (idx < 0) or (idx >= self._graph.size):
+            raise IndexError("0 <= idx < self._graph.size")
 
-        node = self.graph.node_at(idx)
-        self.__bfs(node)
+        node = self._graph.node_at(idx)
+        self._bfs(node)
 
-    def __bfs(self, node: Node):
+    def _bfs(self, node: Node):
         assert (node is not None)
 
         # 1. queue 생성 & 시작 노드 put

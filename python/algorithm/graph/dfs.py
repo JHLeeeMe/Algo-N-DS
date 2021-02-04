@@ -9,16 +9,16 @@ class DFS:
         if not isinstance(graph, GraphBase):
             raise TypeError()
 
-        self.graph = graph
+        self._graph = graph
 
     def dfs(self, idx: int = 0):
-        if (idx < 0) or (idx >= self.graph.size):
+        if (idx < 0) or (idx >= self._graph.size):
             raise IndexError("0 <= idx < self.graph.size")
 
-        node = self.graph.node_at(idx)
-        self.__dfs(node)
+        node = self._graph.node_at(idx)
+        self._dfs(node)
 
-    def __dfs(self, node: Node):
+    def _dfs(self, node: Node):
         assert (node is not None)
 
         # 1. stack 생성 & 시작 노드 append
@@ -39,13 +39,13 @@ class DFS:
             print(str(tmp_node.data), end=" ")
 
     def dfs_recursive(self, idx: int = 0):
-        if (idx < 0) or (idx >= self.graph.size):
+        if (idx < 0) or (idx >= self._graph.size):
             raise IndexError("0 <= idx < self.graph.size")
 
-        node = self.graph.node_at(idx)
-        self.__dfs_recursive(node)
+        node = self._graph.node_at(idx)
+        self._dfs_recursive(node)
 
-    def __dfs_recursive(self, node: Node):
+    def _dfs_recursive(self, node: Node):
         assert (node is not None)
 
         # 1. 방문 마킹
@@ -58,4 +58,4 @@ class DFS:
         #    마킹이 안돼있으면 recursion
         for n in node.adjacent:
             if n.marked is False:
-                self.__dfs_recursive(n)
+                self._dfs_recursive(n)
