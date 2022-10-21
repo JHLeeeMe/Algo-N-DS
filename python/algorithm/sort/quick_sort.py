@@ -2,16 +2,16 @@ import unittest
 
 
 def quick_sort(lst: list) -> None:
-    __sort(lst, 0, len(lst) - 1)
+    _sort(lst, 0, len(lst) - 1)
 
 
-def __sort(lst: list, left: int, right: int) -> None:
+def _sort(lst: list, left: int, right: int) -> None:
     if left >= right:
         return
 
     pivot_idx = partition(lst, left, right)
-    __sort(lst, left, pivot_idx - 1)
-    __sort(lst, pivot_idx + 1, right)
+    _sort(lst, left, pivot_idx - 1)
+    _sort(lst, pivot_idx + 1, right)
 
 
 def partition(lst: list, left: int, right: int) -> int:
