@@ -33,27 +33,30 @@ public class BinarySearch {
         while(low <= high) {
 
             mid = (low + high) / 2;
-            if (x == arr[mid]) 
+            if (x == arr[mid]) {
                 return mid;
-            else if (x < arr[mid]) 
+			} else if (x < arr[mid]) {
                 high = mid - 1;
-            else 
+			} else {
                 low = mid + 1;
+			}
         }
         return -1;
     }
 
     // 재귀적 이분탐색
     private static int recBinarySearch(int[] arr, int x, int low, int high) {
-        if (low > high)
+        if (low > high) {
             return -1;
+		}
 
         int mid = (low + high) / 2;
-        if (x == arr[mid])
+        if (x == arr[mid]) {
             return mid;
-        else if (x < arr[mid]) 
+		} else if (x < arr[mid]) {
             return recBinarySearch(arr, x, low, mid-1);
-        else 
+		} else {
             return recBinarySearch(arr, x, mid+1, high);
+		}
     }
 }

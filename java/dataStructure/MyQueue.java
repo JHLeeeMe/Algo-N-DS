@@ -36,10 +36,11 @@ public class MyQueue<T> implements InnerMyQueue<T> {
     @Override
     public void enqueue(T item) {
         Node<T> newNode = new Node<>(item);
-        if (isEmpty())
+        if (isEmpty()) {
             front = newNode;
-        else
+		} else {
             rear.next = newNode;
+		}
         rear = newNode;
         size++;
     }

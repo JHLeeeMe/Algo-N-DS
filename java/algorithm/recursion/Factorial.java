@@ -18,8 +18,9 @@ public class Factorial {
 
     static int factorial(int i) {
         // base case
-        if (i == 0)
+        if (i == 0) {
             return 1;
+		}
         
         return i * factorial(i-1);
     }
@@ -32,8 +33,9 @@ public class Factorial {
     // tailrec
     static int factorial2(int i, int result) {
         // base case
-        if (i == 0)
+        if (i == 0) {
             return result;
+		}
 
         return factorial2(i-1, result * i);
     }

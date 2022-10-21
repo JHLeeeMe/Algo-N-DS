@@ -27,8 +27,9 @@ public class HeapSort {
         int n = arr.length;
 
         // create max_heap
-        for (int i=n/2-1; i>=0; i--)
+        for (int i=n/2-1; i>=0; i--) {
             heapify(arr, n, i);
+		}
 
         // max_heap to asc_sorted_array
         for (int i=n-1; i>0; i--) {
@@ -45,11 +46,13 @@ public class HeapSort {
         int left = 2*idx + 1;
         int right = 2*idx + 2;
 
-        if (left < n && arr[left] > arr[root])
+        if (left < n && arr[left] > arr[root]) {
             root = left;
+		}
 
-        if (right < n && arr[right] > arr[root])
+        if (right < n && arr[right] > arr[root]) {
             root = right;
+		}
 
         if (root != idx) {
             int tmp = arr[idx];
@@ -61,8 +64,9 @@ public class HeapSort {
     }
 
     static void printArray(int[] arr) {
-        for (int i: arr)
+        for (int i: arr) {
             System.out.print(i + " ");
             System.out.println();
+		}
     }
 }

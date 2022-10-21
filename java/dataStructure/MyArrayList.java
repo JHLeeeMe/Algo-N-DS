@@ -129,13 +129,15 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     public int indexOf(Object o) {
         if (o == null) {
             for (int idx=0; idx<size; idx++) {
-                if (this.arr[idx] == null)
+                if (this.arr[idx] == null) {
                     return idx;
+				}
             }
         } else {
             for (int idx=0; idx<size; idx++ ) {
-                if (this.arr[idx].equals(o))
+                if (this.arr[idx].equals(o)) {
                     return idx;
+				}
             }
         }
         return -1;

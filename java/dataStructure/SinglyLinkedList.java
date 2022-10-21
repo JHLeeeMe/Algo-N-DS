@@ -34,11 +34,13 @@ public class SinglyLinkedList<T> {
      * Add into idx
      */
     public void add(int idx, T item) {
-        if (idx < 0 || idx > size)
+        if (idx < 0 || idx > size) {
             throw new IndexOutOfBoundsException("" + idx);
+		}
 
-        if (idx == 0)
+        if (idx == 0) {
             addFirst(item);
+		}
 
         Node<T> before = node(idx-1);
         addAfter(before, item);
@@ -92,11 +94,13 @@ public class SinglyLinkedList<T> {
     }
 
     public T remove(int idx) {
-        if (idx < 0 || idx >= size)
+        if (idx < 0 || idx >= size) {
             throw new IndexOutOfBoundsException("" + idx);
+		}
 
-        if (idx == 0)
+        if (idx == 0) {
             return removeFirst();
+		}
 
         Node<T> before = node(idx-1);
         return removeAfter(before);
@@ -131,8 +135,9 @@ public class SinglyLinkedList<T> {
     }
 
     private T removeAfter(Node<T> before) {
-        if (before.next == null)
+        if (before.next == null) {
             return null;
+		}
         
         T tmp = before.next.data;
         before.next = before.next.next;
@@ -141,12 +146,14 @@ public class SinglyLinkedList<T> {
     }
 
     private Node<T> node(int idx) {
-        if (idx < 0 || idx >= size)
+        if (idx < 0 || idx >= size) {
             return null;
+		}
         
         Node<T> curr = head;
-        for (int i=0; i<idx; i++)
+        for (int i=0; i<idx; i++) {
             curr = curr.next;
+		}
         
         return curr;
     }
@@ -155,8 +162,9 @@ public class SinglyLinkedList<T> {
         Node<T> curr = head;
         int idx = 0;
         while (curr != null) {
-            if (curr.data == item)
+            if (curr.data == item) {
                 return idx;
+			}
             curr = curr.next;
             idx++;
         }
@@ -184,8 +192,9 @@ public class SinglyLinkedList<T> {
         }
 
         public T next() {
-            if (nextNode == null)
+            if (nextNode == null) {
                 throw new java.util.NoSuchElementException();
+			}
 
             T tmp = nextNode.data;
             nextNode = nextNode.next;
