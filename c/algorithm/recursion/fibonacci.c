@@ -8,10 +8,9 @@
 
 uint32_t fibonacci(uint32_t n);
 uint32_t fibonacci_tailrec(uint32_t n);
-uint32_t __fibonacci_tailrec(uint32_t n, uint32_t a, uint32_t b);
+uint32_t _fibonacci_tailrec(uint32_t n, uint32_t a, uint32_t b);
 
-int
-main(void)
+int main(void)
 {
     for (uint32_t i = 0; i < 10; i++)
     {
@@ -25,32 +24,32 @@ main(void)
     }
 }
 
-uint32_t
-fibonacci(uint32_t n)
+uint32_t fibonacci(uint32_t n)
 {
-    if (n <= 1) {
+    if (n <= 1)
+	{
         return n;
     }
 
     return fibonacci(n - 2) + fibonacci(n - 1);
 }
 
-uint32_t
-fibonacci_tailrec(uint32_t n)
+uint32_t fibonacci_tailrec(uint32_t n)
 {
-    return __fibonacci_tailrec(n, 0, 1);
+    return _fibonacci_tailrec(n, 0, 1);
 }
 
-uint32_t
-__fibonacci_tailrec(uint32_t n, uint32_t a, uint32_t b)
+uint32_t _fibonacci_tailrec(uint32_t n, uint32_t a, uint32_t b)
 {
-    if (n == 0) {
+    if (n == 0)
+	{
         return a;
     }
 
-    if (n == 1) {
+    if (n == 1)
+	{
         return b;
     }
 
-    return __fibonacci_tailrec(n - 1, b, a + b);
+    return _fibonacci_tailrec(n - 1, b, a + b);
 }

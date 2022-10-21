@@ -23,11 +23,13 @@ typedef struct Node {
  *  params: int32_t key, char* item
  *  returns: Node*
  */
-Node* 
-create_node(int32_t key, char* item)
+Node* create_node(int32_t key, char* item)
 {
     Node* node = (Node*)malloc(sizeof(Node));
-    if (node == NULL) { return NULL; }
+    if (node == NULL)
+	{
+		return NULL;
+	}
 
     node->key = key;
     strcpy(node->value, item);
@@ -45,8 +47,7 @@ void print(void);
 // create hash_table
 Node* hash_table[DEFAULT_CAPACITY];
 
-int32_t 
-main(void)
+int32_t main(void)
 {
     print();
     put(515, "Hello World");
@@ -81,8 +82,7 @@ main(void)
  *  params; int32_t key
  *  returns: uint32_t
  */
-uint32_t 
-hash(int32_t key)
+uint32_t hash(int32_t key)
 {
     uint32_t hash_idx = 0;
     // for uint
@@ -99,20 +99,24 @@ hash(int32_t key)
  *  params: int32_t key, char* item
  *  returns: bool
  */
-bool 
-put(int32_t key, char* item)
+bool put(int32_t key, char* item)
 {
     uint32_t idx = hash(key);
     Node* new_node = create_node(key, item);
     if (new_node == NULL) { return false; }
 
-    if (hash_table[idx] == NULL) {
+    if (hash_table[idx] == NULL)
+	{
         hash_table[idx] = new_node;
-    } else {
+    }
+	else
+	{
         Node* prev = NULL;
         Node* curr = hash_table[idx];
-        do {
-            if (curr->key == key) {
+        do
+		{
+            if (curr->key == key)
+			{
                 strcpy(curr->value, item);
                 return true;
             }
@@ -133,15 +137,17 @@ put(int32_t key, char* item)
  *  params: int32_t key
  *  returns: char*
  */
-char* 
-get(int32_t key)
+char* get(int32_t key)
 {
     uint32_t idx = hash(key);
 
-    if (hash_table[idx] != NULL) {
+    if (hash_table[idx] != NULL)
+	{
         Node* curr = hash_table[idx];
-        do {
-            if (curr->key == key) {
+        do
+		{
+            if (curr->key == key)
+			{
                 return curr->value;
             }
             curr = curr->next;
@@ -160,16 +166,18 @@ get(int32_t key)
  *  params: int32_t key
  *  returns: bool
  */
-bool 
-delete(int32_t key)
+bool delete(int32_t key)
 {
     uint64_t idx = hash(key);
 
-    if (hash_table[idx] != NULL) {
+    if (hash_table[idx] != NULL)
+	{
         Node* prev = NULL;
         Node* curr = hash_table[idx];
-        do {
-            if (curr->key == key) {
+        do
+		{
+            if (curr->key == key)
+			{
                 prev->next = curr->next;
                 free(curr);
                 return true;
@@ -191,13 +199,14 @@ delete(int32_t key)
  *  params: void
  *  returns: void
  */
-void 
-print(void)
+void print(void)
 {
     printf("{ ");
-    for (uint32_t i = 0; i < DEFAULT_CAPACITY; i++) {
+    for (uint32_t i = 0; i < DEFAULT_CAPACITY; i++)
+	{
         Node* tmp = hash_table[i];
-        while (tmp != NULL) {
+        while (tmp != NULL)
+		{
             printf("(key: %d, value: %s) ", tmp->key, tmp->value);
             tmp = tmp->next;
         }

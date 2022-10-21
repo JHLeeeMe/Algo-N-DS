@@ -14,11 +14,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct Stack {
+struct Stack {
     int32_t* array;
     int32_t top;
     uint32_t capacity;
-} Stack;
+};
 
 /*
  * Function: create_stack
@@ -28,11 +28,11 @@ typedef struct Stack {
  *  params: uint32_t capacity
  *  returns: Stack*
  */
-Stack* 
-create_stack(uint32_t capacity)
+struct Stack* create_stack(uint32_t capacity)
 {
-    Stack* S = (Stack*)malloc(sizeof(Stack));
-    if (S != NULL) {
+    struct Stack* S = (struct Stack*)malloc(sizeof(struct Stack));
+    if (S != NULL)
+	{
         S->capacity = capacity;
         S->top = -1;
         S->array = (int32_t*)malloc(S->capacity * sizeof(int32_t));
@@ -41,19 +41,21 @@ create_stack(uint32_t capacity)
     return S;
 }
 
-bool is_full(Stack* S);
-bool is_empty(Stack* S);
-bool push(Stack* S, int32_t item);
-int32_t pop(Stack* S);
-int32_t peek(Stack* S);
-int32_t size(Stack* S);
-void print_stack(Stack* S);
+bool is_full(struct Stack* S);
+bool is_empty(struct Stack* S);
+bool push(struct Stack* S, int32_t item);
+int32_t pop(struct Stack* S);
+int32_t peek(struct Stack* S);
+int32_t size(struct Stack* S);
+void print_stack(struct Stack* S);
 
-int32_t 
-main(void)
+int32_t main(void)
 {
-    Stack* stack = create_stack(10);
-    if (stack == NULL) { return -1; }
+    struct Stack* stack = create_stack(10);
+    if (stack == NULL)
+	{
+		return -1;
+	}
 
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // false
     printf("is_empty: %s\n", (is_empty(stack)) ? "true" : "false"); // true
@@ -63,7 +65,8 @@ main(void)
     printf("###################\n");
     printf("# Push item 0 ~ 9 #\n");
     printf("###################\n");
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+	{
         push(stack, i);
     }
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // true
@@ -76,7 +79,8 @@ main(void)
     printf("#######\n");
     printf("# Pop #\n");
     printf("#######\n");
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+	{
         pop(stack);
     }
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // false
@@ -99,11 +103,10 @@ main(void)
  * -----------------
  * Full check
  *
- *  params: Stack* S
+ *  params: struct Stack* S
  *  returns: bool
  */
-bool 
-is_full(Stack* S)
+bool is_full(struct Stack* S)
 {
     return S->top == (int32_t)(S->capacity - 1);
 }
@@ -113,11 +116,10 @@ is_full(Stack* S)
  * -----------------
  * Empty check
  *
- *  params: Stack* S
+ *  params: struct Stack* S
  *  returns: bool
  */
-bool 
-is_empty(Stack* S)
+bool is_empty(struct Stack* S)
 {
     return S->top == -1;
 }
@@ -127,13 +129,13 @@ is_empty(Stack* S)
  * --------------
  * Push item into stack
  *
- *  params: Stack* S, int32_t item
+ *  params: struct Stack* S, int32_t item
  *  returns: bool
  */
-bool 
-push(Stack* S, int32_t item)
+bool push(struct Stack* S, int32_t item)
 {
-    if (is_full(S)) {
+    if (is_full(S))
+	{
         printf("Stack is Full.\n");
         return false;
     }
@@ -148,13 +150,13 @@ push(Stack* S, int32_t item)
  * -------------
  * Return & Remove last pushed element 
  *
- *  params: Stack* S
+ *  params: struct Stack* S
  *  returns: int32_t
  */
-int32_t 
-pop(Stack* S)
+int32_t pop(struct Stack* S)
 {
-    if (is_empty(S)) {
+    if (is_empty(S))
+	{
         printf("Stack is Empty.\n");
         return INT32_MIN;
     }
@@ -170,13 +172,13 @@ pop(Stack* S)
  * -----------------
  * Return last pushed element
  *
- *  params: Stack* S
+ *  params: struct Stack* S
  *  returns: int32_t
  */
-int32_t 
-peek(Stack* S)
+int32_t peek(struct Stack* S)
 {
-    if (is_empty(S)) {
+    if (is_empty(S))
+	{
         printf("Stack is Empty.\n");
         return INT32_MIN;
     }
@@ -189,11 +191,10 @@ peek(Stack* S)
  * --------------
  * Return number of elements
  *
- *  params: Stack* S
+ *  params: struct Stack* S
  *  returns: int32_t
  */
-int32_t 
-size(Stack* S)
+int32_t size(struct Stack* S)
 {
     return (S->top) + 1;
 }
@@ -204,14 +205,14 @@ size(Stack* S)
  * Print stack
  *  e.g. { 1 2 ... 9 10 }
  *
- *  params: Stack* S
+ *  params: struct Stack* S
  *  returns: void
  */
-void 
-print_stack(Stack* S)
+void print_stack(struct Stack* S)
 {
     printf("{ ");
-    for (int32_t i = 0; i <= S->top; i++) {
+    for (int32_t i = 0; i <= S->top; i++)
+	{
         printf("%d ", S->array[i]);
     }
     printf("}\n");

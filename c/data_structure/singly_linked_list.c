@@ -9,11 +9,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct LinkedList {
+typedef struct LinkedList
+{
     struct Node* head;
 } LinkedList;
 
-typedef struct Node {
+typedef struct Node
+{
     int32_t data;
     struct Node* next;
 } Node;
@@ -21,14 +23,16 @@ typedef struct Node {
 bool add(LinkedList* L, int32_t item);
 bool remove_by_item(LinkedList* L, int32_t item);
 
-int32_t 
-main(void)
+int32_t main(void)
 {
     // init
     LinkedList* L = (LinkedList*)malloc(sizeof(LinkedList));
-    if (L == NULL) {
+    if (L == NULL)
+	{
         return -1;
-    } else {
+    }
+	else
+	{
         L->head = NULL;
     }
 
@@ -45,19 +49,22 @@ main(void)
     add(L, 10);
 
     // traversal
-    for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next) {
+    for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next)
+	{
         printf("%i ", tmp->data);
     }
     printf("\n");
 
     remove_by_item(L, 4);
-    for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next) {
+    for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next)
+	{
         printf("%i ", tmp->data);
     }
     printf("\n");
 
     // free
-    while (L->head != NULL) {
+    while (L->head != NULL)
+	{
         Node* tmp = L->head->next;
         free(L->head);
         L->head = tmp;
@@ -72,21 +79,28 @@ main(void)
  *  params: LinkedList* L, int32_t item
  *  returns: bool
  */
-bool 
-add(LinkedList* L, int32_t item)
+bool add(LinkedList* L, int32_t item)
 {
     Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) return false;
+    if (newNode == NULL)
+	{
+		return false;
+	}
 
     newNode->data = item;
     newNode->next = NULL;
 
-    if (L->head == NULL) {
+    if (L->head == NULL)
+	{
         L->head = newNode;
-    } else {
+    }
+	else
+	{
         Node* tmp = L->head;
         while (tmp->next != NULL)
+		{
             tmp = tmp->next;
+		}
 
         tmp->next = newNode;
     }
@@ -102,21 +116,26 @@ add(LinkedList* L, int32_t item)
  *  params: LinkedList* L, int32_t item
  *  returns: bool
  */
-bool 
-remove_by_item(LinkedList* L, int32_t item)
+bool remove_by_item(LinkedList* L, int32_t item)
 {
-    if (L->head == NULL) {
+    if (L->head == NULL)
+	{
         return false;
     }
 
-    if (L->head->data == item) {
+    if (L->head->data == item)
+	{
         L->head = L->head->next;
-    } else {
+    }
+	else
+	{
         Node* before = NULL;
         Node* curr = L->head;
 
-        while (curr->data != item) {
-            if (curr->next == NULL) {
+        while (curr->data != item)
+		{
+            if (curr->next == NULL)
+			{
                 printf("item is not exists.\n");
                 return false;
             }

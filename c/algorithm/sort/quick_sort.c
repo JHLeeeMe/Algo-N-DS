@@ -14,8 +14,7 @@ uint32_t partition(int32_t arr[], int32_t left, int32_t right);
 void sort(int32_t arr[], int32_t left, int32_t right);
 void swap(int32_t arr[], int32_t i, int32_t j);
 
-int32_t
-main(void)
+int32_t main(void)
 {
     int32_t arr[] = { 5, 1, 2, 10, 8, 0, 23, 7 };
     uint32_t size = sizeof(arr) / sizeof(int32_t);
@@ -23,7 +22,8 @@ main(void)
     quick_sort(arr, size);
 
     printf("{ ");
-    for (uint32_t i = 0; i < size; i++) {
+    for (uint32_t i = 0; i < size; i++)
+	{
         printf("%d ", arr[i]);
     }
     printf("}\n");
@@ -37,8 +37,7 @@ main(void)
  *  params: int32_t arr[], uint32_t size
  *  returns: void
  */
-void
-quick_sort(int32_t arr[], uint32_t size)
+void quick_sort(int32_t arr[], uint32_t size)
 {
     sort(arr, 0, size);
 }
@@ -51,11 +50,11 @@ quick_sort(int32_t arr[], uint32_t size)
  *  params: int32_t arr[], int32_t left, int32_t right
  *  returns: void
  */
-void
-sort(int32_t arr[], int32_t left, int32_t right)
+void sort(int32_t arr[], int32_t left, int32_t right)
 {
     // base case
-    if (left >= right) {
+    if (left >= right)
+	{
         return;
     }
 
@@ -81,11 +80,14 @@ partition(int32_t arr[], int32_t left, int32_t right)
     int32_t pivot = arr[left];
     int32_t i = left, j = right;
 
-    while (i < j) {
-        while (pivot < arr[j]) {
+    while (i < j)
+	{
+        while (pivot < arr[j])
+		{
             j--;
         }
-        while (pivot >= arr[i] && i < j) {
+        while (pivot >= arr[i] && i < j)
+		{
             i++;
         }
         swap(arr, i, j);
@@ -104,8 +106,7 @@ partition(int32_t arr[], int32_t left, int32_t right)
  *  params: int32_t arr[], int32_t a, int32_t b
  *  returns: void
  */
-void
-swap(int32_t arr[], int32_t a, int32_t b)
+void swap(int32_t arr[], int32_t a, int32_t b)
 {
     int32_t tmp = arr[a];
     arr[a] = arr[b];

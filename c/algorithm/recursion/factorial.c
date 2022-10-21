@@ -6,10 +6,9 @@
 
 uint32_t factorial(uint32_t n);
 uint32_t factorial_tailrec(uint32_t n);
-uint32_t __factorial_tailrec(uint32_t n, uint32_t result);
+uint32_t _factorial_tailrec(uint32_t n, uint32_t result);
 
-int32_t
-main(void)
+int32_t main(void)
 {
     uint32_t test0 = factorial(0);
     uint32_t test1 = factorial(1);
@@ -28,28 +27,27 @@ main(void)
     printf("\n");
 }
 
-uint32_t
-factorial(uint32_t n)
+uint32_t factorial(uint32_t n)
 {
-    if (n == 0 || n == 1) {
+    if (n == 0 || n == 1)
+	{
         return 1;
     }
     
     return n * factorial(n - 1);
 }
 
-uint32_t
-factorial_tailrec(uint32_t n)
+uint32_t factorial_tailrec(uint32_t n)
 {
-    return __factorial_tailrec(n, 1);
+    return _factorial_tailrec(n, 1);
 }
 
-uint32_t
-__factorial_tailrec(uint32_t n, uint32_t result)
+uint32_t _factorial_tailrec(uint32_t n, uint32_t result)
 {
-    if (n == 0) {
+    if (n == 0)
+	{
         return result;
     }
 
-    return __factorial_tailrec(n - 1, n * result);
+    return _factorial_tailrec(n - 1, n * result);
 }
