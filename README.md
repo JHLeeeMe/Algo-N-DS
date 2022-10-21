@@ -2,8 +2,8 @@
 Algorithm and DataStructure practice with Java & Python & C
 
 ### Java
-- [algorithm](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/algorithm)
-- [dataStructure](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/dataStructure)
+- [algorithm](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/java/algorithm)
+- [dataStructure](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/java/dataStructure)
 
 ### Python
 - [algorithm](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/python/algorithm)
