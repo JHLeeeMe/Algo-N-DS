@@ -30,7 +30,7 @@ class HashTable(InnerHashTable):
             self.value = value
             self.next = None
 
-    def hash_function(self, key: object) -> int:
+    def hash_function(self, key: object) -> int | None:
         """Return hash code of key
 
         Keyword arguments:
@@ -43,10 +43,9 @@ class HashTable(InnerHashTable):
                 raise Exception('key is None.')
 
             hash_idx = hash(key)
+            return hash_idx % self.capacity
         except Exception as e:
             print('Exception: ', e)
-
-        return hash_idx % self.capacity
 
     def put(self, key: object, value: object) -> bool:
         """Put key, value pair
@@ -140,7 +139,6 @@ class HashTable(InnerHashTable):
         """
         print('{', end=' ')
         for node in self.lst:
-            node
             while node is not None:
                 print(str(node.key) + ': ' + str(node.value) + ',', end=' ')
                 node = node.next

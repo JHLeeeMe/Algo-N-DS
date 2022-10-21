@@ -21,38 +21,38 @@ class InnerQueue(ABC):
 
 class MyQueue(InnerQueue):
     def __init__(self):
-        self.__front = None
-        self.__rear = None
-        self.__size = 0
+        self._front = None
+        self._rear = None
+        self._size = 0
 
     class Node:
         def __init__(self, item):
             self.data = item
             self.next = None
 
-    def is_empty(self):
-        return self.__size == 0
+    def is_empty(self) -> bool:
+        return self._size == 0
 
     def clear(self):
-        self.__front = self.__rear = None
-        self.__size = 0
+        self._front = self._rear = None
+        self._size = 0
 
     def enqueue(self, item):
         new_node = self.Node(item)
         if self.is_empty():
-            self.__front = new_node
+            self._front = new_node
         else:
-            self.__rear.next = new_node
-        self.__rear = new_node
-        self.__size += 1
+            self._rear.next = new_node
+        self._rear = new_node
+        self._size += 1
 
     def dequeue(self):
         if self.is_empty():
             print('Queue is Empty.')
         else:
-            tmp = self.__front.data
-            self.__front = self.__front.next
-            self.__size -= 1
+            tmp = self._front.data
+            self._front = self._front.next
+            self._size -= 1
             return tmp
 
     def poll(self):
@@ -62,10 +62,10 @@ class MyQueue(InnerQueue):
         if self.is_empty():
             print('Queue is Empty.')
         else:
-            return self.__front.data
+            return self._front.data
 
     def size(self) -> int:
-        return self.__size
+        return self._size
 
 
 class MyQueueTest(unittest.TestCase):

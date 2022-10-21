@@ -25,91 +25,91 @@ class MyStack(InnerStack):
             raise TypeError('stack_size arg must be int type')
         if stack_size <= 0:
             raise IndexError('Stack size must be greater than 0')
-        self.__stack = []
-        self.__size = stack_size
-        self.__top = -1
+        self._stack = []
+        self._size = stack_size
+        self._top = -1
 
-    def is_empty(self):
-        return self.__top == -1
+    def is_empty(self) -> bool:
+        return self._top == -1
 
-    def is_full(self):
-        return self.__top == self.__size - 1
+    def is_full(self) -> bool:
+        return self._top == self._size - 1
 
     def clear(self):
-        while self.__top != -1:
-            del self.__stack[self.__top]
-            self.__top -= 1
+        while self._top != -1:
+            del self._stack[self._top]
+            self._top -= 1
 
     def push(self, item):
         if self.is_full():
             print("Stack is Full.")
         else:
-            self.__stack.append(item)
-            self.__top += 1
+            self._stack.append(item)
+            self._top += 1
 
     def pop(self):
         if self.is_empty():
             print("Stack is Empty.")
         else:
-            tmp = self.__stack[self.__top]
-            del self.__stack[self.__top]
-            self.__top -= 1
+            tmp = self._stack[self._top]
+            del self._stack[self._top]
+            self._top -= 1
             return tmp
-            # return self.__stack.pop()
+            # return self._stack.pop()
 
     def peek(self):
         if self.is_empty():
             print("Stack is Empty.")
         else:
-            return self.__stack[self.__top]
+            return self._stack[self._top]
 
     def print_stack(self):
-        print(self.__stack)
+        print(self._stack)
 
-    def size(self):
-        return self.__size
+    def size(self) -> int:
+        return self._size
 
 
 class MyStack2(InnerStack):
     def __init__(self):
-        self.__head = None
-        self.__size = 0
+        self._head = None
+        self._size = 0
 
     class Node:
         def __init__(self, item):
             self.data = item
             self.next = None
 
-    def is_empty(self):
-        return self.__size == 0
+    def is_empty(self) -> bool:
+        return self._size == 0
 
     def clear(self):
-        self.__head = None
-        self.__size = 0
+        self._head = None
+        self._size = 0
 
     def push(self, item):
         new_node = self.Node(item)
-        new_node.next = self.__head
-        self.__head = new_node
-        self.__size += 1
+        new_node.next = self._head
+        self._head = new_node
+        self._size += 1
 
     def pop(self):
         if self.is_empty():
             print("Stack is Empty.")
         else:
-            tmp = self.__head.data
-            self.__head = self.__head.next
-            self.__size -= 1
+            tmp = self._head.data
+            self._head = self._head.next
+            self._size -= 1
             return tmp
 
     def peek(self):
         if self.is_empty():
             print("Stack is Empty.")
         else:
-            return self.__head.data
+            return self._head.data
 
-    def size(self):
-        return self.__size
+    def size(self) -> int:
+        return self._size
 
 
 class MyStackTest(unittest.TestCase):

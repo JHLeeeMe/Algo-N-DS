@@ -18,8 +18,8 @@ class InnerLinkedList(ABC):
 
 class MyLinkedList(InnerLinkedList):
     def __init__(self):
-        self.__head = None
-        self.__size = 0
+        self._head = None
+        self._size = 0
 
     class Node:
         def __init__(self, item):
@@ -27,72 +27,72 @@ class MyLinkedList(InnerLinkedList):
             self.next = None
 
     def is_empty(self):
-        return self.__size == 0
+        return self._size == 0
 
     def add(self, item):
-        self.__add_last(item)
+        self._add_last(item)
 
-    def __add_last(self, item):
+    def _add_last(self, item):
         new_node = self.Node(item)
-        if self.__size == 0:
-            self.__head = new_node
+        if self._size == 0:
+            self._head = new_node
         else:
-            curr = self.__head
+            curr = self._head
             while curr.next is not None:
                 curr = curr.next
             curr.next = new_node
-        self.__size += 1
+        self._size += 1
 
     def add_into_index(self, idx, item):
-        if idx < 0 or idx > self.__size:
+        if idx < 0 or idx > self._size:
             raise IndexError('idx arg must be within 0 ~ '
-                             + str(self.__size))
+                             + str(self._size))
 
         new_node = self.Node(item)
         if idx == 0:
-            new_node.next = self.__head
-            self.__head = new_node
+            new_node.next = self._head
+            self._head = new_node
         else:
-            before_node = self.__node(idx - 1)
+            before_node = self._node(idx - 1)
             new_node.next = before_node.next
             before_node.next = new_node
-        self.__size += 1
+        self._size += 1
 
     def remove(self):
-        return self.__remove_first()
+        return self._remove_first()
 
-    def __remove_first(self):
-        if self.__size == 0:
+    def _remove_first(self):
+        if self._size == 0:
             print('List is Empty.')
             return None
 
-        tmp = self.__head.data
-        self.__head = self.__head.next
-        self.__size -= 1
+        tmp = self._head.data
+        self._head = self._head.next
+        self._size -= 1
         return tmp
 
     def remove_by_index(self, idx):
-        if idx < 0 or idx >= self.__size:
+        if idx < 0 or idx >= self._size:
             raise IndexError('idx arg must be within 0 ~ '
-                             + str(self.__size - 1))
+                             + str(self._size - 1))
 
         if idx == 0:
-            return self.__remove_first()
+            return self._remove_first()
 
-        before_node = self.__node(idx - 1)
+        before_node = self._node(idx - 1)
         tmp = before_node.next.data
         before_node.next = before_node.next.next
-        self.__size -= 1
+        self._size -= 1
         return tmp
 
     def remove_by_item(self, item):
-        idx = self.__index_of(item)
+        idx = self._index_of(item)
         if idx != -1:
             return self.remove_by_index(idx)
         return None
 
-    def __index_of(self, item):
-        curr = self.__head
+    def _index_of(self, item):
+        curr = self._head
         idx = 0
         while curr is not None:
             if curr.data == item:
@@ -102,21 +102,21 @@ class MyLinkedList(InnerLinkedList):
         print('data ' + str(item) + ' is not in linkedlist')
         return -1
 
-    def __node(self, idx):
+    def _node(self, idx):
         if not isinstance(idx, int):
             raise TypeError('idx arg must be int type')
 
-        curr = self.__head
+        curr = self._head
         for i in range(idx):
             curr = curr.next
         return curr
 
     def size(self):
-        return self.__size
+        return self._size
 
     def print_all(self):
         tmp = []
-        curr = self.__head
+        curr = self._head
         while curr is not None:
             tmp.append(curr.data)
             curr = curr.next
@@ -124,20 +124,20 @@ class MyLinkedList(InnerLinkedList):
 
     def __iter__(self):
         """Returns the Iterator object."""
-        return self.MyIterator(self.__head)
+        return self.MyIterator(self._head)
 
     class MyIterator:
         """Iterator class"""
         def __init__(self, head):
-            self.__curr = head
+            self._curr = head
 
         def __next__(self):
             """Returns the next value from list"""
-            if self.__curr is None:
+            if self._curr is None:
                 raise StopIteration
 
-            tmp = self.__curr.data
-            self.__curr = self.__curr.next
+            tmp = self._curr.data
+            self._curr = self._curr.next
             return tmp
 
 
@@ -158,7 +158,7 @@ class MyLinkedListTest(unittest.TestCase):
             self.my_list.remove_by_index(1)
 
         with self.assertRaises(TypeError):
-            self.my_list._MyLinkedList__node('aaa')
+            self.my_list._node('aaa')
 
     def test_all(self):
         print()
