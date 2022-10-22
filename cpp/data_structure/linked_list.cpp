@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cassert>
 
-#define Assert_msg(expression, message) assert(expression, message)
+#define Assert_msg(expression, message) assert(expression && message)
 #define Assert(expression) assert(expression)
 
 template<typename T>
