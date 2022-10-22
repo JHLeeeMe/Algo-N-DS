@@ -71,8 +71,7 @@ void sort(int32_t arr[], int32_t left, int32_t right)
  *  params: int32_t arr[], int32_t left, int32_t right
  *  returns: uint32_t
  */
-uint32_t
-partition(int32_t arr[], int32_t left, int32_t right)
+uint32_t partition(int32_t arr[], int32_t left, int32_t right)
 {
     int32_t mid = (left + right) >> 1;
     swap(arr, left, mid);
