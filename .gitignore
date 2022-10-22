@@ -3,4 +3,5 @@
 .metals/
 __pycache__/
 output/
+bin/
 assembly/
