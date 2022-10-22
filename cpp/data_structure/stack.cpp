@@ -29,28 +29,40 @@ private:
 	struct Node<T>* _top;
 	int _size;
 
-	struct Node<T>* _new_node(T data);
+	struct Node<T>* _create_node(T data);
 };
+
 template<typename T>
 Stack<T>::Stack()
 	: _top(nullptr)
 	, _size(0)
 {}
-//template<typename T>
-//Stack<T>::Stack(const Stack<T>& s)
-//	: _size(s._size)
-//{
-//	s._top->data;
-//
-//}
+
+template<typename T>
+Stack<T>::Stack(const Stack<T>& s)
+	: _size(s._size)
+{
+	_top = nullptr;
+	struct Node<T>* tmp = s._top;
+	struct Node<T>* top_node = _create_node(tmp->data);
+	tmp = tmp->prev;
+
+	while (tmp != nullptr)
+	{
+		struct Node<T>* new_node = _create_node(tmp->data);
+		new_node->next = top_node;
+		top_node->prev = new_node;
+
+		top_node = top_node->prev;
+		tmp = tmp->prev;
+	}
+	_top = top_node;
+}
 
 template<typename T>
 void Stack<T>::push(T data)
 {
-	//struct Node<T>* new_node = new struct Node<T>;
-	//new_node->next = nullptr;
-	//new_node->data = data;
-	struct Node<T>* new_node = _new_node(data);
+	struct Node<T>* new_node = _create_node(data);
 
 	if (is_empty())
 	{
@@ -77,6 +89,7 @@ T Stack<T>::pop()
 	delete tmp;
 	return ret;
 }
+
 template<typename T>
 T Stack<T>::peek() const
 {
@@ -84,6 +97,7 @@ T Stack<T>::peek() const
 
 	return _top->data;
 }
+
 template<typename T>
 void Stack<T>::clear()
 {
@@ -97,18 +111,21 @@ void Stack<T>::clear()
 	}
 	_size = 0;
 }
+
 template<typename T>
 int Stack<T>::get_size() const
 {
 	return _size;
 }
+
 template<typename T>
 bool Stack<T>::is_empty() const
 {
 	return _size == 0;
 }
+
 template<typename T>
-struct Node<T>* Stack<T>::_new_node(T data)
+struct Node<T>* Stack<T>::_create_node(T data)
 {
 	Node<T>* node = new Node<T>;
 	node->prev = nullptr;
@@ -130,10 +147,10 @@ int main()
 	stack.push(4);
 	Assert(stack.get_size() == 5);
 
-	//Stack<int> tmp = stack;
-	//tmp.push(123);
-	//Assert(tmp.peek() == 123);
-	//Assert(tmp.get_size() == 6);
+	Stack<int> tmp = stack;
+	tmp.push(123);
+	Assert(tmp.peek() == 123);
+	Assert(tmp.get_size() == 6);
 
 	stack.pop();
 	Assert(stack.pop() == 3);
@@ -146,7 +163,10 @@ int main()
 	Assert(stack.get_size() == 0);
 	Assert(stack.is_empty());
 
-	//tmp.clear();
+	tmp.push(1010);
+	Assert(tmp.get_size() == 7);
+	Assert(tmp.peek() == 1010);
+	tmp.clear();
 
 	return 0;
 }
