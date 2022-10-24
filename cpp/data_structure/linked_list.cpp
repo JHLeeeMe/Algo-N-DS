@@ -16,32 +16,65 @@ template<typename T>
 class LinkedList
 {
 public:
+	class Iterator
+	{
+	friend class LinkedList;
+	public:
+		Iterator next() {
+			_cursor = _cursor->next;
+			return *this;
+		}
+		Iterator prev() {
+			_cursor = _cursor->prev;
+			return *this;
+		}
+		T& operator*() const {
+			return _cursor->data;
+		}
+
+		bool operator!=(const Iterator& itr) const {
+			return _cursor != itr._cursor;
+		}
+
+		Iterator operator++(int) {
+			Iterator tmp = *this;
+			_cursor = _cursor->next;
+			return tmp;
+		}
+	private:
+		Iterator(struct Node<T>* node) : _cursor(node) {}
+	private:
+		struct Node<T>* _cursor;
+	};
+
 	LinkedList();
 	//LinkedList(const LinkedList& l);
+	~LinkedList();
 
 	T front() const;
 	T back() const;
-	struct Node<T>* begin() const;
-	struct Node<T>* end() const;
 
-	//void insert(T data, unsigned int idx);
-	void remove(unsigned int idx);
+	void remove(const unsigned int idx);
 
-	void push_front(T data);
-	void push_back(T data);
+	void push_front(const T data);
+	void push_back(const T data);
 
 	T pop_front();
 	T pop_back();
+
+	Iterator begin() const;
+	Iterator end() const;
+	//Iterator insert(Iterator position, const T data);
 
 	unsigned int get_size() const;
 	bool is_empty() const;
 	void clear();
 private:
+	struct Node<T>* _create_node(T data);
+private:
 	struct Node<T>* _head;
 	struct Node<T>* _tail;
 	unsigned int _size;
-
-	struct Node<T>* _create_node(T data);
 };
 
 template<typename T>
@@ -50,6 +83,12 @@ LinkedList<T>::LinkedList()
 	, _tail(nullptr)
 	, _size(0)
 {}
+
+template<typename T>
+LinkedList<T>::~LinkedList()
+{
+	clear();
+}
 
 template<typename T>
 T LinkedList<T>::front() const
@@ -67,51 +106,27 @@ T LinkedList<T>::back() const
 	return _tail->data;
 }
 
-template<typename T>
-struct Node<T>* LinkedList<T>::begin() const
-{
-	Assert_msg(!is_empty(), "List is empty!");
-
-	return _head;
-}
-
-template<typename T>
-struct Node<T>* LinkedList<T>::end() const
-{
-	Assert_msg(!is_empty(), "List is empty!");
-	
-	return _tail;
-}
+//template<typename T>
+//struct Node<T>* LinkedList<T>::begin() const
+//{
+//	Assert_msg(!is_empty(), "List is empty!");
+//
+//	return _head;
+//}
 
 //template<typename T>
-//void LinkedList<T>::insert(T data, unsigned int idx)
+//struct Node<T>* LinkedList<T>::Iterator::end() const
 //{
-//	Assert_msg(_size >= idx, "out of index!");
+//	Assert_msg(!is_empty(), "List is empty!");
 //
-//	struct Node<T>* new_node = _create_node(data);
-//	if (is_empty())
-//	{
-//		_head = new_node;
-//		_tail = new_node;
-//	}
-//	else
-//	{
-//		struct Node<T>* cursor = _head;
-//		for (int i = 0; i < idx - 1; i++)
-//		{
-//			cursor = cursor->next;
-//		}
-//		new_node->prev = cursor;
-//		cursor->next = new_node;
-//	}
-//	_size++;
+//	return _tail;
 //}
 
 template<typename T>
-void LinkedList<T>::remove(unsigned int idx)
+void LinkedList<T>::remove(const unsigned int idx)
 {
 	Assert_msg(!is_empty(), "List is empty!");
-	Assert_msg(_size > idx, "out of index!");
+	Assert_msg(_size > idx, "Out of index!");
 
 	if (_size == 1)
 	{
@@ -146,7 +161,7 @@ void LinkedList<T>::remove(unsigned int idx)
 }
 
 template<typename T>
-void LinkedList<T>::push_front(T data)
+void LinkedList<T>::push_front(const T data)
 {
 	struct Node<T>* new_node = _create_node(data);
 	if (is_empty())
@@ -163,7 +178,7 @@ void LinkedList<T>::push_front(T data)
 }
 
 template<typename T>
-void LinkedList<T>::push_back(T data)
+void LinkedList<T>::push_back(const T data)
 {
 	struct Node<T>* new_node = _create_node(data);
 	if (is_empty())
@@ -210,6 +225,18 @@ T LinkedList<T>::pop_back()
 }
 
 template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::begin() const
+{
+	return Iterator(_head);
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::end() const
+{
+	return Iterator(_tail);
+}
+
+template<typename T>
 unsigned int LinkedList<T>::get_size() const
 {
 	return _size;
@@ -234,7 +261,7 @@ void LinkedList<T>::clear()
 }
 
 template<typename T>
-struct Node<T>* LinkedList<T>::_create_node(T data)
+struct Node<T>* LinkedList<T>::_create_node(const T data)
 {
 	struct Node<T>* new_node = new struct Node<T>;
 	new_node->prev = nullptr;
@@ -246,34 +273,52 @@ struct Node<T>* LinkedList<T>::_create_node(T data)
 
 int main()
 {
+	//LinkedList<int> l;
+	//Assert(l.is_empty());
+	//Assert(l.get_size() == 0);
+	//l.push_back(0);
+	//l.push_back(1);
+	//l.push_back(2);
+	//Assert(!l.is_empty());
+	//Assert(l.get_size() == 3);
+	//Assert(l.front() == 0);
+	//Assert(l.back() == 2);
+	//Assert(l.begin()->data == 0);
+	//Assert(l.end()->data == 2);
+	//l.remove(0);
+	//Assert(l.get_size() == 2);
+	//Assert(l.front() == 1);
+	//Assert(l.begin()->data == 1);
+
+	//l.clear();
+	//Assert(l.is_empty());
+	//Assert(l.get_size() == 0);
+
+	//l.push_front(0);
+	//l.push_front(1);
+	//l.push_front(2);
+	//Assert(l.get_size() == 3);
+	//Assert(l.front() == 2);
+	//Assert(l.begin()->data == 2);
+	//Assert(l.end()->data == 0);
+	//Assert(l.pop_front() == 2);
+	//Assert(l.pop_back() == 0);
+	//Assert(l.get_size() == 1);
+	//Assert(l.begin()->data == 1);
+	//Assert(l.end()->data == 1);
+
 	LinkedList<int> l;
-	Assert(l.is_empty());
-	Assert(l.get_size() == 0);
 	l.push_back(0);
 	l.push_back(1);
 	l.push_back(2);
-	Assert(!l.is_empty());
-	Assert(l.get_size() == 3);
-	Assert(l.front() == 0);
-	Assert(l.back() == 2);
-	Assert(l.begin()->data == 0);
-	Assert(l.end()->data == 2);
+	l.push_back(3);
+	//LinkedList<int>::Iterator itr = l.begin();
+	//std::cout << *itr.next().next().prev() << std::endl;
 
-	l.clear();
-	Assert(l.is_empty());
-	Assert(l.get_size() == 0);
-
-	//l.insert(100, 0);
-
-
-	//void insert(T data, unsigned int idx);
-	//void remove(unsigned int idx);
-
-	//void push_front(T data);
-	//void push_back(T data);
-
-	//T pop_front();
-	//T pop_back();
+	for (auto it = l.begin(); it != l.end(); it++)
+	{
+		std::cout << *it << std::endl;
+	}
 
 	return 0;
 }
