@@ -20,52 +20,36 @@ public:
 	{
 	friend class LinkedList;
 	public:
-		Iterator next() {
-			_cursor = _cursor->next;
-			return *this;
-		}
-		Iterator prev() {
-			_cursor = _cursor->prev;
-			return *this;
-		}
-		T& operator*() const {
-			return _cursor->data;
-		}
+		Iterator next();
+		Iterator prev();
 
-		bool operator!=(const Iterator& itr) const {
-			return _cursor != itr._cursor;
-		}
-
-		Iterator operator++(int) {
-			Iterator tmp = *this;
-			_cursor = _cursor->next;
-			return tmp;
-		}
+		T& operator*() const;
+		bool operator!=(const Iterator& itr) const;
+		Iterator operator++();
+		Iterator operator++(int);
+		Iterator operator--();
+		Iterator operator--(int);
+		//Iterator insert(Iterator position, const T data);
 	private:
+		Iterator() : _cursor(nullptr) {}
 		Iterator(struct Node<T>* node) : _cursor(node) {}
 	private:
 		struct Node<T>* _cursor;
 	};
 
 	LinkedList();
-	//LinkedList(const LinkedList& l);
+	LinkedList(const LinkedList& l) = delete;
 	~LinkedList();
 
 	T front() const;
 	T back() const;
-
-	void remove(const unsigned int idx);
-
+	void remove(const unsigned int index);
 	void push_front(const T data);
 	void push_back(const T data);
-
 	T pop_front();
 	T pop_back();
-
 	Iterator begin() const;
 	Iterator end() const;
-	//Iterator insert(Iterator position, const T data);
-
 	unsigned int get_size() const;
 	bool is_empty() const;
 	void clear();
@@ -105,22 +89,6 @@ T LinkedList<T>::back() const
 
 	return _tail->data;
 }
-
-//template<typename T>
-//struct Node<T>* LinkedList<T>::begin() const
-//{
-//	Assert_msg(!is_empty(), "List is empty!");
-//
-//	return _head;
-//}
-
-//template<typename T>
-//struct Node<T>* LinkedList<T>::Iterator::end() const
-//{
-//	Assert_msg(!is_empty(), "List is empty!");
-//
-//	return _tail;
-//}
 
 template<typename T>
 void LinkedList<T>::remove(const unsigned int idx)
@@ -227,13 +195,17 @@ T LinkedList<T>::pop_back()
 template<typename T>
 typename LinkedList<T>::Iterator LinkedList<T>::begin() const
 {
+	Assert_msg(!is_empty(), "List is empty!");
+
 	return Iterator(_head);
 }
 
 template<typename T>
 typename LinkedList<T>::Iterator LinkedList<T>::end() const
 {
-	return Iterator(_tail);
+	Assert_msg(!is_empty(), "List is empty!");
+
+	return Iterator();
 }
 
 template<typename T>
@@ -271,53 +243,102 @@ struct Node<T>* LinkedList<T>::_create_node(const T data)
 	return new_node;
 }
 
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::next()
+{
+	_cursor = _cursor->next;
+	return *this;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::prev()
+{
+	_cursor = _cursor->prev;
+	return *this;
+}
+
+template<typename T>
+T& LinkedList<T>::Iterator::operator*() const
+{
+	return _cursor->data;
+}
+
+template<typename T>
+bool LinkedList<T>::Iterator::operator!=(const Iterator& itr) const
+{
+	return _cursor != itr._cursor;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator++()
+{
+	_cursor = _cursor->next;
+	return _cursor;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator++(int)
+{
+	Iterator tmp = *this;
+	_cursor = _cursor->next;
+	return tmp;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator--()
+{
+	_cursor = _cursor->prev;
+	return _cursor;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator--(int)
+{
+	Iterator tmp = *this;
+	_cursor = _cursor->prev;
+	return tmp;
+}
+
 int main()
 {
-	//LinkedList<int> l;
-	//Assert(l.is_empty());
-	//Assert(l.get_size() == 0);
-	//l.push_back(0);
-	//l.push_back(1);
-	//l.push_back(2);
-	//Assert(!l.is_empty());
-	//Assert(l.get_size() == 3);
-	//Assert(l.front() == 0);
-	//Assert(l.back() == 2);
-	//Assert(l.begin()->data == 0);
-	//Assert(l.end()->data == 2);
-	//l.remove(0);
-	//Assert(l.get_size() == 2);
-	//Assert(l.front() == 1);
-	//Assert(l.begin()->data == 1);
-
-	//l.clear();
-	//Assert(l.is_empty());
-	//Assert(l.get_size() == 0);
-
-	//l.push_front(0);
-	//l.push_front(1);
-	//l.push_front(2);
-	//Assert(l.get_size() == 3);
-	//Assert(l.front() == 2);
-	//Assert(l.begin()->data == 2);
-	//Assert(l.end()->data == 0);
-	//Assert(l.pop_front() == 2);
-	//Assert(l.pop_back() == 0);
-	//Assert(l.get_size() == 1);
-	//Assert(l.begin()->data == 1);
-	//Assert(l.end()->data == 1);
-
 	LinkedList<int> l;
+	Assert(l.is_empty());
+	Assert(l.get_size() == 0);
 	l.push_back(0);
 	l.push_back(1);
 	l.push_back(2);
-	l.push_back(3);
-	//LinkedList<int>::Iterator itr = l.begin();
-	//std::cout << *itr.next().next().prev() << std::endl;
+	Assert(!l.is_empty());
+	Assert(l.get_size() == 3);
+	Assert(l.front() == 0);
+	Assert(l.back() == 2);
+	l.remove(0);
+	Assert(l.get_size() == 2);
+	Assert(l.front() == 1);
 
-	for (auto it = l.begin(); it != l.end(); it++)
+	l.clear();
+	Assert(l.is_empty());
+	Assert(l.get_size() == 0);
+
+	l.push_front(0);
+	l.push_front(1);
+	l.push_front(2);
+	Assert(l.get_size() == 3);
+	Assert(l.front() == 2);
+	Assert(l.pop_front() == 2);
+	Assert(l.pop_back() == 0);
+	Assert(l.get_size() == 1);
+
 	{
-		std::cout << *it << std::endl;
+		LinkedList<int> l;
+		l.push_back(0);
+		l.push_back(1);
+		l.push_back(2);
+		l.push_back(3);
+
+		for (LinkedList<int>::Iterator it = l.begin(); it != l.end(); it++)
+		{
+			std::cout << *it << std::endl;
+		}
 	}
 
 	return 0;
