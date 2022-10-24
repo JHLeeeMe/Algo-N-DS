@@ -27,9 +27,9 @@ Node* create_node(int32_t key, char* item)
 {
     Node* node = (Node*)malloc(sizeof(Node));
     if (node == NULL)
-	{
-		return NULL;
-	}
+    {
+        return NULL;
+    }
 
     node->key = key;
     strcpy(node->value, item);
@@ -106,17 +106,17 @@ bool put(int32_t key, char* item)
     if (new_node == NULL) { return false; }
 
     if (hash_table[idx] == NULL)
-	{
+    {
         hash_table[idx] = new_node;
     }
-	else
-	{
+    else
+    {
         Node* prev = NULL;
         Node* curr = hash_table[idx];
         do
-		{
+        {
             if (curr->key == key)
-			{
+            {
                 strcpy(curr->value, item);
                 return true;
             }
@@ -142,18 +142,18 @@ char* get(int32_t key)
     uint32_t idx = hash(key);
 
     if (hash_table[idx] != NULL)
-	{
+    {
         Node* curr = hash_table[idx];
         do
-		{
+        {
             if (curr->key == key)
-			{
+            {
                 return curr->value;
             }
             curr = curr->next;
         } while (curr != NULL);
     }
-    
+
     printf("Not Found.\n");
     return NULL;
 }
@@ -171,13 +171,13 @@ bool delete(int32_t key)
     uint64_t idx = hash(key);
 
     if (hash_table[idx] != NULL)
-	{
+    {
         Node* prev = NULL;
         Node* curr = hash_table[idx];
         do
-		{
+        {
             if (curr->key == key)
-			{
+            {
                 prev->next = curr->next;
                 free(curr);
                 return true;
@@ -203,10 +203,10 @@ void print(void)
 {
     printf("{ ");
     for (uint32_t i = 0; i < DEFAULT_CAPACITY; i++)
-	{
+    {
         Node* tmp = hash_table[i];
         while (tmp != NULL)
-		{
+        {
             printf("(key: %d, value: %s) ", tmp->key, tmp->value);
             tmp = tmp->next;
         }

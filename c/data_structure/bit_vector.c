@@ -30,9 +30,9 @@ int main()
     printf("# Init bit_vector #\n");
     printf("###################\n");
     for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(char) + 1; i++)
-	{
+    {
         test_bit(bit_vector, i);
-	}
+    }
 
     printf("\n");
 
@@ -40,14 +40,14 @@ int main()
     printf("# Set bit_vector #\n");
     printf("##################\n");
     for (uint32_t i = 0; i < sizeof(test) / sizeof(uint32_t); i++)
-	{
+    {
         set_bit(bit_vector, test[i]);
-	}
+    }
 
     for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(char) + 1; i++)
-	{
+    {
         test_bit(bit_vector, i);
-	}
+    }
 
     printf("\n");
 
@@ -58,9 +58,9 @@ int main()
     clear_bit_all(bit_vector, max_value);
 
     for (uint32_t i = 0; i < sizeof(bit_vector) * sizeof(char) + 1; i++)
-	{
+    {
         test_bit(bit_vector, i);
-	}
+    }
 }
 
 /*
@@ -116,9 +116,9 @@ uint32_t max(uint32_t* arr, uint32_t size)
 {
     uint32_t max_value = arr[0];
     for (uint32_t i = 0; i < size; i++)
-	{
+    {
         if (max_value < arr[i])
-		{
+        {
             max_value = arr[i];
         }
     }
@@ -137,11 +137,11 @@ uint32_t max(uint32_t* arr, uint32_t size)
 void test_bit(char* bit_vector, uint32_t k)
 {
     if ((bit_vector[k / 8] & (1 << (k % 8))) != 0)
-	{
+    {
         printf("%d-th bit is 1\n", k);
     }
-	else
-	{
+    else
+    {
         printf("%d-th bit is 0\n", k);
     }
 }

@@ -30,10 +30,10 @@ int32_t main(void)
 uint32_t factorial(uint32_t n)
 {
     if (n == 0 || n == 1)
-	{
+    {
         return 1;
     }
-    
+
     return n * factorial(n - 1);
 }
 
@@ -45,7 +45,7 @@ uint32_t factorial_tailrec(uint32_t n)
 uint32_t _factorial_tailrec(uint32_t n, uint32_t result)
 {
     if (n == 0)
-	{
+    {
         return result;
     }
 

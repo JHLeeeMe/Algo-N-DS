@@ -28,11 +28,11 @@ int32_t main(void)
     // init
     LinkedList* L = (LinkedList*)malloc(sizeof(LinkedList));
     if (L == NULL)
-	{
+    {
         return -1;
     }
-	else
-	{
+    else
+    {
         L->head = NULL;
     }
 
@@ -50,21 +50,21 @@ int32_t main(void)
 
     // traversal
     for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next)
-	{
+    {
         printf("%i ", tmp->data);
     }
     printf("\n");
 
     remove_by_item(L, 4);
     for (Node* tmp = L->head; tmp != NULL; tmp = tmp->next)
-	{
+    {
         printf("%i ", tmp->data);
     }
     printf("\n");
 
     // free
     while (L->head != NULL)
-	{
+    {
         Node* tmp = L->head->next;
         free(L->head);
         L->head = tmp;
@@ -83,28 +83,28 @@ bool add(LinkedList* L, int32_t item)
 {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL)
-	{
-		return false;
-	}
+    {
+        return false;
+    }
 
     newNode->data = item;
     newNode->next = NULL;
 
     if (L->head == NULL)
-	{
+    {
         L->head = newNode;
     }
-	else
-	{
+    else
+    {
         Node* tmp = L->head;
         while (tmp->next != NULL)
-		{
+        {
             tmp = tmp->next;
-		}
+        }
 
         tmp->next = newNode;
     }
-    
+
     return true;
 }
 
@@ -119,23 +119,23 @@ bool add(LinkedList* L, int32_t item)
 bool remove_by_item(LinkedList* L, int32_t item)
 {
     if (L->head == NULL)
-	{
+    {
         return false;
     }
 
     if (L->head->data == item)
-	{
+    {
         L->head = L->head->next;
     }
-	else
-	{
+    else
+    {
         Node* before = NULL;
         Node* curr = L->head;
 
         while (curr->data != item)
-		{
+        {
             if (curr->next == NULL)
-			{
+            {
                 printf("item is not exists.\n");
                 return false;
             }
@@ -145,7 +145,7 @@ bool remove_by_item(LinkedList* L, int32_t item)
         before->next = curr->next;
         free(curr);
     }
-    
+
     return true;
 }
 
@@ -203,6 +203,6 @@ bool remove_by_item(LinkedList* L, int32_t item)
 //            tmp = tmp->next;
 //        tmp->next = newNode;
 //    }
-//    
+//
 //    return true;
 //}

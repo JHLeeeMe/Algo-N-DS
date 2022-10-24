@@ -32,7 +32,7 @@ struct Stack* create_stack(uint32_t capacity)
 {
     struct Stack* S = (struct Stack*)malloc(sizeof(struct Stack));
     if (S != NULL)
-	{
+    {
         S->capacity = capacity;
         S->top = -1;
         S->array = (int32_t*)malloc(S->capacity * sizeof(int32_t));
@@ -53,9 +53,9 @@ int32_t main(void)
 {
     struct Stack* stack = create_stack(10);
     if (stack == NULL)
-	{
-		return -1;
-	}
+    {
+        return -1;
+    }
 
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // false
     printf("is_empty: %s\n", (is_empty(stack)) ? "true" : "false"); // true
@@ -66,7 +66,7 @@ int32_t main(void)
     printf("# Push item 0 ~ 9 #\n");
     printf("###################\n");
     for (int i = 0; i < 10; i++)
-	{
+    {
         push(stack, i);
     }
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // true
@@ -80,7 +80,7 @@ int32_t main(void)
     printf("# Pop #\n");
     printf("#######\n");
     for (int i = 0; i < 3; i++)
-	{
+    {
         pop(stack);
     }
     printf("is_full: %s\n", (is_full(stack)) ? "true" : "false");   // false
@@ -135,7 +135,7 @@ bool is_empty(struct Stack* S)
 bool push(struct Stack* S, int32_t item)
 {
     if (is_full(S))
-	{
+    {
         printf("Stack is Full.\n");
         return false;
     }
@@ -148,7 +148,7 @@ bool push(struct Stack* S, int32_t item)
 /*
  * Function: pop
  * -------------
- * Return & Remove last pushed element 
+ * Return & Remove last pushed element
  *
  *  params: struct Stack* S
  *  returns: int32_t
@@ -156,14 +156,14 @@ bool push(struct Stack* S, int32_t item)
 int32_t pop(struct Stack* S)
 {
     if (is_empty(S))
-	{
+    {
         printf("Stack is Empty.\n");
         return INT32_MIN;
     }
     int32_t tmp = S->array[S->top];
     S->array[(S->top)--] = INT32_MIN;
     printf("Pop !\n");
-    
+
     return tmp;
 }
 
@@ -178,7 +178,7 @@ int32_t pop(struct Stack* S)
 int32_t peek(struct Stack* S)
 {
     if (is_empty(S))
-	{
+    {
         printf("Stack is Empty.\n");
         return INT32_MIN;
     }
@@ -212,7 +212,7 @@ void print_stack(struct Stack* S)
 {
     printf("{ ");
     for (int32_t i = 0; i <= S->top; i++)
-	{
+    {
         printf("%d ", S->array[i]);
     }
     printf("}\n");

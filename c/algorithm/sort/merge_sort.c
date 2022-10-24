@@ -15,12 +15,12 @@ int main(void)
     int nArr_len = sizeof(nArr) / sizeof(nArr[0]);
     int *nTmp = malloc(sizeof(nArr));
     if (nTmp == NULL)
-	{
+    {
         return -1;
     }
 
     for (int i = 0; i < nArr_len; i++)
-	{
+    {
         printf("%d ", nArr[i]);
     }
     printf("\n");
@@ -28,7 +28,7 @@ int main(void)
     mergeSort(nArr, nTmp, 0, nArr_len - 1);
 
     for (int i = 0; i < nArr_len; i++)
-	{
+    {
         printf("%d ", nArr[i]);
     }
 
@@ -39,8 +39,8 @@ void mergeSort(int* nArr, int* nTmp, int nLeft, int nRight)
 {
     // base case
     if (nLeft >= nRight)
-	{ 
-        return; 
+    {
+        return;
     }
 
     int nMid = (nLeft + nRight) >> 1;
@@ -56,29 +56,29 @@ void merge(int* nArr, int* nTmp, int nLeft, int nMid, int nRight)
     int k = nLeft;
 
     while (i <= nMid && j <= nRight)
-	{
+    {
         if (nArr[i] <= nArr[j])
-		{
+        {
             nTmp[k++] = nArr[i++];
         }
-		else
-		{
+        else
+        {
             nTmp[k++] = nArr[j++];
         }
     }
 
     while (i <= nMid)
-	{
+    {
         nTmp[k++] = nArr[i++];
     }
 
     while (j <= nRight)
-	{
+    {
         nTmp[k++] = nArr[j++];
     }
 
     for (int idx = nLeft; idx <= nRight; idx++)
-	{
+    {
         nArr[idx] = nTmp[idx];
     }
 }

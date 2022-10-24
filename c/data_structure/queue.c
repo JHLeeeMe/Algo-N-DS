@@ -1,5 +1,5 @@
 /** Queue
- * 
+ *
  * bool is_empty(Queue* Q);
  * void clear(Queue* Q);
  * bool enqueue(Queue* Q, int32_t item);
@@ -37,9 +37,9 @@ Queue* create_queue(void)
 {
     Queue* Q = (Queue*)malloc(sizeof(Queue));
     if (Q == NULL)
-	{
-		return NULL;
-	}
+    {
+        return NULL;
+    }
 
     Q->front = NULL;
     Q->rear = NULL;
@@ -60,9 +60,9 @@ int32_t main(void)
 {
     Queue* Q = create_queue();
     if (Q == NULL)
-	{
-		return -1;
-	}
+    {
+        return -1;
+    }
 
     printf("empty Queue: %s\n", is_empty(Q) ? "true" : "false");  // true
     printf("clear(Q): ");
@@ -91,7 +91,7 @@ int32_t main(void)
     printf("enqueue 0 to 9\n");
     uint32_t cnt = 0;
     while (cnt != 10)
-	{
+    {
         enqueue(Q, cnt);
         cnt++;
     }
@@ -133,14 +133,14 @@ bool is_empty(Queue* Q)
 void clear(Queue* Q)
 {
     if (is_empty(Q))
-	{
+    {
         printf("already empty Queue\n");
     }
-	else
-	{
+    else
+    {
         Node* tmp = Q->front;
         while (Q->size != 0)
-		{
+        {
             tmp = tmp->next;
             Q->front = tmp;
             (Q->size)--;
@@ -161,21 +161,21 @@ bool enqueue(Queue* Q, int32_t item)
 {
     Node* new_node = (Node*)malloc(sizeof(Node));
     if (new_node == NULL)
-	{
+    {
         return false;
     }
-	else
-	{
+    else
+    {
         new_node->data = item;
         new_node->next = NULL;
     }
 
     if (is_empty(Q))
-	{
+    {
         Q->front = new_node;
     }
-	else
-	{
+    else
+    {
         Q->rear->next = new_node;
     }
     Q->rear = new_node;
@@ -195,7 +195,7 @@ bool enqueue(Queue* Q, int32_t item)
 int32_t dequeue(Queue* Q)
 {
     if (is_empty(Q))
-	{
+    {
         printf("Queue is empty\n");
         return -1;
     }
@@ -218,7 +218,7 @@ int32_t dequeue(Queue* Q)
 int32_t peek(Queue* Q)
 {
     if (is_empty(Q))
-	{
+    {
         printf("Queue is empty\n");
         return INT32_MIN;
     }
@@ -254,7 +254,7 @@ void print_queue(Queue* Q)
 
     printf("{ ");
     while (tmp != NULL)
-	{
+    {
         printf("%d ", tmp->data);
         tmp = tmp->next;
     }

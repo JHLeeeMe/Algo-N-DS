@@ -14,19 +14,19 @@ int main(void)
     int arr_len = sizeof(arr) / sizeof(arr[0]);
 
     if (linearSearch(arr, arr_len, 55))
-	{
+    {
         printf("found!\n");
     }
 
-	printf("Not found!");
+    printf("Not found!");
 }
 
 bool linearSearch(int* arr, int arr_len, int target)
 {
     for (int i = 0; i < arr_len; i++)
-	{
+    {
         if (arr[i] == target)
-		{
+        {
             return true;
         }
     }

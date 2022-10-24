@@ -15,11 +15,11 @@ int main(void)
 
     bool condition = binarySearch(nArr, 0, nArr_len - 1, 50);
     if (condition)
-	{
+    {
         printf("found!");
     }
-	else
-	{
+    else
+    {
         printf("Not found!");
     }
 
@@ -29,22 +29,22 @@ int main(void)
 bool binarySearch(int nArr[], int nFirst, int nLast, int nTarget)
 {
     if (nFirst > nLast)
-	{
+    {
         return false;
     }
 
     int nMid = (nLast + nFirst) >> 1;
 
     if (nArr[nMid] == nTarget)
-	{
+    {
         return true;
     }
-	else if (nArr[nMid] < nTarget)
-	{
+    else if (nArr[nMid] < nTarget)
+    {
         return binarySearch(nArr, nMid + 1, nLast, nTarget);
     }
-	else
-	{
+    else
+    {
         return binarySearch(nArr, nFirst, nMid - 1, nTarget);
     }
 }

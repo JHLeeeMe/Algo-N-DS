@@ -25,10 +25,10 @@ bool isUniqueStr(char* c_ptr)
     uint32_t bit_bucket = 0;
 
     for (uint8_t i = 0; i < strlen(str); i++)
-	{
+    {
         uint32_t n = str[i] - 'a';
         if ((bit_bucket & (1 << n)) > 0)
-		{
+        {
             return false;
         }
 

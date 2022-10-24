@@ -27,7 +27,7 @@ int main(void)
 uint32_t fibonacci(uint32_t n)
 {
     if (n <= 1)
-	{
+    {
         return n;
     }
 
@@ -42,12 +42,12 @@ uint32_t fibonacci_tailrec(uint32_t n)
 uint32_t _fibonacci_tailrec(uint32_t n, uint32_t a, uint32_t b)
 {
     if (n == 0)
-	{
+    {
         return a;
     }
 
     if (n == 1)
-	{
+    {
         return b;
     }
 

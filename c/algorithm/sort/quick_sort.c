@@ -23,7 +23,7 @@ int32_t main(void)
 
     printf("{ ");
     for (uint32_t i = 0; i < size; i++)
-	{
+    {
         printf("%d ", arr[i]);
     }
     printf("}\n");
@@ -54,7 +54,7 @@ void sort(int32_t arr[], int32_t left, int32_t right)
 {
     // base case
     if (left >= right)
-	{
+    {
         return;
     }
 
@@ -80,13 +80,13 @@ uint32_t partition(int32_t arr[], int32_t left, int32_t right)
     int32_t i = left, j = right;
 
     while (i < j)
-	{
+    {
         while (pivot < arr[j])
-		{
+        {
             j--;
         }
         while (pivot >= arr[i] && i < j)
-		{
+        {
             i++;
         }
         swap(arr, i, j);
