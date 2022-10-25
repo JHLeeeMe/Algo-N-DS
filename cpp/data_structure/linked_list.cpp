@@ -22,6 +22,7 @@ public:
 	public:
 		Iterator next();
 		Iterator prev();
+		bool has_next() const;
 
 		T& operator*() const;
 		bool operator!=(const Iterator& itr) const;
@@ -29,7 +30,6 @@ public:
 		Iterator operator++(int);
 		Iterator operator--();
 		Iterator operator--(int);
-		//Iterator insert(Iterator position, const T data);
 	private:
 		Iterator() : _cursor(nullptr) {}
 		Iterator(struct Node<T>* node) : _cursor(node) {}
@@ -50,6 +50,7 @@ public:
 	T pop_back();
 	Iterator begin() const;
 	Iterator end() const;
+	void insert(const Iterator& pos, const T data);
 	unsigned int get_size() const;
 	bool is_empty() const;
 	void clear();
@@ -60,6 +61,7 @@ private:
 	struct Node<T>* _tail;
 	unsigned int _size;
 };
+
 
 template<typename T>
 LinkedList<T>::LinkedList()
@@ -209,6 +211,17 @@ typename LinkedList<T>::Iterator LinkedList<T>::end() const
 }
 
 template<typename T>
+void LinkedList<T>::insert(const LinkedList<T>::Iterator& pos , const T data)
+{
+	struct Node<T>* new_node = _create_node(data);
+	new_node->prev = pos._cursor->prev;
+	new_node->next = pos._cursor;
+	pos._cursor->prev->next = new_node;
+	pos._cursor->prev = new_node;
+	_size++;
+}
+
+template<typename T>
 unsigned int LinkedList<T>::get_size() const
 {
 	return _size;
@@ -255,6 +268,12 @@ typename LinkedList<T>::Iterator LinkedList<T>::Iterator::prev()
 {
 	_cursor = _cursor->prev;
 	return *this;
+}
+
+template<typename T>
+bool LinkedList<T>::Iterator::has_next() const
+{
+	return _cursor->next != nullptr;
 }
 
 template<typename T>
@@ -335,9 +354,26 @@ int main()
 		l.push_back(2);
 		l.push_back(3);
 
-		for (LinkedList<int>::Iterator it = l.begin(); it != l.end(); it++)
+		for (typename::LinkedList<int>::Iterator it = l.begin(); it != l.end(); it++)
 		{
 			std::cout << *it << std::endl;
+		}
+
+		typename::LinkedList<int>::Iterator tmp = l.begin();
+		Assert(l.get_size() == 4);
+		tmp.next();
+		Assert(*tmp == 1);
+		tmp.next();
+		l.insert(tmp, 13);
+		Assert(l.get_size() == 5);
+		tmp.prev();
+		Assert(*tmp == 13);
+
+		LinkedList<int>::Iterator tmp2 = l.begin();
+		while (tmp2.has_next())
+		{
+			std::cout << *tmp2 << std::endl;
+			tmp2.next();
 		}
 	}
 
