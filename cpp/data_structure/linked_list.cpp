@@ -62,7 +62,6 @@ private:
 	unsigned int _size;
 };
 
-
 template<typename T>
 LinkedList<T>::LinkedList()
 	: _head(nullptr)
