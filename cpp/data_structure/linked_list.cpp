@@ -291,7 +291,7 @@ template<typename T>
 typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator++()
 {
 	_cursor = _cursor->next;
-	return _cursor;
+	return *this;
 }
 
 template<typename T>
@@ -306,7 +306,7 @@ template<typename T>
 typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator--()
 {
 	_cursor = _cursor->prev;
-	return _cursor;
+	return *this;
 }
 
 template<typename T>
@@ -357,6 +357,7 @@ int main()
 		{
 			std::cout << *it << std::endl;
 		}
+        std::cout << "----------------" << std::endl;
 
 		typename::LinkedList<int>::Iterator tmp = l.begin();
 		Assert(l.get_size() == 4);
