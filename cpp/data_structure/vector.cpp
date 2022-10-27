@@ -4,10 +4,33 @@
 #include <iostream>
 #include <cassert>
 
+
+
 template<typename T>
 class Vector
 {
 public:
+    class Iterator
+    {
+    friend class Vector;
+    public:
+        Iterator next();
+        Iterator prev();
+        //bool has_next() const;
+
+        T& operator*() const;
+        bool operator!=(const Iterator& itr) const;
+        Iterator operator++();
+        Iterator operator++(int);
+        Iterator operator--();
+        Iterator operator--(int);
+    private:
+        Iterator(const Vector& v) : _v(v), _cursor(0) {}
+    private:
+        const Vector& _v;
+        mutable unsigned int _cursor;
+    };
+
     Vector();
     ~Vector();
 
@@ -19,6 +42,9 @@ public:
     unsigned int get_capacity() const;
     bool is_empty() const;
     void clear();
+
+    Iterator begin() const;
+    Iterator end() const;
 private:
     T* _arr_ptr;
     unsigned int _size;
@@ -130,6 +156,83 @@ void Vector<T>::clear()
     _size = 0;
 }
 
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::next()
+{
+    _cursor++;
+    return *this;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::prev()
+{
+    _cursor--;
+    return *this;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::begin() const
+{
+    Iterator itr = Iterator(*this);
+    return itr;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::end() const
+{
+    Iterator itr = Iterator(*this);
+    itr._cursor += _size;
+    return itr;
+}
+
+template<typename T>
+T& Vector<T>::Iterator::operator*() const
+{
+    return _v._arr_ptr[_cursor];
+}
+
+template<typename T>
+bool Vector<T>::Iterator::operator!=(const Iterator& itr) const
+{
+    return _cursor != itr._cursor;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator++()
+{
+    _cursor++;
+    return *this;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int)
+{
+    Iterator tmp = *this;
+    _cursor++;
+    return tmp;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator--()
+{
+    _cursor--;
+    return *this;
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator--(int)
+{
+    Iterator tmp = *this;
+    _cursor--;
+    return tmp;
+}
+
+//template<typename T>
+//bool Vector<T>::Iterator::has_next() const
+//{
+//    return _size;
+//}
+
 int main()
 {
     {
@@ -193,12 +296,24 @@ int main()
         Assert(v.get_size() == 26);
         Assert(v.get_capacity() == 50);
 
-        while (!v.is_empty())
-        {
-            std::cout << v.pop_back() << ' ';
-        }
+        Vector<int>::Iterator itr = v.begin();
+        Assert(*itr == 9999);
 
         //v.reverse(32);
+    }
+    {
+        Vector<int> v;
+        for (int i = 0; i < 10; i++)
+        {
+            v.push_back(i);
+        }
+        auto itr = v.begin();
+        std::cout << *itr << std::endl;
+
+        for (auto itr = v.begin(); itr != v.end(); itr++)
+        {
+            std::cout << *itr << std::endl;
+        }
     }
 
     return 0;
