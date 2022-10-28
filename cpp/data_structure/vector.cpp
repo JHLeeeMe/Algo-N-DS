@@ -3,8 +3,7 @@
 
 #include <iostream>
 #include <cassert>
-
-
+#include <string>
 
 template<typename T>
 class Vector
@@ -16,7 +15,6 @@ public:
     public:
         Iterator next();
         Iterator prev();
-        //bool has_next() const;
 
         T& operator*() const;
         bool operator!=(const Iterator& itr) const;
@@ -30,18 +28,20 @@ public:
         const Vector& _v;
         mutable unsigned int _cursor;
     };
-
+public:
     Vector();
     ~Vector();
-
-    void reverse(const unsigned int capacity);
+public:
+    void reserve(const unsigned int capacity);
     void resize(const unsigned int capacity, const T data = T());
     void push_back(const T& data);
+    void push_back(T&& data);
     T pop_back();
     unsigned int get_size() const;
     unsigned int get_capacity() const;
     bool is_empty() const;
     void clear();
+    T& operator[](const unsigned int idx) const;
 
     Iterator begin() const;
     Iterator end() const;
@@ -65,7 +65,7 @@ Vector<T>::~Vector()
 }
 
 template<typename T>
-void Vector<T>::reverse(const unsigned int capacity)
+void Vector<T>::reserve(const unsigned int capacity)
 {
     Assert_msg(_size <= capacity,
         "capacity parameter must be greater than or equal to the vector size");
@@ -106,16 +106,20 @@ void Vector<T>::push_back(const T& data)
 {
     if (_size == _capacity)
     {
-        T* tmp = new T[_capacity * 2];
-        for (int i = 0; i < _capacity; i++)
-        {
-            tmp[i] = _arr_ptr[i];
-        }
-        delete[] _arr_ptr;
-        _arr_ptr = tmp;
-        _capacity *= 2;
+        reserve(_capacity * 2);
     }
     _arr_ptr[_size] = data;
+    _size++;
+}
+
+template<typename T>
+void Vector<T>::push_back(T&& data)
+{
+    if (_size == _capacity)
+    {
+        reserve(_capacity * 2);
+    }
+    _arr_ptr[_size] = std::move(data);
     _size++;
 }
 
@@ -168,6 +172,12 @@ typename Vector<T>::Iterator Vector<T>::Iterator::prev()
 {
     _cursor--;
     return *this;
+}
+
+template<typename T>
+T& Vector<T>::operator[](const unsigned int idx) const
+{
+    return _arr_ptr[idx];
 }
 
 template<typename T>
@@ -227,15 +237,10 @@ typename Vector<T>::Iterator Vector<T>::Iterator::operator--(int)
     return tmp;
 }
 
-//template<typename T>
-//bool Vector<T>::Iterator::has_next() const
-//{
-//    return _size;
-//}
-
 int main()
 {
     {
+        std::cout << "-----int-----" << std::endl;
         Vector<int> v;
         Assert(v.get_size() == 0);
         Assert(v.get_capacity() == 16);
@@ -253,6 +258,7 @@ int main()
         Assert(v.get_capacity() == 32);
     }
     {
+        std::cout << "-----int-----" << std::endl;
         Vector<int> v;
         for (int i = 0; i < 16; i++)
         {
@@ -270,11 +276,11 @@ int main()
         Assert(v.get_size() == 33);
         Assert(v.get_capacity() == 64);
 
-        v.reverse(100);
+        v.reserve(100);
         Assert(v.get_size() == 33);
         Assert(v.get_capacity() == 100);
 
-        v.reverse(33);
+        v.reserve(33);
         Assert(v.get_size() == 33);
         Assert(v.get_capacity() == 33);
 
@@ -299,14 +305,16 @@ int main()
         Vector<int>::Iterator itr = v.begin();
         Assert(*itr == 9999);
 
-        //v.reverse(32);
+        //v.reserve(32);
     }
     {
+        std::cout << "-----int-----" << std::endl;
         Vector<int> v;
         for (int i = 0; i < 10; i++)
         {
             v.push_back(i);
         }
+
         auto itr = v.begin();
         std::cout << *itr << std::endl;
 
@@ -314,6 +322,22 @@ int main()
         {
             std::cout << *itr << std::endl;
         }
+    }
+    {
+        std::cout << "-----std::string-----" << std::endl;
+        Vector<std::string> v;
+        std::cout << v[0] << std::endl;
+        v[0] = "123";
+        std::cout << v[0] << std::endl;
+        std::string a = "a";
+        std::string b = "b";
+        std::string c = "c";
+        v.push_back(a);
+        v.push_back(b);
+        v.push_back(std::move(c));
+        v.push_back("ab");
+        v.push_back("cd");
+        v.push_back("ef");
     }
 
     return 0;
