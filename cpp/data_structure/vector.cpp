@@ -30,6 +30,8 @@ public:
     };
 public:
     Vector();
+    Vector(const Vector& v);
+    Vector(Vector&& v);
     ~Vector();
 public:
     void reserve(const unsigned int capacity);
@@ -57,6 +59,29 @@ Vector<T>::Vector()
     , _size(0)
     , _capacity(16)
 {}
+
+template<typename T>
+Vector<T>::Vector(const Vector& v)
+    : _arr_ptr(new T[v._capacity])
+    , _size(v._size)
+    , _capacity(v._capacity)
+{
+    for (int i = 0; i < v._size; i++)
+    {
+        _arr_ptr[i] = v._arr_ptr[i];
+    }
+}
+
+template<typename T>
+Vector<T>::Vector(Vector&& v)
+    : _arr_ptr(std::move(v._arr_ptr))
+    , _size(std::move(v._size))
+    , _capacity(std::move(v._capacity))
+{
+    v._arr_ptr = nullptr;
+    v._size = 0;
+    v._capacity = 0;
+}
 
 template<typename T>
 Vector<T>::~Vector()
