@@ -1,6 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <vector>
+#include <cstring>
 
 #define __INIT_CAPACITY 16
 
@@ -26,12 +27,14 @@ public:
     //~HashTable();
 public:
     size_t get_capacity() const;
+    //float get_load_factor() const;
     size_t hash(T data) const;
     void put(T data);
     //bool find(T data) const;
 private:
     std::vector<Node<T>*> _table;
     size_t _capacity;
+    float _load_factor;
 };
 
 template<typename T>
@@ -43,10 +46,20 @@ size_t HashTable<T>::get_capacity() const
 template<typename T>
 size_t HashTable<T>::hash(T data) const
 {
+    size_t str_len = 0;
     // hasing
-    // if char* -> void stoi(int* buf, const char* s, size_t s_len = 0)
-    // if std::string -> void stoi(int* buf, const std::string& s)
-    // return index key
+    if (strcmp(typeid(data).name(), "PKc") == 0)
+    {
+        str_len = char_arr_length(data);
+    }
+    else
+    {
+        str_len = data.length();
+    }
+    size_t buf[str_len];
+    int* ascii_buf = stoi(buf, data);
+    // 미완
+
     return 0;
 }
 
