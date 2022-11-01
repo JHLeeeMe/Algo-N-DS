@@ -32,7 +32,8 @@ public:
     //~HashTable();
 public:
     size_t get_capacity() const;
-    void put(T data);
+    void put(const T& data);
+    //T remove(const T& data);
 private:
     size_t _hash(const std::string& data) const;
 private:
@@ -47,23 +48,7 @@ size_t HashTable<T>::get_capacity() const
 }
 
 template<typename T>
-size_t HashTable<T>::_hash(const std::string& data) const
-{
-    // djb2 function
-    // (http://www.cse.yorku.ca/~oz/_hash.html)
-    unsigned long _hash = 5381;
-    int c;
-    for (int i = 0; i < data.length(); i++)
-    {
-        c = data[i];
-        _hash = ((_hash << 5) + _hash) + c;  // _hash * 33 + c
-    }
-
-    return _hash % _capacity;
-}
-
-template<typename T>
-void HashTable<T>::put(T data)
+void HashTable<T>::put(const T& data)
 {
     Node<T>* new_node = new Node<T>;
     new_node->next = nullptr;
@@ -91,6 +76,28 @@ void HashTable<T>::put(T data)
         }
         prev->next = new_node;
     }
+}
+
+//template<typename T>
+//T HashTable<T>::remove(const T& data)
+//{
+//    return 0;
+//}
+
+template<typename T>
+size_t HashTable<T>::_hash(const std::string& data) const
+{
+    // djb2 function
+    // (http://www.cse.yorku.ca/~oz/_hash.html)
+    unsigned long _hash = 5381;
+    int c;
+    for (int i = 0; i < data.length(); i++)
+    {
+        c = data[i];
+        _hash = ((_hash << 5) + _hash) + c;  // _hash * 33 + c
+    }
+
+    return _hash % _capacity;
 }
 
 int main()
