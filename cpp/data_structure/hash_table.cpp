@@ -32,12 +32,13 @@ public:
     //~HashTable();
 public:
     size_t get_capacity() const;
-    void put(const T& data);
-    //T remove(const T& data);
+    void put(T data);
+    void remove(T data);
+    void clear();
+    std::vector<Node<T>*> _table;
 private:
     size_t _hash(const std::string& data) const;
 private:
-    std::vector<Node<T>*> _table;
     size_t _capacity;
 };
 
@@ -48,7 +49,7 @@ size_t HashTable<T>::get_capacity() const
 }
 
 template<typename T>
-void HashTable<T>::put(const T& data)
+void HashTable<T>::put(T data)
 {
     Node<T>* new_node = new Node<T>;
     new_node->next = nullptr;
@@ -78,11 +79,64 @@ void HashTable<T>::put(const T& data)
     }
 }
 
-//template<typename T>
-//T HashTable<T>::remove(const T& data)
-//{
-//    return 0;
-//}
+template<typename T>
+void HashTable<T>::remove(T data)
+{
+    size_t idx = _hash(data);
+    Node<T>* prev = nullptr;
+    Node<T>* curr = _table[idx];
+    while (curr != nullptr)
+    {
+        if (curr->value != data)
+        {
+            prev = curr;
+            curr = curr->next;
+            continue;
+        }
+
+        if (curr->next != nullptr)
+        {
+            if (prev != nullptr)
+            {
+                prev->next = curr->next;
+            }
+            else
+            {
+                _table[idx] = curr->next;
+            }
+            delete curr;
+        }
+        else
+        {
+            if (prev != nullptr)
+            {
+                prev->next = nullptr;
+            }
+            else
+            {
+                _table[idx] = nullptr;
+            }
+            delete curr;
+        }
+        break;
+    }
+}
+
+template<typename T>
+void HashTable<T>::clear()
+{
+    for (int i = 0; i < _capacity; ++i)
+    {
+        Node<T>* curr = _table[i];
+        while (curr != nullptr)
+        {
+            Node<T>* tmp = curr;
+            curr = curr->next;
+            delete tmp;
+        }
+        _table[i] = nullptr;
+    }
+}
 
 template<typename T>
 size_t HashTable<T>::_hash(const std::string& data) const
@@ -104,18 +158,70 @@ int main()
 {
     HashTable<int> h_int;
     HashTable<std::string> h_string(10);
+
     {  // capacity Test
         __ASSERT(h_int.get_capacity() == __DEFAULT_CAPACITY);
         __ASSERT(h_string.get_capacity() == 10);
     }
-    {
+    {  // 중복 검사
+        std::cout << "----- unique Test -----" << std::endl;
         h_string.put("a");
         h_string.put("a");
         h_string.put("a");
-
+    }
+    {  // remove Test
+        std::cout << "----- remove Test -----" << std::endl;
+        h_string.put("bbb");
+        h_string.put("ccc");
+        h_string.put("ddd");
+        h_string.put("eee");
+        h_string.put("fff");
+        h_string.put("abc");
         h_string.put("bca");
-        h_string.put("cba");
-        h_string.put("kkka");
+
+        for (int i = 0; i < 10; ++i)
+        {
+            Node<std::string>* curr = h_string._table[i];
+            if (curr == nullptr)
+            {
+                continue;
+            }
+
+            while (curr != nullptr)
+            {
+                std::cout << "key: " << i << std::endl
+                          << "value: " << curr->value << std::endl;
+                curr = curr->next;
+            }
+        }
+
+        std::cout << "----------" << std::endl;
+
+        h_string.remove("ppp");
+        h_string.remove("kkka");
+        h_string.remove("a");
+        h_string.remove("hihihihihi");
+        h_string.remove("fff");
+
+        for (int i = 0; i < 10; ++i)
+        {
+            Node<std::string>* curr = h_string._table[i];
+            if (curr == nullptr)
+            {
+                continue;
+            }
+
+            while (curr != nullptr)
+            {
+                std::cout << "key: " << i << std::endl
+                          << "value: " << curr->value << std::endl;
+                curr = curr->next;
+            }
+        }
+    }
+    {  // clear Test
+        std::cout << "----- clear Test-----" << std::endl;
+        h_string.clear();
     }
 
     return 0;
