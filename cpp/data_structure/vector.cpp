@@ -364,6 +364,28 @@ int main()
         v.push_back("cd");
         v.push_back("ef");
     }
+    {
+        std::cout << "----- move constructor Test -----" << std::endl;
+        Vector<std::string> vec;
+        vec.push_back("aaaa");
+        vec.push_back("bbbb");
+        vec.push_back("cccc");
+        vec.push_back("dddd");
+        for (auto itr = vec.begin(); itr != vec.end(); itr++)
+        {
+            std::cout << *itr << std::endl;
+        }
+
+        auto vec_moved = std::move(vec);
+        for (auto itr = vec.begin(); itr != vec.end(); itr++)
+        {
+            std::cout << *itr << std::endl;
+        }
+        for (auto itr = vec_moved.begin(); itr != vec_moved.end(); itr++)
+        {
+            std::cout << *itr << std::endl;
+        }
+    }
 
     return 0;
 }
