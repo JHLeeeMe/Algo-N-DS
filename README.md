@@ -1,5 +1,5 @@
 # Algo-N-DS
-Algorithm and DataStructure practice with Java & Python & C & C++
+Algorithm and DataStructure practice with ```Java``` & ```Python``` & ```C``` & ```C++```
 
 ### Java
 - [algorithm](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/java/algorithm)
