@@ -27,17 +27,19 @@ public:
     HashTable(size_t capacity)
         : _table(std::vector<Node<T>*>(capacity))
         , _capacity(capacity) {}
-    //HashTable(const HashTable& h);
+    HashTable(const HashTable& h);
     //HashTable(HashTable&& h);
     //~HashTable();
 public:
     size_t get_capacity() const;
-    void put(T data);
-    void remove(T data);
+    void put(const T& data);
+    void remove(const T& data);
+    const T& get(const T& data) const;
     void clear();
     std::vector<Node<T>*> _table;
 private:
     size_t _hash(const std::string& data) const;
+    bool _find(const T& data) const;
 private:
     size_t _capacity;
 };
@@ -49,7 +51,7 @@ size_t HashTable<T>::get_capacity() const
 }
 
 template<typename T>
-void HashTable<T>::put(T data)
+void HashTable<T>::put(const T& data)
 {
     Node<T>* new_node = new Node<T>;
     new_node->next = nullptr;
@@ -80,7 +82,7 @@ void HashTable<T>::put(T data)
 }
 
 template<typename T>
-void HashTable<T>::remove(T data)
+void HashTable<T>::remove(const T& data)
 {
     size_t idx = _hash(data);
     Node<T>* prev = nullptr;
@@ -123,6 +125,23 @@ void HashTable<T>::remove(T data)
 }
 
 template<typename T>
+const T& HashTable<T>::get(const T& data) const
+{
+    __ASSERT_MSG(_find(data), "data is not exists.");
+
+    size_t idx = _hash(data);
+    Node<T>* curr = _table[idx];
+    while (curr != nullptr)
+    {
+        if (curr->value == data)
+        {
+            return curr->value;
+        }
+        curr = curr->next;
+    }
+}
+
+template<typename T>
 void HashTable<T>::clear()
 {
     for (int i = 0; i < _capacity; ++i)
@@ -152,6 +171,23 @@ size_t HashTable<T>::_hash(const std::string& data) const
     }
 
     return _hash % _capacity;
+}
+
+template<typename T>
+bool HashTable<T>::_find(const T& data) const
+{
+    size_t idx = _hash(data);
+    Node<T>* curr = _table[idx];
+    while (curr != nullptr)
+    {
+        if (curr->value == data)
+        {
+            return true;
+        }
+        curr = curr->next;
+    }
+
+    return false;
 }
 
 int main()
@@ -222,6 +258,13 @@ int main()
     {  // clear Test
         std::cout << "----- clear Test-----" << std::endl;
         h_string.clear();
+    }
+    {  // get Test
+        h_string.put("aa");
+        h_string.put("bb");
+        h_string.put("cc");
+
+        __ASSERT(h_string.get("aa") == "aa");
     }
 
     return 0;
