@@ -28,21 +28,68 @@ public:
         : _table(std::vector<Node<T>*>(capacity))
         , _capacity(capacity) {}
     HashTable(const HashTable& h);
-    //HashTable(HashTable&& h);
-    //~HashTable();
+    HashTable(HashTable&& h);
+    ~HashTable();
 public:
     size_t get_capacity() const;
     void put(const T& data);
     void remove(const T& data);
     const T& get(const T& data) const;
     void clear();
-    std::vector<Node<T>*> _table;
+    void print_all() const;
 private:
     size_t _hash(const std::string& data) const;
     bool _find(const T& data) const;
 private:
+    std::vector<Node<T>*> _table;
     size_t _capacity;
 };
+
+template<typename T>
+HashTable<T>::HashTable(const HashTable& h)
+{
+    _capacity = h.get_capacity();
+    _table = std::vector<Node<T>*>(_capacity);
+    for (int i = 0; i < _capacity; ++i)
+    {
+        Node<T>* curr = h._table[i];
+        while (curr != nullptr)
+        {
+            Node<T>* new_node = new Node<T>;
+            new_node->value = curr->value;
+            new_node->next = nullptr;
+            if (_table[i] == nullptr)
+            {
+                _table[i] = new_node;
+            }
+            else
+            {
+                Node<T>* tmp = _table[i];
+                while (tmp->next != nullptr)
+                {
+                    tmp = tmp->next;
+                }
+                tmp->next = new_node;
+            }
+            curr = curr->next;
+        }
+    }
+}
+
+template<typename T>
+HashTable<T>::HashTable(HashTable&& h)
+    : _table(std::move(h._table))
+    , _capacity(h._capacity)
+{
+    h._table.clear();
+    h._capacity = 0;
+}
+
+template<typename T>
+HashTable<T>::~HashTable()
+{
+    clear();
+}
 
 template<typename T>
 size_t HashTable<T>::get_capacity() const
@@ -158,6 +205,37 @@ void HashTable<T>::clear()
 }
 
 template<typename T>
+void HashTable<T>::print_all() const
+{
+    std::cout << "{";
+    for (int i = 0; i < _capacity; ++i)
+    {
+        Node<T>* curr = _table[i];
+        if (curr == nullptr)
+        {
+            continue;
+        }
+
+        int node_idx = 0;
+        while (curr != nullptr)
+        {
+            if (node_idx != 0)
+            {
+                std::cout << i << "-" << node_idx
+                          << ": " << curr->value << ", ";
+            }
+            else
+            {
+                std::cout << i << ": " << curr->value << ", ";
+            }
+            curr = curr->next;
+            node_idx++;
+        }
+    }
+    std::cout << "}" << std::endl;
+}
+
+template<typename T>
 size_t HashTable<T>::_hash(const std::string& data) const
 {
     // djb2 function
@@ -215,21 +293,7 @@ int main()
         h_string.put("abc");
         h_string.put("bca");
 
-        for (int i = 0; i < 10; ++i)
-        {
-            Node<std::string>* curr = h_string._table[i];
-            if (curr == nullptr)
-            {
-                continue;
-            }
-
-            while (curr != nullptr)
-            {
-                std::cout << "key: " << i << std::endl
-                          << "value: " << curr->value << std::endl;
-                curr = curr->next;
-            }
-        }
+        h_string.print_all();
 
         std::cout << "----------" << std::endl;
 
@@ -239,32 +303,39 @@ int main()
         h_string.remove("hihihihihi");
         h_string.remove("fff");
 
-        for (int i = 0; i < 10; ++i)
-        {
-            Node<std::string>* curr = h_string._table[i];
-            if (curr == nullptr)
-            {
-                continue;
-            }
-
-            while (curr != nullptr)
-            {
-                std::cout << "key: " << i << std::endl
-                          << "value: " << curr->value << std::endl;
-                curr = curr->next;
-            }
-        }
+        h_string.print_all();
     }
     {  // clear Test
         std::cout << "----- clear Test-----" << std::endl;
         h_string.clear();
     }
     {  // get Test
+        std::cout << "----- get Test-----" << std::endl;
         h_string.put("aa");
         h_string.put("bb");
         h_string.put("cc");
+        h_string.put("abc");
+        h_string.put("bca");
+        h_string.put("bac");
 
         __ASSERT(h_string.get("aa") == "aa");
+    }
+    {  // copy constructor Test
+       std::cout << "----- copy constructor Test-----" << std::endl;
+       h_string.print_all();
+       HashTable<std::string> h_copy = h_string;
+       h_copy.print_all();
+       h_string.print_all();
+       h_copy.clear();
+       h_copy.print_all();
+       h_string.print_all();
+    }
+    {  // move constructor Test
+       std::cout << "----- move constructor Test-----" << std::endl;
+
+       h_string.print_all();
+       HashTable<std::string> h_moved = std::move(h_string);
+       h_moved.print_all();
     }
 
     return 0;
