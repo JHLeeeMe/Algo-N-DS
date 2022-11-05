@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <type_traits>
 #include <typeinfo>
 #include <vector>
 #include <cstring>
@@ -7,6 +8,7 @@
 
 #define __ASSERT(expr) assert(expr)
 #define __ASSERT_MSG(expr, msg) assert(expr && msg)
+#define __STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 
 #define __DEFAULT_CAPACITY 16
 
@@ -21,12 +23,8 @@ template<typename T>
 class HashTable
 {
 public:
-    HashTable()
-        : _table(std::vector<Node<T>*>(__DEFAULT_CAPACITY))
-        , _capacity(__DEFAULT_CAPACITY) {}
-    HashTable(size_t capacity)
-        : _table(std::vector<Node<T>*>(capacity))
-        , _capacity(capacity) {}
+    HashTable();
+    HashTable(size_t capacity);
     HashTable(const HashTable& h);
     HashTable(HashTable&& h);
     ~HashTable();
@@ -39,11 +37,38 @@ public:
     void print_all() const;
 private:
     size_t _hash(const std::string& data) const;
+    size_t _hash(const int& data) const;
     bool _find(const T& data) const;
 private:
     std::vector<Node<T>*> _table;
     size_t _capacity;
 };
+
+template<typename T>
+HashTable<T>::HashTable()
+    : _table(std::vector<Node<T>*>(__DEFAULT_CAPACITY))
+    , _capacity(__DEFAULT_CAPACITY)
+{
+    __STATIC_ASSERT(
+        (std::is_same<T, int>::value ||
+         std::is_same<T, std::string>::value ||
+         std::is_same<T, const char*>::value)
+        , "T = int || std::string || const char*"
+    );
+}
+
+template<typename T>
+HashTable<T>::HashTable(size_t capacity)
+    : _table(std::vector<Node<T>*>(capacity))
+    , _capacity(capacity)
+{
+    __STATIC_ASSERT(
+        (std::is_same<T, int>::value ||
+         std::is_same<T, std::string>::value ||
+         std::is_same<T, const char*>::value)
+        , "T = int || std::string || const char*"
+    );
+}
 
 template<typename T>
 HashTable<T>::HashTable(const HashTable& h)
@@ -252,6 +277,12 @@ size_t HashTable<T>::_hash(const std::string& data) const
 }
 
 template<typename T>
+size_t HashTable<T>::_hash(const int& data) const
+{
+    return data % _capacity;
+}
+
+template<typename T>
 bool HashTable<T>::_find(const T& data) const
 {
     size_t idx = _hash(data);
@@ -336,6 +367,11 @@ int main()
        h_string.print_all();
        HashTable<std::string> h_moved = std::move(h_string);
        h_moved.print_all();
+    }
+    {  // template type constraint (static_assert) Test
+        HashTable<const char*> const_char_ptr_h;
+        // static_assert 발생
+        //HashTable<double> double_h;
     }
 
     return 0;
