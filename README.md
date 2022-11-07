@@ -14,4 +14,5 @@ Algorithm and DataStructure practice with ```Java``` & ```Python``` & ```C``` & 
 - [data_structure](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/c/data_structure)
 
 ### C++
+- [algorithm](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/cpp/algorithm)
 - [data_structure](https://github.com/JHLeeeMe/Algo-N-DS/tree/master/cpp/data_structure)
