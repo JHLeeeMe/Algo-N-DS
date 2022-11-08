@@ -4,7 +4,6 @@
  *     n! = n * (n-1) * ... * 2
  *     (e.g. 3! = 3 * 2!)
  */
-#include <iostream>
 #include <cassert>
 
 #define __ASSERT(expr) assert(expr)
