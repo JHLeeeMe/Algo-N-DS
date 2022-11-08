@@ -1,6 +1,6 @@
 /** Linear Search
  *
- * O(n), Omega(1)
+ *   O(n), Omega(1)
  */
 
 #include <iostream>
