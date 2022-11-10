@@ -1,3 +1,7 @@
+/** Merge Sort
+ *
+ *   O(NlogN), Omega(NlogN)
+ */
 #include <iostream>
 #include <memory.h>
 
