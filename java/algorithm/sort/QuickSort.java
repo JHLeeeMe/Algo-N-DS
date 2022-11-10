@@ -15,7 +15,7 @@ public class QuickSort {
         // base case
         if (left >= right) {
             return;
-		}
+        }
 
         int pIdx = partition(arr, left, right);
         sort(arr, left, pIdx-1);
@@ -32,10 +32,10 @@ public class QuickSort {
         while (i < j) {
             while (pivot < arr[j]) {
                 j--;
-			}
+            }
             while (pivot >= arr[i] && i < j) {
                 i++;
-			}
+            }
             swap(arr, i, j);
         }
         arr[left] = arr[i];

@@ -29,13 +29,13 @@ public class SelectionSort {
             for (int j=i+1; j<n; j++) {
                 if (arr[j] < arr[minIdx]) {
                     minIdx = j;
-					{
+                    {
             }
 
             // swap if (minIdx != i)
             if (i != minIdx) {
                 swap(arr, i, minIdx);
-			}
+            }
         }
     }
 

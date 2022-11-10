@@ -131,13 +131,13 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
             for (int idx=0; idx<size; idx++) {
                 if (this.arr[idx] == null) {
                     return idx;
-				}
+                }
             }
         } else {
             for (int idx=0; idx<size; idx++ ) {
                 if (this.arr[idx].equals(o)) {
                     return idx;
-				}
+                }
             }
         }
         return -1;
@@ -148,7 +148,7 @@ public class MyArrayList<T> implements InnerMyArrayList<T> {
     }
 
     public Iterator<T> iterator() {
-	    return new MyItr();
+        return new MyItr();
     }
 
     private class MyItr implements Iterator<T> {

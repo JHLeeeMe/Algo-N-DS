@@ -23,7 +23,7 @@ public class DirectedGraph extends AbstGraph {
      */
     @Override
     public void addEdge(int from, int to) {
-        if ((from < 0) || (to < 0) || 
+        if ((from < 0) || (to < 0) ||
             (this.size < from) || (this.size < to)) {
 
             throw new Error();

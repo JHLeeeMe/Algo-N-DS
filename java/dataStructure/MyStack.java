@@ -49,9 +49,9 @@ public class MyStack<T> implements InnerMyStack<T> {
         if (isFull()) {
             // prevent stack overflow
             System.out.println("Stack is Full");
-		} else {
+        } else {
             arr[++top] = item;
-		}
+        }
     }
 
     @Override

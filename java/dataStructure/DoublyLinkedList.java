@@ -29,9 +29,9 @@ public class DoublyLinkedList<T> {
         first = newNode;
         if (f == null) {
             last = first;
-		} else {
+        } else {
             f.prev = newNode;
-		}
+        }
         size++;
     }
 
@@ -41,9 +41,9 @@ public class DoublyLinkedList<T> {
         last = newNode;
         if (l == null) {
             first = newNode;
-		} else {
+        } else {
             l.next = newNode;
-		}
+        }
         size++;
     }
 
@@ -55,9 +55,9 @@ public class DoublyLinkedList<T> {
         x.prev = newNode;
         if (prev == null) {
             first = newNode;
-		} else {
+        } else {
             prev.next = newNode;
-		}
+        }
         size++;
     }
 
@@ -68,9 +68,9 @@ public class DoublyLinkedList<T> {
         first = next;
         if (next == null) {
             last = null;
-		} else {
+        } else {
             next.prev = null;
-		}
+        }
         size--;
         return element;
     }
@@ -82,9 +82,9 @@ public class DoublyLinkedList<T> {
         last = prev;
         if (prev == null) {
             first = null;
-		} else {
+        } else {
             prev.next = null;
-		}
+        }
         size--;
         return element;
     }
@@ -99,15 +99,15 @@ public class DoublyLinkedList<T> {
         x = null;
         if (prev == null) {
             first = next;
-		} else {
+        } else {
             prev.next = next;
-		}
+        }
 
         if (next == null) {
             last = prev;
-		} else {
+        } else {
             next.prev = prev;
-		}
+        }
         size--;
         return element;
     }
@@ -129,9 +129,9 @@ public class DoublyLinkedList<T> {
         if (isPositionIndex(idx)) {
             if (idx == size) {
                 linkLast(item);
-			} else {
+            } else {
                 linkBefore(item, node(idx));
-			}
+            }
             return true;
         }
         return false;
@@ -148,7 +148,7 @@ public class DoublyLinkedList<T> {
     public T remove(int idx) {
         if (isElementIndex(idx)) {
             return unlink(node(idx));
-		}
+        }
         return null;
     }
 
@@ -208,13 +208,13 @@ public class DoublyLinkedList<T> {
             Node<T> x = first;
             for (int i = 0; i < idx; i++) {
                 x = x.next;
-			}
+            }
             return x;
         } else {
             Node<T> x = last;
             for (int i = size-1; i > idx; i--) {
                 x = x.prev;
-			}
+            }
             return x;
         }
     }
@@ -230,14 +230,14 @@ public class DoublyLinkedList<T> {
             for (Node<T> x = first; x != null; x = x.next) {
                 if (x.item == null) {
                     return idx;
-				}
+                }
                 idx++;
             }
         } else {
             for (Node<T> x = first; x != null; x = x.next) {
                 if (o.equals(x.item)) {
                     return idx;
-				}
+                }
                 idx++;
             }
         }
@@ -270,7 +270,7 @@ public class DoublyLinkedList<T> {
         public MyListIterator(int idx) {
             if (!isPositionIndex(idx)) {
                 throw new java.lang.IndexOutOfBoundsException();
-			}
+            }
 
             if (idx == size) {
                 prev = node(idx - 1);
@@ -293,7 +293,7 @@ public class DoublyLinkedList<T> {
         public T previous() {
             if (prev == null) {
                 throw new java.util.NoSuchElementException();
-			}
+            }
 
             lastReturned = prev;  // for return item
             next = prev;
@@ -304,7 +304,7 @@ public class DoublyLinkedList<T> {
         public T next() {
             if (next == null) {
                 throw new java.util.NoSuchElementException();
-			}
+            }
             
             lastReturned = next;
             prev = next;
@@ -317,15 +317,15 @@ public class DoublyLinkedList<T> {
 
             if (next == null) {
                 linkLast(t);
-			} else {
+            } else {
                 linkBefore(t, next);
-			}
+            }
         }
 
         public void remove() {
             if (lastReturned == null) {
                 throw new java.lang.IllegalStateException();
-			}
+            }
             
             unlink(lastReturned);
             lastReturned = null;
@@ -335,7 +335,7 @@ public class DoublyLinkedList<T> {
             int idx = indexOf(o);
             if (idx == -1) {
                 throw new java.lang.IndexOutOfBoundsException();
-			}
+            }
 
             return idx;
         }
@@ -351,7 +351,7 @@ public class DoublyLinkedList<T> {
         public void set(T t) {
             if (lastReturned == null) {
                 throw new java.lang.IllegalStateException();
-			}
+            }
             lastReturned.item = t;
         }
     }

@@ -38,9 +38,9 @@ public class MyQueue<T> implements InnerMyQueue<T> {
         Node<T> newNode = new Node<>(item);
         if (isEmpty()) {
             front = newNode;
-		} else {
+        } else {
             rear.next = newNode;
-		}
+        }
         rear = newNode;
         size++;
     }

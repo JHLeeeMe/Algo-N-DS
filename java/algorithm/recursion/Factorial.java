@@ -2,7 +2,7 @@ package algorithm.recursion;
 
 /**
  * Factorial
- * 
+ *
  * 5! = 5 * 4 * 3 * 2 * 1
  * 0! = 1
  * 1! = 1
@@ -20,8 +20,8 @@ public class Factorial {
         // base case
         if (i == 0) {
             return 1;
-		}
-        
+        }
+
         return i * factorial(i-1);
     }
 
@@ -35,7 +35,7 @@ public class Factorial {
         // base case
         if (i == 0) {
             return result;
-		}
+        }
 
         return factorial2(i-1, result * i);
     }

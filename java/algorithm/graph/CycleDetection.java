@@ -98,10 +98,10 @@ public class CycleDetection {
     public static void main(String[] args) {
         /**
          * UnDirectedGraph
-         * 
+         *
          *        0
          *       /
-         *      1 
+         *      1
          *     /  \
          *    2 -- 3 -- 4
          */
@@ -122,13 +122,13 @@ public class CycleDetection {
 
         /**
          * DirectedGraph
-         * 
+         *
          *      0
          *    ↙ ↘
          *   1     2 → 3
          *   ↓   ↓ ↖
          *   4 →  5 → 6
-         * 
+         *
          *  (2 -> 5 -> 6 cycle)
          */
         AbstGraph directedGraph = new DirectedGraph(7);

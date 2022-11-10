@@ -43,7 +43,7 @@ public class BFS {
             Node tmp = queue.poll();  // 2. queue에서 node를 하나 꺼내서
 
             /**
-             * 3. 현재 노드와 간선으로 연결된 노드들 중 
+             * 3. 현재 노드와 간선으로 연결된 노드들 중
              *    마킹이 안돼있는 놈들만 queue에 넣고, 마킹
              */
             for (Node n : tmp.adjacent) {
@@ -61,12 +61,12 @@ public class BFS {
     public static void main(String[] args) {
         /**
          * UnDirectedGraph
-         * 
+         *
          *     0
          *    /
          *   1 -- 3 -- 5 -- 7
          *   |  / |     \
-         *   | /  |      6 -- 8     
+         *   | /  |      6 -- 8
          *   2 -- 4
          */
         AbstGraph undirectedGraph = new UnDirectedGraph(9);

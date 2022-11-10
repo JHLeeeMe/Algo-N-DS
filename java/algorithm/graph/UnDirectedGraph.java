@@ -23,7 +23,7 @@ public class UnDirectedGraph extends AbstGraph {
      */
     @Override
     public void addEdge(int a, int b) {
-        if ((a < 0) || (b < 0) || 
+        if ((a < 0) || (b < 0) ||
             (this.size < a) || (this.size < b)) {
 
             throw new Error();

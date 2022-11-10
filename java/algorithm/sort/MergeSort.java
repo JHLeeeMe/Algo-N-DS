@@ -22,7 +22,7 @@ public class MergeSort {
 
         for (int e : test) {                  // prints 1 11 12 23 84 442
             System.out.print(e + " ");
-		}
+        }
 
         System.out.println();
     }
@@ -35,7 +35,7 @@ public class MergeSort {
         // base case
         if (left >= right) {              // left == right는 쪼개다가 엘리먼트가 하나인 상황
             return;
-		}
+        }
 
         // 엘러먼트가 두개 이상이면 분할 및 합병
         int mid = (left + right) / 2;
@@ -54,21 +54,21 @@ public class MergeSort {
         while (i <= mid && j <= right) {
             if (arr[i] <= arr[j]) {
                 tmp[k++] = arr[i++];
-			} else {
+            } else {
                 tmp[k++] = arr[j++];
-			}
+            }
         }
 
         while (i <= mid) {
             tmp[k++] = arr[i++];
-		}
+        }
 
         while (j <= right) {
             tmp[k++] = arr[j++];
-		}
+        }
 
         for (int idx=left; idx<=right; idx++) {
             arr[idx] = tmp[idx];
-		}
+        }
     }
 }

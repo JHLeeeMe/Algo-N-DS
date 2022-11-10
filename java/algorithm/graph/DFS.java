@@ -43,7 +43,7 @@ public class DFS {
             Node tmp = stack.pop(); // 2. stack에서 node를 하나 꺼내서
 
             /**
-             * 3. 현재 노드와 간선으로 연결된 노드들 중 
+             * 3. 현재 노드와 간선으로 연결된 노드들 중
              *    마킹이 안돼있는 놈들만 stack에 넣고, 마킹
              */
             for (Node n : tmp.adjacent) {
@@ -92,12 +92,12 @@ public class DFS {
     public static void main(String[] args) {
         /**
          * UnDirectedGraph
-         * 
+         *
          *     0
          *    /
          *   1 -- 3 -- 5 -- 7
          *   |  / |     \
-         *   | /  |      6 -- 8     
+         *   | /  |      6 -- 8
          *   2 -- 4
          */
         AbstGraph uGraph = new UnDirectedGraph(9);
@@ -120,13 +120,13 @@ public class DFS {
 
         /**
          * DirectedGraph
-         * 
+         *
          *      0
          *    ↙ ↘
          *   1     2 → 3
          *   ↓   ↓ ↖
          *   4 →  5 → 6
-         * 
+         *
          *  (2 -> 5 -> 6 cycle)
          */
         AbstGraph dGraph = new DirectedGraph(7);

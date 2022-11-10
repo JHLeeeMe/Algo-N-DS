@@ -1,6 +1,6 @@
 /**
  * BinarySearchTree
- * 
+ *
  * search, delete, insert => O(logN)
  */
 
@@ -43,15 +43,17 @@ public class BinarySearchTree {
 
     private boolean insertNode(Node root, int item) {
         if (root.data > item) {
-            if (root.left != null)
+            if (root.left != null) {
                 return insertNode(root.left, item);
-            else
+            } else {
                 root.left = new Node(item);
+            }
         } else {
-            if (root.right != null)
+            if (root.right != null) {
                 return insertNode(root.right, item);
-            else
+            } else {
                 root.right = new Node(item);
+            }
         }
         return true;
     }
@@ -60,21 +62,24 @@ public class BinarySearchTree {
      * Search
      */
     public Node search(int item) {
-        if (root == null)
+        if (root == null) {
             return null;
-        else 
+        } else {
             return searchNode(root, item);
+        }
     }
 
     private Node searchNode(Node root, int item) {
         if (root.data == item) {
             return root;
         } else if (root.data > item) {
-            if (root.left != null)
+            if (root.left != null) {
                 return searchNode(root.left, item);
+            }
         } else {
-            if (root.right != null)
+            if (root.right != null) {
                 return searchNode(root.right, item);
+            }
         }
         return null;
     }
@@ -93,10 +98,11 @@ public class BinarySearchTree {
                     root = null;
                     break;
                 case 1:
-                    if (root.left == null)   // 오른쪽 자식만 있는 경우
+                    if (root.left == null) {   // 오른쪽 자식만 있는 경우
                         root = root.right;
-                    else                    // 왼쪽 자식만 있는 경우
+                    } else {                    // 왼쪽 자식만 있는 경우
                         root = root.left;
+                    }
                     break;
                 case 2:
                     Node[] successorInfo = getSuccessor(root);
@@ -105,7 +111,7 @@ public class BinarySearchTree {
 
                     root.data = successor.data;             // successor의 '데이터'를 옮기고
                     if (parentOfSuccessor != root) {
-                        parentOfSuccessor.left = successor.right; 
+                        parentOfSuccessor.left = successor.right;
                     } else {
                         root.right = successor.right;
                     }
@@ -113,10 +119,11 @@ public class BinarySearchTree {
             }
             return true;
         } else {
-            if (root.data > item)
+            if (root.data > item) {
                 return deleteNode(root, root.left, item);
-            else
+            } else {
                 return deleteNode(root, root.right, item);
+            }
         }
     }
 
@@ -129,22 +136,26 @@ public class BinarySearchTree {
         if (curr.data == item) {
             switch (childNum(curr)) {
                 case 0:
-                    if (parent.left == curr)
+                    if (parent.left == curr) {
                         parent.left = null;
-                    else
+                    } else {
                         parent.right = null;
+                    }
                     break;
                 case 1:
-                    if (parent.left == curr)
-                        if (curr.left != null)
+                    if (parent.left == curr) {
+                        if (curr.left != null) {
                             parent.left = curr.left;
-                        else
+                        } else {
                             parent.left = curr.right;
-                    else
-                        if (curr.left != null)
+                        }
+                    } else {
+                        if (curr.left != null) {
                             parent.right = curr.left;
-                        else
+                        } else {
                             parent.right = curr.right;
+                        }
+                    }
                     break;
                 case 2:
                     // 자식이 둘이면 그 노드의 석세서와 석세서의 부모노드를 구하고 작업
@@ -154,7 +165,7 @@ public class BinarySearchTree {
 
                     curr.data = successor.data;             // successor의 '데이터'를 옮기고
                     if (parentOfSuccessor != curr) {
-                        parentOfSuccessor.left = successor.right; 
+                        parentOfSuccessor.left = successor.right;
                     } else {
                         curr.right = successor.right;
                     }
@@ -162,10 +173,11 @@ public class BinarySearchTree {
             }
             return true;
         } else {
-            if (curr.data > item)
+            if (curr.data > item) {
                 return deleteNode(curr, curr.left, item);
-            else
+            } else {
                 return deleteNode(curr, curr.right, item);
+            }
         }
     }
 
@@ -173,12 +185,13 @@ public class BinarySearchTree {
      * 파라미터 노드의 child node 수
      */
     private int childNum(Node root) {
-        if (root.left == null && root.right == null)
+        if (root.left == null && root.right == null) {
             return 0;
-        else if (root.left != null && root.right != null)
+        } else if (root.left != null && root.right != null) {
             return 2;
-        else
+        } else {
             return 1;
+        }
     }
 
     /**
@@ -204,11 +217,11 @@ public class BinarySearchTree {
          *    \                           /
          *     50                       25
          *     /\                       /\
-         *   20  60        ===>       17  30      
-         *   /\                           
-         * 17  30                       
+         *   20  60        ===>       17  30
+         *   /\
+         * 17  30
          *     /
-         *   25  
+         *   25
          */
         BinarySearchTree bst = new BinarySearchTree();
         bst.insert(10);

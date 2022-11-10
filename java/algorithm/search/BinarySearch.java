@@ -2,15 +2,15 @@ package algorithm.search;
 
 /**
  * BinarySearch
- * 
+ *
  * 중간 값을 구하고,
  * 찾는 값과 중간 값 비교
- * 
+ *
  * N/2, N/4, ..., (1/2)^k * N
  * 최악 => 찾는값이 없을 경우 (1/2)^k * N => 1로 수렴
  * N = 2^k
  * k = 연산 수행 횟수 = logN
- * 
+ *
  * O(logN)
  */
 public class BinarySearch {
@@ -31,15 +31,14 @@ public class BinarySearch {
         int mid;
 
         while(low <= high) {
-
             mid = (low + high) / 2;
             if (x == arr[mid]) {
                 return mid;
-			} else if (x < arr[mid]) {
+            } else if (x < arr[mid]) {
                 high = mid - 1;
-			} else {
+            } else {
                 low = mid + 1;
-			}
+            }
         }
         return -1;
     }
@@ -48,15 +47,15 @@ public class BinarySearch {
     private static int recBinarySearch(int[] arr, int x, int low, int high) {
         if (low > high) {
             return -1;
-		}
+        }
 
         int mid = (low + high) / 2;
         if (x == arr[mid]) {
             return mid;
-		} else if (x < arr[mid]) {
+        } else if (x < arr[mid]) {
             return recBinarySearch(arr, x, low, mid-1);
-		} else {
+        } else {
             return recBinarySearch(arr, x, mid+1, high);
-		}
+        }
     }
 }
