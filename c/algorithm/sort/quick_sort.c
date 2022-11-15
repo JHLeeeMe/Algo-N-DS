@@ -39,7 +39,7 @@ int32_t main(void)
  */
 void quick_sort(int32_t arr[], uint32_t size)
 {
-    sort(arr, 0, size);
+    sort(arr, 0, size - 1);
 }
 
 /*
